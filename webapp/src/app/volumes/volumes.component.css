@@ -1,0 +1,39 @@
+.app-toolbar {
+  position: fixed;
+  z-index: 1000;
+  margin-top: 64px;
+  }
+  
+  .Images {
+      margin-top: 148px;
+      margin-left: 20px;
+    }
+  
+    .example-card {
+      width: 1000px;
+      max-height: 300px;
+      margin-bottom: 30px;
+      background-color: rgb(245, 245, 248);
+    }
+  
+    .example-full-width {
+      width: 90%;
+    }
+  
+    section {
+      display: table;
+      margin-left: 30px;
+    }
+  
+    .example-button-row {
+      display: table-cell;
+      width: 700px;
+    }
+    
+    .example-button-row .mat-button-base {
+      margin: 8px 8px;
+    }
+  
+    .example-margin {
+      margin-left: 20px;
+    }

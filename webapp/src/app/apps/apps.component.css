@@ -1,0 +1,35 @@
+.app-toolbar {
+  position: fixed;
+  z-index: 1000;
+  margin-top: 64px;
+}
+
+section {
+  display: table;
+  margin-top: 148px;
+  margin-left: 20px;
+  margin-bottom: 20px;
+}
+
+.containers {
+  margin-left: 20px;
+  display: inline-grid;
+  grid-template-columns: 380px 380px 380px;
+  position: absolute;
+}
+
+.example-card {
+  max-width: 300px;
+  max-height: 300px;
+  margin-bottom: 80px;
+  background-color: rgb(225, 238, 247);
+}
+
+.example-button-row {
+  display: table-cell;
+  width: 700px;
+}
+
+.mat-button-base {
+  margin: 8px 8px;
+}

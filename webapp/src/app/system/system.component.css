@@ -1,0 +1,50 @@
+.app-toolbar {
+  position: fixed;
+  z-index: 1000;
+  margin-top: 64px;
+}
+
+.tab-group {
+  margin-top: 148px;
+  margin-left: 20px;
+}
+
+.system {
+    display: inline-grid;
+    margin-top: 30px;
+    grid-template-columns: 480px 480px;
+  }
+  
+  .example-card {
+    width: 400px;
+    max-height: 400px;
+    background-color: rgb(245, 245, 248);
+  }
+
+  .warning {
+    padding: 30px;
+    display: inline-grid;
+    grid-template-columns: 860px;
+  }
+  
+  .warning-card {
+    width: 800px;
+    max-height: 100px;
+    margin-bottom: 10px;
+    background-color: rgb(247, 229, 221);
+  }
+
+  section {
+    display: table;
+    margin-left: 30px;
+  }
+
+  .example-button-row {
+    display: table-cell;
+    width: 860px;
+    padding: 30px;
+  }
+
+  .example-button-row .mat-button-base {
+    margin: 20px 20px;
+  }

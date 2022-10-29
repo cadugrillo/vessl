@@ -1,0 +1,40 @@
+.app-toolbar {
+  position: fixed;
+  z-index: 1000;
+  margin-top: 64px;
+}
+
+.tab-group {
+  margin-top: 148px;
+  margin-left: 20px;
+}
+
+.Interfaces {
+    display: inline-grid;
+    grid-template-columns: 400px 400px 400px;
+    
+  }
+
+  .example-card {
+    max-width: 360px;
+    max-height: 350px;
+    margin-bottom: 50px;
+    background-color: rgb(245, 245, 248);
+  }
+
+  .example-full-width {
+    width: 90%;
+  }
+
+  .example-button-row {
+    margin-top: 20px;
+    display: table-cell;
+    width: 700px;
+    margin-bottom: 20px;
+  }
+
+  button {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: 20px;
+  }

@@ -1,0 +1,37 @@
+version: "3.7"
+
+services:
+  cg-edge-conf-api:
+    image: cadugrillo/vessl:1.0
+    container_name: vessl
+    restart: always
+    mem_limit: 512m
+    cpus: 0.5
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - vessl-database:/database
+      # - vessl-apps:/apps
+      - type: bind
+        source: /var/run/docker.sock
+        target: /var/run/docker.sock
+      # - type: bind
+      #   source: /etc/network
+      #   target: /etc/network
+      - type: bind
+        source: /Users/cadugrillo/apps
+        target: /apps
+    networks:
+      - vessl-conf
+    ports:
+      - 443:443
+
+networks:
+   vessl-conf:
+      name: vessl-conf
+
+volumes:
+  vessl-database:
+    name: vessl-database
+  vessl-apps:
+    name: vessl-apps

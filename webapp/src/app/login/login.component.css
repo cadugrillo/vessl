@@ -1,0 +1,50 @@
+.app-toolbar {
+  position: fixed;
+  z-index: 1000;
+  margin-top: 64px;
+}
+
+.Users {
+  margin-top: 148px;
+  margin-left: 20px;
+  }
+
+  .example-card {
+    max-width: 800px;
+    max-height: 250px;
+    margin-bottom: 50px;
+    background-color: rgb(245, 245, 248);
+  }
+
+  .example-full-width {
+    width: 90%;
+  }
+
+  section {
+    display: table;
+    margin-left: 30px;
+  }
+
+  .example-button-row {
+    display: table-cell;
+    width: 700px;
+  }
+  
+  .example-button-row .mat-button-base {
+    margin: 8px 8px;
+  }
+
+  .topline {
+    display: inline-grid;
+    grid-template-columns: 350px 350px;
+  }
+
+  .middleline {
+    display: table-cell;
+    width: 800px;
+    margin: auto;
+  }
+
+  .example-margin {
+    margin-left: 20px;
+  }

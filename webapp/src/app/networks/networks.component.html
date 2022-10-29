@@ -1,0 +1,42 @@
+<mat-toolbar class="app-toolbar">
+    <span>Networks</span>
+</mat-toolbar>
+<section>
+    <div class="example-button-row">
+      <button mat-raised-button color="primary" (click)="createNetwork()">Create Network</button>
+      <mat-form-field appearance="standard">
+        <mat-label>Network Name</mat-label>
+        <input matInput placeholder="my-network" [(ngModel)]="networkName">
+    </mat-form-field>
+    </div>
+</section>
+<div class="Networks">
+    <mat-card class="example-card" *ngFor="let network of networks; let i = index">
+        <mat-card-title-group>
+          <mat-card-title>{{network.Name}}</mat-card-title>
+          <mat-card-subtitle>
+            <p>Created at: {{network.Created}}</p>
+            <div>Labels:</div>
+            <div *ngFor="let label of network.Labels| keyvalue">
+                {{label.key}}:{{label.value}}
+            </div>
+        </mat-card-subtitle>
+        </mat-card-title-group>
+        <mat-card-content>
+            <p>Driver: {{network.Driver}}</p>
+            <p>IPAM Driver: {{network.IPAM.Driver}}</p>
+            <div>IPAM Config:</div>
+            <div *ngFor="let config of network.IPAM.Config">
+                Subnet: {{config.Subnet}}, IP Range: {{config.IPRange}}, Gateway: {{config.Gateway}}
+            </div>
+            <p></p>
+            <div>Containers:</div>
+            <div *ngFor="let container of network.Containers| keyvalue">
+                {{container.key}}:{{container.value}}
+            </div>
+        </mat-card-content>
+        <mat-card-actions align="end">
+            <button mat-button (click)="removeNetwork(network.Id)">Remove Network</button>
+        </mat-card-actions>
+    </mat-card>
+</div>

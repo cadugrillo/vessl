@@ -1,0 +1,9 @@
+.app-toolbar {
+    position: fixed;
+    margin-top: 64px;
+}
+
+.selection {
+    position: fixed;
+    margin-top: 128px;
+}

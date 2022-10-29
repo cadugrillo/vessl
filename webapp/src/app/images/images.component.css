@@ -1,0 +1,17 @@
+.app-toolbar {
+  position: fixed;
+  z-index: 1000;
+  margin-top: 64px;
+}
+
+.Images {
+  margin-top: 148px;
+  margin-left: 20px;
+  }
+
+  .example-card {
+    width: 800px;
+    height: 150px;
+    margin-bottom: 30px;
+    background-color: rgb(245, 245, 248);
+  }

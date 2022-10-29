@@ -1,0 +1,140 @@
+<mat-toolbar class="app-toolbar">
+  <span>OPCUA MQTT CONNECTOR - CONFIGURATION</span>
+</mat-toolbar>
+<mat-tab-group class="tab-group">
+  <mat-tab label="Configuration">
+<div class="buttons">
+  <!-- <section> -->
+    <div class="example-button-row">
+      <button mat-raised-button color="primary" (click)="getConfig()">Read Configuration</button>
+      <button mat-raised-button color="primary" (click)="setConfig()">Write Configuration</button>
+      <button mat-raised-button color="primary" (click)="importConfig()">Import Configuration</button>
+      <input type="file" #file accept=".json" style="display: none" (change)="onFilesAdded()"/>
+      <button mat-raised-button color="primary" (click)="exportConfig()">Export Configuration</button> 
+    </div>
+  <!-- </section> -->
+</div>
+<div class="clients">
+  <div class="OpcuaClient">
+    <h3>Subscriber: OPC UA Client</h3>
+      <mat-form-field class="example-full-width" appearance="fill"  *ngIf="opcuaConfig?.OpcUaClient">
+        <mat-label>Client ID</mat-label>
+        <input matInput placeholder="client ID" [(ngModel)]="opcuaConfig.OpcUaClient.ClientId">
+      </mat-form-field>
+      <mat-form-field class="example-full-width" appearance="fill"  *ngIf="opcuaConfig?.OpcUaClient">
+        <mat-label>Server Address</mat-label>
+        <input matInput placeholder="tcp://localhost:4840" [(ngModel)]="opcuaConfig.OpcUaClient.ServerAddress">
+      </mat-form-field>
+      <mat-form-field class="example-full-width" appearance="fill"  *ngIf="opcuaConfig?.OpcUaClient">
+        <mat-label>Poll Interval</mat-label>
+        <input matInput type="number" placeholder="" [(ngModel)]="opcuaConfig.OpcUaClient.PollInterval">
+      </mat-form-field>
+      <mat-form-field class="example-full-width" appearance="fill"  *ngIf="opcuaConfig?.OpcUaClient">
+        <mat-label>Max Age (s)</mat-label>
+        <input matInput type="number" placeholder="" [(ngModel)]="opcuaConfig.OpcUaClient.MaxAge">
+      </mat-form-field>
+      <mat-form-field class="example-full-width" appearance="fill"  *ngIf="opcuaConfig?.OpcUaClient">
+        <mat-label>Max Signals per Read</mat-label>
+        <input matInput type="number" placeholder="" [(ngModel)]="opcuaConfig.OpcUaClient.MaxSignalsPerRead">
+      </mat-form-field>
+      <mat-form-field class="example-full-width" appearance="fill"  *ngIf="opcuaConfig?.OpcUaClient">
+        <mat-label>Min Time Between Read (ms)</mat-label>
+        <input matInput type="number" placeholder="" [(ngModel)]="opcuaConfig.OpcUaClient.MinTimeBetweenRead">
+      </mat-form-field>
+  </div>
+  <div class="ClientPub">
+    <h3>Publisher: MQTT Client</h3>
+     <mat-form-field class="example-full-width" appearance="fill"  *ngIf="opcuaConfig?.ClientPub">
+       <mat-label>Client ID</mat-label>
+       <input matInput placeholder="client ID" [(ngModel)]="opcuaConfig.ClientPub.ClientId">
+     </mat-form-field>
+     <mat-form-field class="example-full-width" appearance="fill"  *ngIf="opcuaConfig?.ClientPub">
+       <mat-label>Server Address</mat-label>
+       <input matInput placeholder="tcp://localhost:4840" [(ngModel)]="opcuaConfig.ClientPub.ServerAddress">
+     </mat-form-field>
+     <mat-form-field class="example-full-width" appearance="fill"  *ngIf="opcuaConfig?.ClientPub">
+       <mat-label>Quality of Service</mat-label>
+       <input matInput type="number" placeholder="" [(ngModel)]="opcuaConfig.ClientPub.Qos" *ngIf="opcuaConfig?.ClientPub">
+     </mat-form-field>
+     <mat-form-field class="example-full-width" appearance="fill"  *ngIf="opcuaConfig?.ClientPub">
+       <mat-label>Connection Timeout (s)</mat-label>
+       <input matInput type="number" placeholder="" [(ngModel)]="opcuaConfig.ClientPub.ConnectionTimeout" *ngIf="opcuaConfig?.ClientPub">
+     </mat-form-field>
+     <mat-form-field class="example-full-width" appearance="fill"  *ngIf="opcuaConfig?.ClientPub">
+       <mat-label>Write Timeout (s)</mat-label>
+       <input matInput type="number" placeholder="" [(ngModel)]="opcuaConfig.ClientPub.WriteTimeout" *ngIf="opcuaConfig?.ClientPub">
+     </mat-form-field>
+     <mat-form-field class="example-full-width" appearance="fill"  *ngIf="opcuaConfig?.ClientPub">
+       <mat-label>Keep Alive (s)</mat-label>
+       <input matInput type="number" placeholder="" [(ngModel)]="opcuaConfig.ClientPub.KeepAlive" *ngIf="opcuaConfig?.ClientPub">
+     </mat-form-field>
+     <mat-form-field class="example-full-width" appearance="fill"  *ngIf="opcuaConfig?.ClientPub">
+       <mat-label>Ping Timeout (s)</mat-label>
+       <input matInput type="number" placeholder="" [(ngModel)]="opcuaConfig.ClientPub.PingTimeout" *ngIf="opcuaConfig?.ClientPub">
+     </mat-form-field>
+     <mat-checkbox class="example-margin" color="primary" [(ngModel)]="opcuaConfig.ClientPub.ConnectRetry" *ngIf="opcuaConfig?.ClientPub">Connection Retry</mat-checkbox>
+     <mat-checkbox class="example-margin" color="primary" [(ngModel)]="opcuaConfig.ClientPub.AutoConnect" *ngIf="opcuaConfig?.ClientPub">Auto Connect</mat-checkbox>
+     <mat-checkbox class="example-margin" color="primary" [(ngModel)]="opcuaConfig.ClientPub.OrderMaters" *ngIf="opcuaConfig?.ClientPub">Order Maters</mat-checkbox>
+     <mat-form-field class="example-full-width" appearance="fill"  *ngIf="opcuaConfig?.ClientPub">
+       <mat-label>User Name</mat-label>
+       <input matInput placeholder="" [(ngModel)]="opcuaConfig.ClientPub.UserName" *ngIf="opcuaConfig?.ClientPub">
+     </mat-form-field>
+     <mat-form-field class="example-full-width" appearance="fill"  *ngIf="opcuaConfig?.ClientPub">
+       <mat-label>Password</mat-label>
+       <input matInput placeholder="" [(ngModel)]="opcuaConfig.ClientPub.Password" *ngIf="opcuaConfig?.ClientPub">
+     </mat-form-field>
+     <mat-checkbox class="example-margin" color="primary" [(ngModel)]="opcuaConfig.ClientPub.TlsConn" *ngIf="opcuaConfig?.ClientPub">TLS Connection</mat-checkbox>
+     <mat-checkbox class="example-margin" color="primary" [(ngModel)]="opcuaConfig.ClientPub.InsecureSkipVerify" *ngIf="opcuaConfig?.ClientPub">Skip Insecure Verification</mat-checkbox>
+     <mat-form-field class="example-full-width" appearance="fill"  *ngIf="opcuaConfig?.ClientPub">
+       <mat-label>Root CA Path</mat-label>
+       <input matInput placeholder="" [(ngModel)]="opcuaConfig.ClientPub.RootCAPath">
+     </mat-form-field>
+     <mat-form-field class="example-full-width" appearance="fill"  *ngIf="opcuaConfig?.ClientPub">
+       <mat-label>Client Key Path</mat-label>
+       <input matInput placeholder="" [(ngModel)]="opcuaConfig.ClientPub.ClientKeyPath">
+     </mat-form-field>
+     <mat-form-field class="example-full-width" appearance="fill"  *ngIf="opcuaConfig?.ClientPub">
+       <mat-label>Private Key Path</mat-label>
+       <input matInput placeholder="" [(ngModel)]="opcuaConfig.ClientPub.PrivateKeyPath">
+     </mat-form-field>
+     <mat-form-field class="example-full-width" appearance="fill"  *ngIf="opcuaConfig?.ClientPub">
+       <mat-label>Topics to Publish to</mat-label>
+       <input matInput placeholder="" [(ngModel)]="opcuaConfig.TopicsPub.Topic[0]" *ngIf="opcuaConfig?.TopicsPub">
+     </mat-form-field>
+  </div>
+  <div class="Logs">
+    <h3>Log Options</h3>
+    <div class="checkbox">
+      <mat-checkbox class="example-margin" color="primary" [(ngModel)]="opcuaConfig.Logs.Debug" *ngIf="opcuaConfig?.Logs">Debug Level</mat-checkbox>
+    </div>
+    <div class="checkbox">
+      <mat-checkbox class="example-margin" color="primary" [(ngModel)]="opcuaConfig.Logs.Warning" *ngIf="opcuaConfig?.Logs">Warning Level</mat-checkbox>
+    </div>
+    <div class="checkbox">
+      <mat-checkbox class="example-margin" color="primary" [(ngModel)]="opcuaConfig.Logs.Error" *ngIf="opcuaConfig?.Logs">Error Level</mat-checkbox>
+    </div>
+    <div class="checkbox">
+      <mat-checkbox class="example-margin" color="primary" [(ngModel)]="opcuaConfig.Logs.Critical" *ngIf="opcuaConfig?.Logs">Critical Level</mat-checkbox>
+    </div>
+    <section>
+      <div class="example-label">OPCUA Nodes to Read</div>
+      <div class="example-button-row">
+        <button mat-raised-button color="primary" (click)="addNode()">+</button>
+        <button mat-raised-button color="primary" (click)="deleteNode()">-</button>
+      </div>
+    </section>
+    <div class name="nodes" *ngFor="let Node of opcuaConfig?.NodesToRead?.Nodes; let i = index; trackBy:trackByFn">
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Node {{i}} Name</mat-label>
+        <input matInput placeholder="Node Name" [(ngModel)]="opcuaConfig.NodesToRead.Nodes[i].Name">
+      </mat-form-field>
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Node {{i}} ID</mat-label>
+      <input matInput placeholder="Node ID" [(ngModel)]="opcuaConfig.NodesToRead.Nodes[i].NodeID">
+      </mat-form-field>
+    </div>
+  </div>       
+</div> 
+</mat-tab>
+<mat-tab label="Logs"> Placeholder for Logs </mat-tab>
+</mat-tab-group>

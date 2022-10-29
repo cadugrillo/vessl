@@ -1,0 +1,96 @@
+<mat-toolbar class="app-toolbar">
+    <span>App Launcher</span>
+</mat-toolbar>
+<section>
+    <div class="example-button-row">
+      <button mat-raised-button color="primary" (click)="installContainer()">Launch</button>
+    </div>
+</section>
+<div class="Launcher">
+    <mat-card class="example-card">
+        <mat-card-title-group>
+          <mat-card-title></mat-card-title>
+          <mat-card-subtitle></mat-card-subtitle>
+        </mat-card-title-group>
+        <mat-card-content>
+            <h2>Basic Settings:</h2>
+            <div class="topline">
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>App Name</mat-label>
+                    <input matInput placeholder="my-app" [(ngModel)]="appTemplate.hostname">
+                </mat-form-field>
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>App Image</mat-label>
+                    <input matInput placeholder="my-app-repo/my-app:version" [(ngModel)]="appTemplate.image">
+                </mat-form-field>
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Restart Policy</mat-label>
+                    <mat-select [(ngModel)]="appTemplate.restart_policy">
+                      <mat-option *ngFor="let Source of Sources" [value]="Source">
+                        {{Source}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+            </div>
+            <h2>Network Settings:</h2>
+            <div class="secondline" *ngIf="filterEnabled()">
+                <mat-form-field appearance="fill">
+                    <mat-label>Network</mat-label>
+                    <mat-select [(ngModel)]="networkName" disableOptionCentering >
+                      <mat-option *ngFor="let network of networks" [value]="network.Name">
+                        {{network.Name}}
+                      </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="inner-section">
+                <h4>Port Binding:</h4>
+                <div class="example-button-row">
+                    <button mat-mini-fab color="primary" (click)="addPort()">+</button>
+                    <button mat-mini-fab color="primary" (click)="deletePort()">-</button>
+                </div>
+            </div>
+            <div class="thirdline">
+                <span *ngFor="let Port of appTemplate.ports; let i = index; trackBy:trackByFn">
+                    <mat-form-field class="example-full-width" appearance="fill">
+                        <mat-label>Port Bind</mat-label>
+                        <input matInput placeholder="host-port:app-port/tcp" [(ngModel)]="appTemplate.ports[i]">
+                    </mat-form-field>
+                </span>
+            </div>
+            <h2>Advanced Settings:</h2>
+            <div class="inner-section">
+                <h4>Environment Variables:</h4>
+                <div class="example-button-row">
+                    <button mat-mini-fab color="primary" (click)="addEnv()">+</button>
+                    <button mat-mini-fab color="primary" (click)="deleteEnv()">-</button>
+                </div>
+            </div>
+            <div class="fourthline">
+                <span *ngFor="let Env of appTemplate.env; let i = index;  trackBy:trackByFn">
+                    <mat-form-field class="example-full-width" appearance="fill">
+                        <mat-label>Env Variable</mat-label>
+                        <input matInput placeholder="ENV_NAME=env_value" [(ngModel)]="appTemplate.env[i]">
+                    </mat-form-field>
+                </span>
+            </div>
+            <div class="inner-section">
+                <h4>Volumes:</h4>
+                <div class="example-button-row">
+                    <button mat-mini-fab color="primary" (click)="addVolume()">+</button>
+                    <button mat-mini-fab color="primary" (click)="deleteVolume()">-</button>
+                </div>
+            </div>
+            <div class="fifthline">
+                <span *ngFor="let Volume of appTemplate.volumes; let i = index;  trackBy:trackByFn">
+                    <mat-form-field class="example-full-width" appearance="fill">
+                        <mat-label>Volume</mat-label>
+                        <input matInput placeholder="host-path:app-path" [(ngModel)]="appTemplate.volumes[i]">
+                    </mat-form-field>
+                </span>
+            </div>
+        </mat-card-content>
+        <mat-card-actions align="end">
+        </mat-card-actions>
+    </mat-card>
+</div>

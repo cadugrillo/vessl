@@ -1,0 +1,43 @@
+.app-toolbar {
+  position: fixed;
+  z-index: 1000;
+  margin-top: 64px;
+  }
+
+  .system {
+    margin-top: 148px;
+    margin-left: 20px;
+    display: inline-grid;
+    grid-template-columns: 460px 460px;
+    position: absolute;
+  }
+  
+  .cpu-card {
+    width: 400px;
+    max-height: 600px;
+    margin-bottom: 30px;
+    background-color: rgb(245, 245, 248);
+  }
+
+  .memory-card {
+    width: 500px;
+    max-height: 600px;
+    margin-bottom: 30px;
+    background-color: rgb(245, 245, 248);
+  }
+
+  .disk-card {
+    width: 960px;
+    max-height: 600px;
+    margin-bottom: 30px;
+    background-color: rgb(245, 245, 248);
+  }
+
+  .topline {
+    display: inline-grid;
+    grid-template-columns: 200px 200px;
+  }
+
+  .CPU, .RAM {
+    padding: 20px
+  }
