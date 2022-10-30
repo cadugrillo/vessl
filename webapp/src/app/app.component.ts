@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CgEdgeUsersService, User } from './cg-edge-users.service'
+import { VesslUsersService, User } from './services/vessl-users.service'
 import { Router } from '@angular/router';
 
 
@@ -13,7 +13,7 @@ export class AppComponent {
 
   
 
-  constructor(private CgEdgeUsersService: CgEdgeUsersService,
+  constructor(private VesslUsersService: VesslUsersService,
               private router: Router) {
   
   }
@@ -23,16 +23,16 @@ export class AppComponent {
   }
 
   logout() {
-    this.CgEdgeUsersService.logout();
+    this.VesslUsersService.logout();
     this.router.navigate(['/Login']).then(() => {window.location.reload();});
   }
 
   isAuthenticated() {
-    return this.CgEdgeUsersService.isAuthenticated();
+    return this.VesslUsersService.isAuthenticated();
   }
 
   openWebPage() {
-    window.open('https://github.com/cadugrillo/cg-edge-configurator', '_blank');
+    window.open('https://github.com/cadugrillo/vessl', '_blank');
   }
 }
 

@@ -1,20 +1,19 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AppLauncherComponent } from './app-launcher/app-launcher.component';
-import { AppRepositoryComponent } from './app-repository/app-repository.component';
-import { AppsComponent } from './apps/apps.component';
-import { AuthGuardService } from './auth-guard.service';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { ImagesComponent } from './images/images.component';
-import { LoginComponent } from './login/login.component';
-import { MqttCloudConnectorComponent } from './mqtt-cloud-connector/mqtt-cloud-connector.component';
-import { NetworksComponent } from './networks/networks.component';
-import { OpcuaMqttConnectorComponent } from './opcua-mqtt-connector/opcua-mqtt-connector.component';
-import { ProfileComponent } from './profile/profile.component';
-import { SettingsComponent } from './settings/settings.component';
-import { SystemComponent } from './system/system.component';
-import { UsersComponent } from './users/users.component';
-import { VolumesComponent } from './volumes/volumes.component';
+import { AppLauncherComponent } from './components/app-launcher/app-launcher.component';
+import { AppRepositoryComponent } from './components/app-repository/app-repository.component';
+import { AppsComponent } from './components/apps/apps.component';
+import { AuthGuardService } from './services/auth-guard.service';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { ImagesComponent } from './components/images/images.component';
+import { LoginComponent } from './components/login/login.component';
+import { MqttCloudConnectorComponent } from './components/mqtt-cloud-connector/mqtt-cloud-connector.component';
+import { NetworksComponent } from './components/networks/networks.component';
+import { OpcuaMqttConnectorComponent } from './components/opcua-mqtt-connector/opcua-mqtt-connector.component';
+import { SettingsComponent } from './components/settings/settings.component';
+import { SystemComponent } from './components/system/system.component';
+import { UsersComponent } from './components/users/users.component';
+import { VolumesComponent } from './components/volumes/volumes.component';
 
 
 
@@ -23,7 +22,6 @@ const routes: Routes = [
 
   { path: '', redirectTo: 'Login', pathMatch: 'full' },
   { path: 'Login', component: LoginComponent},
-  { path: 'Profile', component: ProfileComponent, canActivate: [AuthGuardService]},
   { path: 'Dashboard', component: DashboardComponent, canActivate: [AuthGuardService]},
   { path: 'Apps', component: AppsComponent, canActivate: [AuthGuardService]},
   { path: 'App-Repository', component: AppRepositoryComponent, canActivate: [AuthGuardService]},
