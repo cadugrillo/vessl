@@ -17,7 +17,7 @@ RUN mkdir -p /apps
 
 RUN ls -laR ./
 
-RUN CGO_ENABLED=1 GOOS=linux GOARCH=arm64 GOFLAGS=-mod=mod go build -ldflags="-w -s" -o /Vessel
+RUN CGO_ENABLED=1 GOOS=linux GOARCH=amd64 GOFLAGS=-mod=mod go build -ldflags="-w -s" -o /Vessel
 
 RUN ls /
 
