@@ -1,11 +1,6 @@
 <mat-toolbar class="app-toolbar">
     <span>App Launcher</span>
 </mat-toolbar>
-<section>
-    <div class="example-button-row">
-      <button mat-raised-button color="primary" (click)="installContainer()">Launch</button>
-    </div>
-</section>
 <div class="Launcher">
     <mat-card class="example-card">
         <mat-card-title-group>
@@ -91,6 +86,7 @@
             </div>
         </mat-card-content>
         <mat-card-actions align="end">
+            <button mat-button (click)="installContainer()">Launch App</button>
         </mat-card-actions>
     </mat-card>
 </div>

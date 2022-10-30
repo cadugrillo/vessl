@@ -5,7 +5,9 @@
   }
   
     .Launcher {
+      margin-top: 148px;
       margin-left: 20px;
+      position: absolute;
     }
   
     .example-card {
@@ -19,13 +21,6 @@
       width: 90%;
     }
   
-    section {
-      display: table;
-      margin-top: 148px;
-      margin-left: 20px;
-      margin-bottom: 20px;
-    }
-
     .inner-section {
         display: table;
     

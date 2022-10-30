@@ -32,4 +32,8 @@ export class VolumesComponent implements OnInit {
     });
   }
 
+  hideVolume(volumeName: string) {
+    return !volumeName.includes("vessl");
+   }
+
 }
