@@ -11,15 +11,14 @@ services:
       - "host.docker.internal:host-gateway"
     volumes:
       - vessl-database:/database
-      # - vessl-apps:/apps
       - type: bind
         source: /var/run/docker.sock
         target: /var/run/docker.sock
-      # - type: bind
-      #   source: /etc/network
-      #   target: /etc/network
       - type: bind
-        source: /Users/cadugrillo/apps
+        source: /etc/network
+        target: /etc/network
+      - type: bind
+        source: /home/edge/apps
         target: /apps
     networks:
       - vessl-conf
@@ -33,5 +32,3 @@ networks:
 volumes:
   vessl-database:
     name: vessl-database
-  vessl-apps:
-    name: vessl-apps
