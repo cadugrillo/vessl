@@ -48,6 +48,14 @@ export class VesslContainersService {
     return this.httpClient.post(environment.gateway + '/containers/'+ Id + '/remove', '', this.httpOptions);
   }
 
+  getContainerStats(Id: string) {
+    return this.httpClient.get(environment.gateway + '/containers/'+ Id + '/stats', this.httpOptions);
+  }
+
+  getCompleteStats() {
+    return this.httpClient.get(environment.gateway + '/containers/cstats', this.httpOptions);
+  }
+
   getContainersRepo(UserId: string) {
     return this.httpClient.get(environment.gateway + '/containers/repository/' + UserId, this.httpOptions);
   }
@@ -113,6 +121,15 @@ export class Template {
   env!: string[]
 	ports!: string[]
 	volumes!: string[]
+}
+
+export class ContainerStats {
+  Id!: string
+  Name!: string
+  CpuPct!: number
+  MemUsage!: number
+  MemLimit!: number
+  MemPct!: number
 }
 
 export class SystemInfo {

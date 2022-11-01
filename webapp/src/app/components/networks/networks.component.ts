@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { VesslNetworksService, Network } from '../../services/vessl-networks.service';
 import {MatDialog} from '@angular/material/dialog';
-import { MessagePopupComponent } from '../message-popup/message-popup.component';
+import { MessagePopupComponent } from '../../popups/message-popup/message-popup.component';
 import { WaitPopupComponent } from '../wait-popup/wait-popup.component';
 
 @Component({

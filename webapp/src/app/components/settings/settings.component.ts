@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { VesslSystemService, InterfaceSet } from '../../services/vessl-system.service';
 import {MatDialog} from '@angular/material/dialog';
-import { MessagePopupComponent} from '../message-popup/message-popup.component';
+import { MessagePopupComponent} from '../../popups/message-popup/message-popup.component';
 
 interface Source {
   value: number;

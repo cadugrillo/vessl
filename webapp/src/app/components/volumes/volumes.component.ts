@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { VesslVolumesService, VolumeList } from '../../services/vessl-volumes.service';
 import {MatDialog} from '@angular/material/dialog';
-import { MessagePopupComponent } from '../message-popup/message-popup.component';
+import { MessagePopupComponent } from '../../popups/message-popup/message-popup.component';
 
 @Component({
   selector: 'app-volumes',

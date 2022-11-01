@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { VesslNetworksService, Network } from '../../services/vessl-networks.service';
-import { VesslContainersService, Container } from '../../services/vessl-containers.service';
+import { VesslContainersService, Container, ContainerStats } from '../../services/vessl-containers.service';
 import { VesslUsersService } from '../../services/vessl-users.service';
 import { Router } from '@angular/router';
 import {MatDialog} from '@angular/material/dialog';
-import { MessagePopupComponent } from '../message-popup/message-popup.component';
+import { MessagePopupComponent } from '../../popups/message-popup/message-popup.component';
+import { StatsPopupComponent } from '../../popups/stats-popup/stats-popup.component';
 import { WaitPopupComponent } from '../wait-popup/wait-popup.component';
 import { saveAs } from "file-saver";
 
@@ -63,7 +64,17 @@ export class AppsComponent implements OnInit {
     });
   }
 
-  GetContainerLogs(Id: string) {
+  getContainerStats(Id: string) {
+    this.dialog.open(WaitPopupComponent, {});
+    this.VesslContainerService.getContainerStats(Id).subscribe((data) => {
+      this.dialog.closeAll();
+      let containerStats = data as ContainerStats
+      this.dialog.open(StatsPopupComponent, {data: {Title: "App Usage Statistics", CpuPct: containerStats.CpuPct,
+        MemUsage: containerStats.MemUsage, MemLimit: containerStats.MemLimit, MemPct: containerStats.MemPct}});
+    });
+  }
+
+  getContainerLogs(Id: string) {
     this.dialog.open(WaitPopupComponent, {});
     this.VesslContainerService.getContainersLogs(Id).subscribe((data) =>{
       this.dialog.closeAll();
@@ -71,7 +82,7 @@ export class AppsComponent implements OnInit {
     });
   }
 
-  OpenConfig(Container: Container) {
+  openConfig(Container: Container) {
     switch (Container.Names[0]) {
       case "/mqtt-cloud-connector":
         this.router.navigate(['/mqtt-cloud-connector']);

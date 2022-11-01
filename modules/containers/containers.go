@@ -2,9 +2,13 @@ package containers
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"io"
+	"io/ioutil"
+	"math"
 	"os"
+	"time"
 
 	apps_repository "vessl/modules/apps-repository"
 
@@ -15,6 +19,15 @@ import (
 	"github.com/docker/docker/client"
 	"github.com/docker/go-connections/nat"
 )
+
+type ContainerStats struct {
+	Id       string  `json:"Id"`
+	Name     string  `json:"Name"`
+	CpuPct   float64 `json:"CpuPct"`
+	MemUsage float64 `json:"MemUsage"`
+	MemLimit float64 `json:"MemLimit"`
+	MemPct   float64 `json:"MemPct"`
+}
 
 var (
 	ContainerListOptions   types.ContainerListOptions
@@ -174,7 +187,9 @@ func Logs(Id string) string {
 		panic(err)
 	}
 
-	options := types.ContainerLogsOptions{ShowStdout: true}
+	timeYesterday := time.Now().UnixNano() - time.Duration(time.Hour*24).Nanoseconds()
+
+	options := types.ContainerLogsOptions{ShowStdout: true, Since: time.Unix(0, timeYesterday).String(), Timestamps: true}
 	out, err := cli.ContainerLogs(ctx, Id, options)
 	if err != nil {
 		panic(err)
@@ -200,4 +215,93 @@ func GetDockerServerInfo() types.Info {
 	}
 
 	return info
+}
+
+func GetContainerStats(Id string) ContainerStats {
+
+	var cstats types.Stats
+
+	ctx := context.Background()
+	cli, err := client.NewClientWithOpts(client.FromEnv, client.WithAPIVersionNegotiation())
+	if err != nil {
+		return ContainerStats{Name: "Internal Error 1"}
+	}
+
+	stats, err := cli.ContainerStats(ctx, Id, false)
+	if err != nil {
+		return ContainerStats{Name: "Internal Error 2"}
+	}
+	statsBody, err := ioutil.ReadAll(stats.Body)
+	if err != nil {
+		return ContainerStats{Name: "Internal Error 3"}
+	}
+	defer stats.Body.Close()
+	err = json.Unmarshal(statsBody, &cstats)
+	if err != nil {
+		return ContainerStats{Name: "Internal Error 4"}
+	}
+	return calculateStats(cstats)
+}
+
+func GetCompleteStats() []ContainerStats {
+
+	var totalStats []ContainerStats
+	var containerStats ContainerStats
+	var cstats types.Stats
+
+	ctx := context.Background()
+	cli, err := client.NewClientWithOpts(client.FromEnv, client.WithAPIVersionNegotiation())
+	if err != nil {
+		return []ContainerStats{{Name: "Internal Error 1"}}
+	}
+
+	runningContainers := GetContainers("")
+
+	for i := 0; i < len(runningContainers); i++ {
+
+		stats, err := cli.ContainerStats(ctx, runningContainers[i].ID, false)
+		if err != nil {
+			return []ContainerStats{{Name: "Internal Error 2"}}
+		}
+
+		statsBody, err := ioutil.ReadAll(stats.Body)
+		if err != nil {
+			return []ContainerStats{{Name: "Internal Error 3"}}
+		}
+		defer stats.Body.Close()
+
+		err = json.Unmarshal(statsBody, &cstats)
+		if err != nil {
+			return []ContainerStats{{Name: "Internal Error 4"}}
+		}
+
+		containerStats = calculateStats(cstats)
+		containerStats.Id = runningContainers[i].ID[:10]
+		containerStats.Name = runningContainers[i].Names[0]
+
+		totalStats = append(totalStats, containerStats)
+
+	}
+
+	return totalStats
+}
+
+func calculateStats(cstats types.Stats) ContainerStats {
+
+	var containerStats ContainerStats
+
+	cpu_delta := float64(cstats.CPUStats.CPUUsage.TotalUsage - cstats.PreCPUStats.CPUUsage.TotalUsage)
+	system_cpu_delta := float64(cstats.CPUStats.SystemUsage - cstats.PreCPUStats.SystemUsage)
+	number_cpus := float64(cstats.CPUStats.OnlineCPUs)
+
+	containerStats.CpuPct = math.Round(((cpu_delta/system_cpu_delta)*number_cpus*100)*100) / 100
+	containerStats.MemUsage = math.Round(byteToMegabyte(cstats.MemoryStats.Usage-cstats.MemoryStats.Stats["cache"])*100) / 100
+	containerStats.MemLimit = math.Round(byteToMegabyte(cstats.MemoryStats.Limit)*100) / 100
+	containerStats.MemPct = math.Round(((containerStats.MemUsage/containerStats.MemLimit)*100)*100) / 100
+
+	return containerStats
+}
+
+func byteToMegabyte(Byte uint64) float64 {
+	return (float64(Byte) / 1024) / 1024
 }

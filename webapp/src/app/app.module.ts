@@ -9,8 +9,8 @@ import { AppsComponent } from './components/apps/apps.component';
 import { FormsModule } from '@angular/forms';
 import { TokenInterceptor } from './token.interceptor';
 import { VesslConfigService } from './services/vessl-config.service';
-import { Menu1Item1Component } from './components/menu1-item1/menu1-item1.component'
-import { Menu1Item1Side1Component } from './components/menu1-item1-side1/menu1-item1-side1.component'
+import { Menu1Item1Component } from './navigation/menu1-item1/menu1-item1.component'
+import { Menu1Item1Side1Component } from './navigation/menu1-item1-side1/menu1-item1-side1.component'
 import { MqttCloudConnectorComponent } from './components/mqtt-cloud-connector/mqtt-cloud-connector.component';
 import { OpcuaMqttConnectorComponent } from './components/opcua-mqtt-connector/opcua-mqtt-connector.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -20,7 +20,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatCardModule} from '@angular/material/card';
-import { MessagePopupComponent } from './components/message-popup/message-popup.component';
+import { MessagePopupComponent } from './popups/message-popup/message-popup.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTabsModule} from '@angular/material/tabs';
@@ -48,6 +48,7 @@ import { VesslVolumesService } from './services/vessl-volumes.service';
 import { VolumesComponent } from './components/volumes/volumes.component';
 import { VesslNetworksService } from './services/vessl-networks.service';
 import { NetworksComponent } from './components/networks/networks.component';
+import { StatsPopupComponent } from './popups/stats-popup/stats-popup.component';
 
 
 
@@ -73,6 +74,7 @@ import { NetworksComponent } from './components/networks/networks.component';
     AppLauncherComponent,
     VolumesComponent,
     NetworksComponent,
+    StatsPopupComponent,
   ],
   imports: [
     AppRoutingModule,

@@ -3,7 +3,7 @@ import { VesslNetworksService, Network } from '../../services/vessl-networks.ser
 import { VesslContainersService, Template } from '../../services/vessl-containers.service';
 import { VesslUsersService } from '../../services/vessl-users.service';
 import {MatDialog} from '@angular/material/dialog';
-import { MessagePopupComponent} from '../message-popup/message-popup.component';
+import { MessagePopupComponent} from '../../popups/message-popup/message-popup.component';
 import { WaitPopupComponent } from '../wait-popup/wait-popup.component';
 
 @Component({

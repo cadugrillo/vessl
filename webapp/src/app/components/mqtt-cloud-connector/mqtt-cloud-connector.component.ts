@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { VesslConfigService, MccConfig } from '../../services/vessl-config.service';
 import {MatDialog} from '@angular/material/dialog';
-import { MessagePopupComponent} from '../message-popup/message-popup.component';
+import { MessagePopupComponent} from '../../popups/message-popup/message-popup.component';
 import { saveAs } from "file-saver";
 
 @Component({

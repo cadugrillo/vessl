@@ -42,12 +42,14 @@ func main() {
 	r.GET("/containers/json/:networkName", helpers.ValidateApiKey(), handlers.GetContainersHandler)
 	r.GET("/containers/repository/:UserId", helpers.ValidateApiKey(), handlers.GetAppRepositoryHandler)
 	r.GET("/containers/info", helpers.ValidateApiKey(), handlers.GetDockerServerInfoHandler)
+	r.GET("/containers/cstats", helpers.ValidateApiKey(), handlers.GetCompleteStatsHandler)
 	r.GET("/containers/:Id/logs", helpers.ValidateApiKey(), handlers.GetLogsHandler)
 	r.POST("/containers/install", helpers.ValidateApiKey(), handlers.InstallContainerHandler)
 	r.POST("/containers/:Id/start", helpers.ValidateApiKey(), handlers.StartContainerHandler)
 	r.POST("/containers/:Id/stop", helpers.ValidateApiKey(), handlers.StopContainerHandler)
 	r.POST("/containers/:Id/restart", helpers.ValidateApiKey(), handlers.RestartContainerHandler)
 	r.POST("/containers/:Id/remove", helpers.ValidateApiKey(), handlers.RemoveContainerHandler)
+	r.GET("/containers/:Id/stats", helpers.ValidateApiKey(), handlers.GetContainerStatsHandler)
 	r.GET("/images/json", helpers.ValidateApiKey(), handlers.GetImagesHandler)
 	r.POST("/images/:Id/remove", helpers.ValidateApiKey(), handlers.RemoveImageHandler)
 	r.GET("/volumes/json", helpers.ValidateApiKey(), handlers.GetVolumesHandler)
@@ -58,7 +60,7 @@ func main() {
 
 	httpPort := os.Getenv("HTTP_PORT")
 	if httpPort == "" {
-		httpPort = "443"
+		httpPort = "4443"
 	}
 
 	err := r.RunTLS(":"+httpPort, "./certs/cg-edge.crt", "./certs/cg-edge.key")

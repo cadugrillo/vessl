@@ -97,9 +97,18 @@ func RemoveContainerHandler(c *gin.Context) {
 	c.JSON(http.StatusOK, containers.RemoveContainer(Id))
 }
 
+func GetContainerStatsHandler(c *gin.Context) {
+	Id := c.Param("Id")
+	c.JSON(http.StatusOK, containers.GetContainerStats(Id))
+}
+
 func GetLogsHandler(c *gin.Context) {
 	Id := c.Param("Id")
 	c.JSON(http.StatusOK, containers.Logs(Id))
+}
+
+func GetCompleteStatsHandler(c *gin.Context) {
+	c.JSON(http.StatusOK, containers.GetCompleteStats())
 }
 
 func GetDockerServerInfoHandler(c *gin.Context) {

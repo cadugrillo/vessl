@@ -32,8 +32,9 @@
               <button mat-menu-item (click)="stopContainer(container.Id)">Stop</button>
               <button mat-menu-item (click)="restartContainer(container.Id)">Restart</button>
               <button mat-menu-item (click)="removeContainer(container.Id)">Remove</button>
-              <button mat-menu-item (click)="OpenConfig(container)">Configure</button>
-              <button mat-menu-item (click)="GetContainerLogs(container.Id)">Logs</button>
+              <button mat-menu-item (click)="openConfig(container)">Configure</button>
+              <button mat-menu-item (click)="getContainerStats(container.Id)">Stats</button>
+              <button mat-menu-item (click)="getContainerLogs(container.Id)">Logs</button>
             </mat-menu>
         </mat-card-actions>
 </mat-card>
