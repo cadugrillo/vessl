@@ -60,7 +60,7 @@ func main() {
 
 	httpPort := os.Getenv("HTTP_PORT")
 	if httpPort == "" {
-		httpPort = "4443"
+		httpPort = "443"
 	}
 
 	err := r.RunTLS(":"+httpPort, "./certs/cg-edge.crt", "./certs/cg-edge.key")

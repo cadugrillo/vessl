@@ -8,7 +8,6 @@ import (
 	"io/ioutil"
 	"math"
 	"os"
-	"time"
 
 	apps_repository "vessl/modules/apps-repository"
 
@@ -187,9 +186,7 @@ func Logs(Id string) string {
 		panic(err)
 	}
 
-	timeYesterday := time.Now().UnixNano() - time.Duration(time.Hour*24).Nanoseconds()
-
-	options := types.ContainerLogsOptions{ShowStdout: true, Since: time.Unix(0, timeYesterday).String(), Timestamps: true}
+	options := types.ContainerLogsOptions{ShowStdout: true, Timestamps: true}
 	out, err := cli.ContainerLogs(ctx, Id, options)
 	if err != nil {
 		panic(err)
@@ -294,6 +291,7 @@ func calculateStats(cstats types.Stats) ContainerStats {
 	system_cpu_delta := float64(cstats.CPUStats.SystemUsage - cstats.PreCPUStats.SystemUsage)
 	number_cpus := float64(cstats.CPUStats.OnlineCPUs)
 
+	fmt.Println(cstats.MemoryStats.Usage, cstats.MemoryStats.Stats["cache"])
 	containerStats.CpuPct = math.Round(((cpu_delta/system_cpu_delta)*number_cpus*100)*100) / 100
 	containerStats.MemUsage = math.Round(byteToMegabyte(cstats.MemoryStats.Usage-cstats.MemoryStats.Stats["cache"])*100) / 100
 	containerStats.MemLimit = math.Round(byteToMegabyte(cstats.MemoryStats.Limit)*100) / 100
