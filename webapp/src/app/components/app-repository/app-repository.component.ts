@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { VesslContainersService, ContainersRepo, Template } from '../../services/vessl-containers.service';
 import { VesslUsersService } from '../../services/vessl-users.service';
 import {MatDialog} from '@angular/material/dialog';
-import { MessagePopupComponent} from '../message-popup/message-popup.component';
-import { WaitPopupComponent } from '../wait-popup/wait-popup.component';
-
 @Component({
   selector: 'app-app-repository',
   templateUrl: './app-repository.component.html',
@@ -16,7 +14,7 @@ export class AppRepositoryComponent implements OnInit {
 
   constructor(private VesslContainerService: VesslContainersService,
               private VesslUsersService: VesslUsersService,
-              public dialog: MatDialog) { }
+              private router: Router, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.getContainersRepo();
@@ -29,11 +27,8 @@ export class AppRepositoryComponent implements OnInit {
   }
 
   installContainer(AppTemplate: Template) {
-    this.dialog.open(WaitPopupComponent, {});
-    this.VesslContainerService.installContainer(AppTemplate).subscribe((data) => {
-      this.dialog.closeAll();
-      this.dialog.open(MessagePopupComponent, {data: {title: "App Installation", text: data}});
-    });
+    this.VesslContainerService.setTemplateToInstall(AppTemplate);
+    this.router.navigate(['/App-Launcher']);
   }
 
   getInfo(info_url: string) {

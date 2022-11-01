@@ -1,12 +1,15 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { VesslUsersService } from './vessl-users.service';
 import { environment } from '../../environments/environment';
+import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class VesslContainersService {
+
+  templateToInstall!: Template;
 
   constructor(private httpClient: HttpClient,
               private VesslUsersService: VesslUsersService) {}
@@ -51,6 +54,14 @@ export class VesslContainersService {
 
   getDockerServerInfo() {
     return this.httpClient.get(environment.gateway + '/containers/info', this.httpOptions);
+  }
+
+  setTemplateToInstall(AppTemplate: Template) {
+    this.templateToInstall = AppTemplate;
+  }
+
+  getTemplateToInstall(): Observable<Template> {
+    return of(this.templateToInstall);
   }
 }
 

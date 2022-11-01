@@ -2,7 +2,7 @@
     <span>App Launcher</span>
 </mat-toolbar>
 <div class="Launcher">
-    <mat-card class="example-card">
+    <mat-card class="example-card" *ngIf="appTemplate">
         <mat-card-title-group>
           <mat-card-title></mat-card-title>
           <mat-card-subtitle></mat-card-subtitle>
@@ -41,8 +41,12 @@
             <div class="inner-section">
                 <h4>Port Binding:</h4>
                 <div class="example-button-row">
-                    <button mat-mini-fab color="primary" (click)="addPort()">+</button>
-                    <button mat-mini-fab color="primary" (click)="deletePort()">-</button>
+                    <button mat-icon-button color="primary" (click)="addPort()">
+                        <mat-icon>add</mat-icon>
+                    </button>
+                    <button mat-icon-button color="primary" (click)="deletePort()">
+                        <mat-icon>remove</mat-icon>
+                    </button>
                 </div>
             </div>
             <div class="thirdline">
@@ -57,8 +61,12 @@
             <div class="inner-section">
                 <h4>Environment Variables:</h4>
                 <div class="example-button-row">
-                    <button mat-mini-fab color="primary" (click)="addEnv()">+</button>
-                    <button mat-mini-fab color="primary" (click)="deleteEnv()">-</button>
+                    <button mat-icon-button color="primary" (click)="addEnv()">
+                        <mat-icon>add</mat-icon>
+                    </button>
+                    <button mat-icon-button color="primary" (click)="deleteEnv()">
+                        <mat-icon>remove</mat-icon>
+                    </button>
                 </div>
             </div>
             <div class="fourthline">
@@ -72,8 +80,12 @@
             <div class="inner-section">
                 <h4>Volumes:</h4>
                 <div class="example-button-row">
-                    <button mat-mini-fab color="primary" (click)="addVolume()">+</button>
-                    <button mat-mini-fab color="primary" (click)="deleteVolume()">-</button>
+                    <button mat-icon-button color="primary" (click)="addVolume()">
+                        <mat-icon>add</mat-icon>
+                    </button>
+                    <button mat-icon-button color="primary" (click)="deleteVolume()">
+                        <mat-icon>remove</mat-icon>
+                    </button>
                 </div>
             </div>
             <div class="fifthline">

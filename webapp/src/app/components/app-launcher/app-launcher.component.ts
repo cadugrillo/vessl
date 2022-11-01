@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { VesslNetworksService, Network } from '../../services/vessl-networks.service';
 import { VesslContainersService, Template } from '../../services/vessl-containers.service';
 import { VesslUsersService } from '../../services/vessl-users.service';
@@ -11,9 +11,9 @@ import { WaitPopupComponent } from '../wait-popup/wait-popup.component';
   templateUrl: './app-launcher.component.html',
   styleUrls: ['./app-launcher.component.css']
 })
-export class AppLauncherComponent implements OnInit {
+export class AppLauncherComponent implements OnInit, OnDestroy {
 
-  appTemplate: Template = new Template();
+  appTemplate!: Template;
   newPort!: string
   newEnv!: string
   newVolume!: string
@@ -29,10 +29,16 @@ export class AppLauncherComponent implements OnInit {
 
   ngOnInit(): void {
     this.getNetworks();
+    this.getTemplateToInstall();
+  }
+
+  ngOnDestroy(): void {
+    this.appTemplate = new Template();
     this.appTemplate.ports = [];
     this.appTemplate.env = [];
     this.appTemplate.volumes = [];
     this.appTemplate.restart_policy = "always"
+    this.VesslContainerService.setTemplateToInstall(this.appTemplate);
   }
 
   trackByFn(index: any, item: any) {
@@ -78,6 +84,12 @@ export class AppLauncherComponent implements OnInit {
   getNetworks() {
     this.VesslNetworksService.getNetworks().subscribe((data) => {
       this.networks = (data as Network[]);
+    });
+  }
+
+  getTemplateToInstall() {
+    this.VesslContainerService.getTemplateToInstall().subscribe((template) => {
+      this.appTemplate = template;
     });
   }
 
