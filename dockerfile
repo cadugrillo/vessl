@@ -3,6 +3,9 @@
 #BUILD GO BACKEND
 FROM golang:1.18-alpine AS go-builder
 
+ARG TARGETOS
+ARG TARGETARCH
+
 RUN apk add build-base
 WORKDIR /usr/local/go/src/vessl
 COPY go.mod ./
@@ -12,7 +15,7 @@ COPY main.go ./
 COPY ./handlers/ /usr/local/go/src/vessl/handlers
 COPY ./modules/ /usr/local/go/src/vessl/modules
 RUN mkdir -p /apps
-RUN CGO_ENABLED=1 GOOS=linux GOARCH=amd64 GOFLAGS=-mod=mod go build -ldflags="-w -s" -o /Vessel
+RUN CGO_ENABLED=1 GOOS=${TARGETOS} GOARCH=${TARGETARCH} GOFLAGS=-mod=mod go build -ldflags="-w -s" -o /Vessel
 
 #BUILD WEBAPP
 FROM node:latest as node-builder

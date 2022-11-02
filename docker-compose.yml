@@ -5,7 +5,7 @@ services:
     image: cadugrillo/vessl:1.1
     container_name: vessl
     restart: always
-    mem_limit: 512m
+    mem_limit: 256m
     cpus: 0.5
     extra_hosts:
       - "host.docker.internal:host-gateway"
