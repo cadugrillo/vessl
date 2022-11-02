@@ -7,9 +7,7 @@ import { AuthGuardService } from './services/auth-guard.service';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ImagesComponent } from './components/images/images.component';
 import { LoginComponent } from './components/login/login.component';
-import { MqttCloudConnectorComponent } from './components/mqtt-cloud-connector/mqtt-cloud-connector.component';
 import { NetworksComponent } from './components/networks/networks.component';
-import { OpcuaMqttConnectorComponent } from './components/opcua-mqtt-connector/opcua-mqtt-connector.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { SystemComponent } from './components/system/system.component';
 import { UsersComponent } from './components/users/users.component';
@@ -32,8 +30,6 @@ const routes: Routes = [
   { path: 'Users', component: UsersComponent, canActivate: [AuthGuardService]},
   { path: 'System', component: SystemComponent, canActivate: [AuthGuardService]},
   { path: 'Settings', component: SettingsComponent, canActivate: [AuthGuardService]},
-  { path: 'mqtt-cloud-connector', component: MqttCloudConnectorComponent, canActivate: [AuthGuardService]},
-  { path: 'opcua-mqtt-connector', component: OpcuaMqttConnectorComponent, canActivate: [AuthGuardService]},
   { path: '**', redirectTo: 'Login'},
  
 

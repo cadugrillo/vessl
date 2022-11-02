@@ -2,24 +2,21 @@ version: "3.7"
 
 services:
   cg-edge-conf-api:
-    image: cadugrillo/vessl:1.1
+    image: cadugrillo/vessl:0.1
     container_name: vessl
     restart: always
     mem_limit: 256m
     cpus: 0.5
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
     volumes:
       - vessl-database:/database
       - type: bind
         source: /var/run/docker.sock
         target: /var/run/docker.sock
-      - type: bind
-        source: /etc/network
-        target: /etc/network
-      - type: bind
-        source: /home/edge/apps
-        target: /apps
+      - type: bind                          #When Linux Host integration is in use
+        source: /etc/network                #When Linux Host integration is in use
+        target: /etc/network                #When Linux Host integration is in use
+    extra_hosts:                            #When Linux Host integration is in use
+      - "host.docker.internal:host-gateway" #When Linux Host integration is in use
     networks:
       - vessl-default
     ports:

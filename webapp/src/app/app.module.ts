@@ -8,11 +8,8 @@ import { AppComponent } from './app.component';
 import { AppsComponent } from './components/apps/apps.component';
 import { FormsModule } from '@angular/forms';
 import { TokenInterceptor } from './token.interceptor';
-import { VesslConfigService } from './services/vessl-config.service';
 import { Menu1Item1Component } from './navigation/menu1-item1/menu1-item1.component'
 import { Menu1Item1Side1Component } from './navigation/menu1-item1-side1/menu1-item1-side1.component'
-import { MqttCloudConnectorComponent } from './components/mqtt-cloud-connector/mqtt-cloud-connector.component';
-import { OpcuaMqttConnectorComponent } from './components/opcua-mqtt-connector/opcua-mqtt-connector.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
@@ -58,8 +55,6 @@ import { StatsPopupComponent } from './popups/stats-popup/stats-popup.component'
     AppsComponent,
     Menu1Item1Component,
     Menu1Item1Side1Component,
-    MqttCloudConnectorComponent,
-    OpcuaMqttConnectorComponent,
     MessagePopupComponent,
     DashboardComponent,
     AppRepositoryComponent,
@@ -97,7 +92,7 @@ import { StatsPopupComponent } from './popups/stats-popup/stats-popup.component'
     MatProgressSpinnerModule,
     MatProgressBarModule
   ],
-  providers: [VesslConfigService, VesslContainersService, VesslSystemService, VesslUsersService,VesslImagesService,
+  providers: [VesslContainersService, VesslSystemService, VesslUsersService,VesslImagesService,
     VesslVolumesService,VesslNetworksService,{
     provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptor,

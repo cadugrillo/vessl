@@ -18,7 +18,7 @@ export class AppLauncherComponent implements OnInit, OnDestroy {
   newEnv!: string
   newVolume!: string
   networks!: Network[]
-  networkName: string = "cg-edge"
+  networkName: string = "vessl-default"
 
   Sources: string[] = ['no', 'on-failure', 'always', 'unless-stopped'];
 
@@ -95,13 +95,6 @@ export class AppLauncherComponent implements OnInit, OnDestroy {
 
   filterEnabled() {
     if (this.VesslUsersService.CurrentUser.Username == 'master') {
-      return true
-    }
-    return false
-  }
-
-  launchButtonDisabled() {
-    if (this.appTemplate.hostname == "" || this.appTemplate.image == "") {
       return true
     }
     return false

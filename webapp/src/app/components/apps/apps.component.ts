@@ -45,28 +45,28 @@ export class AppsComponent implements OnInit {
   startContainer(Id: string) {
     this.VesslContainerService.startContainer(Id).subscribe((data) =>{
       this.dialog.open(MessagePopupComponent, {data: {title: "Start App", text: data}});
-      this.getContainers("cg-edge");
+      this.getContainers(this.networkName);
     });
   }
 
   stopContainer(Id: string) {
     this.VesslContainerService.stopContainer(Id).subscribe((data) =>{
       this.dialog.open(MessagePopupComponent, {data: {title: "Stop App", text: data}});
-      this.getContainers("cg-edge");
+      this.getContainers(this.networkName);
     });
   }
 
   restartContainer(Id: string) {
     this.VesslContainerService.restartContainer(Id).subscribe((data) =>{
       this.dialog.open(MessagePopupComponent, {data: {title: "Restart App", text: data}});
-      this.getContainers("cg-edge");
+      this.getContainers(this.networkName);
     });
   }
 
   removeContainer(Id: string) {
     this.VesslContainerService.removeContainer(Id).subscribe((data) =>{
       this.dialog.open(MessagePopupComponent, {data: {title: "Remove App", text: data}});
-      this.getContainers("cg-edge");
+      this.getContainers(this.networkName);
     });
   }
 
@@ -89,17 +89,7 @@ export class AppsComponent implements OnInit {
   }
 
   openConfig(Container: Container) {
-    switch (Container.Names[0]) {
-      case "/mqtt-cloud-connector":
-        this.router.navigate(['/mqtt-cloud-connector']);
-        break;
-      case "/opcua-mqtt-connector":
-        this.router.navigate(['/opcua-mqtt-connector']);
-        break;
-      default:
         window.open('http://' + window.location.hostname + ':' + Container.Ports[0].PublicPort,'_blank');
-        break;
-    }
   }
 
   getNetworks() {

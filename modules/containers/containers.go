@@ -37,7 +37,7 @@ func GetContainers(networkName string) []types.Container {
 	ctx := context.Background()
 	cli, err := client.NewClientWithOpts(client.FromEnv, client.WithAPIVersionNegotiation())
 	if err != nil {
-		panic(err)
+		return []types.Container{}
 	}
 
 	if networkName == "All" {
@@ -51,7 +51,7 @@ func GetContainers(networkName string) []types.Container {
 	ContainerListOptions.All = true
 	containers, err := cli.ContainerList(ctx, ContainerListOptions)
 	if err != nil {
-		panic(err)
+		return []types.Container{}
 	}
 
 	return containers
@@ -61,12 +61,12 @@ func InstallContainer(AppTemplate apps_repository.Template) string {
 	ctx := context.Background()
 	cli, err := client.NewClientWithOpts(client.FromEnv, client.WithAPIVersionNegotiation())
 	if err != nil {
-		panic(err)
+		return err.Error()
 	}
 
 	out, err := cli.ImagePull(ctx, AppTemplate.Image, types.ImagePullOptions{})
 	if err != nil {
-		panic(err)
+		return err.Error()
 	}
 	defer out.Close()
 	io.Copy(os.Stdout, out)
@@ -124,12 +124,12 @@ func StartContainer(Id string) string {
 	ctx := context.Background()
 	cli, err := client.NewClientWithOpts(client.FromEnv, client.WithAPIVersionNegotiation())
 	if err != nil {
-		panic(err)
+		return err.Error()
 	}
 
 	fmt.Print("Starting container ", Id[:10], "... ")
 	if err := cli.ContainerStart(ctx, Id, types.ContainerStartOptions{}); err != nil {
-		panic(err)
+		return err.Error()
 	}
 	fmt.Println("Success")
 	return "App successfully started"
@@ -139,12 +139,12 @@ func StopContainer(Id string) string {
 	ctx := context.Background()
 	cli, err := client.NewClientWithOpts(client.FromEnv, client.WithAPIVersionNegotiation())
 	if err != nil {
-		panic(err)
+		return err.Error()
 	}
 
 	fmt.Print("Stopping container ", Id[:10], "... ")
 	if err := cli.ContainerStop(ctx, Id, nil); err != nil {
-		panic(err)
+		return err.Error()
 	}
 	fmt.Println("Success")
 	return "App successfully stopped"
@@ -154,12 +154,12 @@ func RestartContainer(Id string) string {
 	ctx := context.Background()
 	cli, err := client.NewClientWithOpts(client.FromEnv, client.WithAPIVersionNegotiation())
 	if err != nil {
-		panic(err)
+		return err.Error()
 	}
 
 	fmt.Print("Restarting container ", Id[:10], "... ")
 	if err := cli.ContainerRestart(ctx, Id, nil); err != nil {
-		panic(err)
+		return err.Error()
 	}
 	fmt.Println("Success")
 	return "App successfully restarted"
@@ -169,7 +169,7 @@ func RemoveContainer(Id string) string {
 	ctx := context.Background()
 	cli, err := client.NewClientWithOpts(client.FromEnv, client.WithAPIVersionNegotiation())
 	if err != nil {
-		panic(err)
+		return err.Error()
 	}
 
 	ContainerRemoveOptions.Force = true
@@ -177,7 +177,7 @@ func RemoveContainer(Id string) string {
 
 	fmt.Print("Removing container ", Id[:10], "... ")
 	if err := cli.ContainerRemove(ctx, Id, ContainerRemoveOptions); err != nil {
-		panic(err)
+		return err.Error()
 	}
 	fmt.Println("Success")
 	return "App successfully removed"
@@ -187,32 +187,33 @@ func Logs(Id string) string {
 	ctx := context.Background()
 	cli, err := client.NewClientWithOpts(client.FromEnv, client.WithAPIVersionNegotiation())
 	if err != nil {
-		panic(err)
+		return err.Error()
 	}
 
 	options := types.ContainerLogsOptions{ShowStdout: true, Timestamps: true}
 	out, err := cli.ContainerLogs(ctx, Id, options)
 	if err != nil {
-		panic(err)
+		return err.Error()
 	}
 
-	if b, err := io.ReadAll(out); err == nil {
-		return string(b)
+	b, err := io.ReadAll(out)
+	if err != nil {
+		return err.Error()
 	}
-	//io.Copy(os.Stdout, out)
-	return "no text to show"
+	defer out.Close()
+	return string(b)
 }
 
 func GetDockerServerInfo() types.Info {
 	ctx := context.Background()
 	cli, err := client.NewClientWithOpts(client.FromEnv, client.WithAPIVersionNegotiation())
 	if err != nil {
-		panic(err)
+		return types.Info{}
 	}
 
 	info, err := cli.Info(ctx)
 	if err != nil {
-		panic(err)
+		return types.Info{}
 	}
 
 	return info

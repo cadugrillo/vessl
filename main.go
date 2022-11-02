@@ -1,7 +1,6 @@
 package main
 
 import (
-	"os"
 	"path"
 	"path/filepath"
 	"runtime/debug"
@@ -27,8 +26,6 @@ func main() {
 		}
 	})
 
-	r.GET("/config/:appName", helpers.ValidateApiKey(), handlers.GetConfigHandler)
-	r.POST("/config/:appName", helpers.ValidateApiKey(), handlers.SetConfigHandler)
 	r.GET("/users/json", helpers.ValidateApiKey(), handlers.GetUsersHandler)
 	r.POST("/users/json", helpers.ValidateApiKey(), handlers.UpdateUserHandler)
 	r.GET("/users/add", helpers.ValidateApiKey(), handlers.AddUserHandler)
@@ -58,12 +55,7 @@ func main() {
 	r.POST("/networks/:Id/create", helpers.ValidateApiKey(), handlers.CreateNetworkHandler)
 	r.POST("/networks/:Id/remove", helpers.ValidateApiKey(), handlers.RemoveNetworkHandler)
 
-	httpPort := os.Getenv("HTTP_PORT")
-	if httpPort == "" {
-		httpPort = "443"
-	}
-
-	err := r.RunTLS(":"+httpPort, "./certs/cg-edge.crt", "./certs/cg-edge.key")
+	err := r.RunTLS(":4443", "./certs/cg-edge.crt", "./certs/cg-edge.key")
 	if err != nil {
 		panic(err)
 	}
