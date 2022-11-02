@@ -31,7 +31,7 @@ RUN ng build --output-path=/webapp/dist
 #BUILD A SMALL FOOTPRINT IMAGE
 FROM nginx:alpine
 
-COPY --from=go-builder /Vessel /Vessel
+COPY --from=go-builder /Vessl /Vessl
 COPY --from=go-builder /apps /apps
 COPY --from=node-builder /webapp/dist/ /webapp/dist/
 COPY ./certs/ /certs
