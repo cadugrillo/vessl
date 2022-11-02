@@ -26,16 +26,11 @@ func main() {
 		}
 	})
 
+	r.POST("/users/validate", handlers.ValidateUserHandler)
 	r.GET("/users/json", helpers.ValidateApiKey(), handlers.GetUsersHandler)
 	r.POST("/users/json", helpers.ValidateApiKey(), handlers.UpdateUserHandler)
 	r.GET("/users/add", helpers.ValidateApiKey(), handlers.AddUserHandler)
 	r.POST("/users/:Id", helpers.ValidateApiKey(), handlers.DeleteUserHandler)
-	r.POST("/users/validate", handlers.ValidateUserHandler)
-	r.GET("/system/hostnetwork", helpers.ValidateApiKey(), handlers.GetNetworkInfoHandler)
-	r.GET("/system/hoststats", helpers.ValidateApiKey(), handlers.GetHostStatsHandler)
-	r.POST("/system/hostnetwork", helpers.ValidateApiKey(), handlers.SetNetworkInfoHandler)
-	r.POST("/system/restart", helpers.ValidateApiKey(), handlers.RestartHostHandler)
-	r.POST("/system/shutdown", helpers.ValidateApiKey(), handlers.ShutDownHostHandler)
 	r.GET("/containers/json/:networkName", helpers.ValidateApiKey(), handlers.GetContainersHandler)
 	r.GET("/containers/repository/:UserId", helpers.ValidateApiKey(), handlers.GetAppRepositoryHandler)
 	r.GET("/containers/info", helpers.ValidateApiKey(), handlers.GetDockerServerInfoHandler)
@@ -54,6 +49,11 @@ func main() {
 	r.GET("/networks/json", helpers.ValidateApiKey(), handlers.GetNetworksHandler)
 	r.POST("/networks/:Id/create", helpers.ValidateApiKey(), handlers.CreateNetworkHandler)
 	r.POST("/networks/:Id/remove", helpers.ValidateApiKey(), handlers.RemoveNetworkHandler)
+	r.GET("/system/hostnetwork", helpers.ValidateApiKey(), handlers.GetNetworkInfoHandler)
+	r.GET("/system/hoststats", helpers.ValidateApiKey(), handlers.GetHostStatsHandler)
+	r.POST("/system/hostnetwork", helpers.ValidateApiKey(), handlers.SetNetworkInfoHandler)
+	r.POST("/system/restart", helpers.ValidateApiKey(), handlers.RestartHostHandler)
+	r.POST("/system/shutdown", helpers.ValidateApiKey(), handlers.ShutDownHostHandler)
 
 	err := r.RunTLS(":443", "./certs/cg-edge.crt", "./certs/cg-edge.key")
 	if err != nil {
