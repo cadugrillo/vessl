@@ -99,4 +99,11 @@ export class AppLauncherComponent implements OnInit, OnDestroy {
     }
     return false
   }
+
+  launchButtonDisabled() {
+    if (this.appTemplate.hostname == "" || this.appTemplate.image == "") {
+      return true
+    }
+    return false
+  }
 }

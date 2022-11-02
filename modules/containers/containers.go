@@ -40,10 +40,14 @@ func GetContainers(networkName string) []types.Container {
 		panic(err)
 	}
 
-	networkKeyValuePair := filters.KeyValuePair{Key: "network", Value: networkName}
-	networkFilter := filters.NewArgs(networkKeyValuePair)
+	if networkName == "All" {
+		ContainerListOptions = types.ContainerListOptions{}
+	} else {
+		networkKeyValuePair := filters.KeyValuePair{Key: "network", Value: networkName}
+		networkFilter := filters.NewArgs(networkKeyValuePair)
+		ContainerListOptions.Filters = networkFilter
+	}
 
-	ContainerListOptions.Filters = networkFilter
 	ContainerListOptions.All = true
 	containers, err := cli.ContainerList(ctx, ContainerListOptions)
 	if err != nil {

@@ -23,19 +23,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
   DiskTotal!: string
   DiskAvailable!: string
   DiskAvailableBar!: number
-  emptyTemplate: Template = new Template();
 
   constructor(private VesslSystemService: VesslSystemService,
               private VesslContainerService: VesslContainersService) { }
 
   ngOnInit(): void {
-    
-    this.emptyTemplate.ports = [];
-    this.emptyTemplate.env = [];
-    this.emptyTemplate.volumes = [];
-    this.emptyTemplate.restart_policy = "always";
-    this.VesslContainerService.setTemplateToInstall(this.emptyTemplate);
-
     this.subscription = timer(0,5000).pipe(
       switchMap(() => this.VesslSystemService.getHostStats())).subscribe((data) => {
         this.getHostStats();

@@ -21,13 +21,13 @@ services:
         source: /home/edge/apps
         target: /apps
     networks:
-      - vessl-conf
+      - vessl-default
     ports:
       - 443:443
 
 networks:
-   vessl-conf:
-      name: vessl-conf
+   vessl-default:
+      name: vessl-default
 
 volumes:
   vessl-database:

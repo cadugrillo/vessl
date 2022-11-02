@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
       if (!this.isValidUser) {
         this.dialog.open(MessagePopupComponent, {data: {title: "Login", text: "Invalid Username or Password!"}});
       }
-      this.router.navigate(['/Dashboard']);
+      this.router.navigate(['/Apps']);
     });
     
   }

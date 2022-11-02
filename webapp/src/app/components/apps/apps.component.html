@@ -6,6 +6,7 @@
     <mat-form-field appearance="standard">
       <mat-label>Network</mat-label>
       <mat-select [(ngModel)]="networkName" disableOptionCentering >
+        <mat-option [value]="'All'">All</mat-option>
         <mat-option *ngFor="let network of networks" [value]="network.Name">
           {{network.Name}}
         </mat-option>
@@ -15,7 +16,8 @@
   </div>
 </section>
 <div class="containers">
-  <mat-card class="example-card" *ngFor="let container of containers">
+  <span *ngFor="let container of containers">
+  <mat-card class="example-card" *ngIf="hideContainer(container.Names[0])">
       <mat-card-title-group>
         <mat-card-title>{{container.Names[0]}}</mat-card-title>
         <mat-card-subtitle>{{container.State}}</mat-card-subtitle>
@@ -37,5 +39,6 @@
               <button mat-menu-item (click)="getContainerLogs(container.Id)">Logs</button>
             </mat-menu>
         </mat-card-actions>
-</mat-card>
+    </mat-card>
+  </span>
 <div>

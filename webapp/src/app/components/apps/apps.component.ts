@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { VesslNetworksService, Network } from '../../services/vessl-networks.service';
-import { VesslContainersService, Container, ContainerStats } from '../../services/vessl-containers.service';
+import { VesslContainersService, Container, ContainerStats, Template } from '../../services/vessl-containers.service';
 import { VesslUsersService } from '../../services/vessl-users.service';
 import { Router } from '@angular/router';
 import {MatDialog} from '@angular/material/dialog';
@@ -18,7 +18,8 @@ export class AppsComponent implements OnInit {
 
   containers!: Container[]
   networks!: Network[]
-  networkName: string = "cg-edge"
+  networkName: string = "vessl-default"
+  emptyTemplate: Template = new Template();
 
   constructor(private VesslContainerService: VesslContainersService,
               private VesslNetworksService: VesslNetworksService,
@@ -28,12 +29,17 @@ export class AppsComponent implements OnInit {
   ngOnInit(): void {
     this.getNetworks();
     this.getContainers(this.networkName);
+    this.emptyTemplate.ports = [];
+    this.emptyTemplate.env = [];
+    this.emptyTemplate.volumes = [];
+    this.emptyTemplate.restart_policy = "always";
+    this.VesslContainerService.setTemplateToInstall(this.emptyTemplate);
   }
 
   getContainers(NetworkName: string) {
     this.VesslContainerService.getContainers(NetworkName).subscribe((data) => {
-      console.log(data);
       this.containers = (data as Container[]);
+      console.log(this.containers)
     });
   }
   
@@ -109,5 +115,9 @@ export class AppsComponent implements OnInit {
     }
     return false
   }
+
+  hideContainer(ContainerName: string) {
+    return !ContainerName.includes("vessl");
+   }
 
 }
