@@ -55,7 +55,7 @@ func main() {
 	r.POST("/networks/:Id/create", helpers.ValidateApiKey(), handlers.CreateNetworkHandler)
 	r.POST("/networks/:Id/remove", helpers.ValidateApiKey(), handlers.RemoveNetworkHandler)
 
-	err := r.RunTLS(":4443", "./certs/cg-edge.crt", "./certs/cg-edge.key")
+	err := r.RunTLS(":443", "./certs/cg-edge.crt", "./certs/cg-edge.key")
 	if err != nil {
 		panic(err)
 	}
