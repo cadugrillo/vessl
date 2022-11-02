@@ -1,0 +1,16 @@
+$ docker network create vessl-default
+$ docker run -dp 443:443 --name=vessl --restart=always -m 256M --cpus=0.5 \
+  -v vessl-database:/database \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  -v /etc/network:/etc/network \
+  --network=vessl-default cadugrillo/vessl:1.1
+
+
+-----------BlueBox--------------
+
+$ sudo docker network create vessl-default
+$ sudo docker run -dp 443:443 --name=vessl --restart=always -m 256M \
+  -v vessl-database:/database \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  -v /etc/network:/etc/network \
+  --network=vessl-default cadugrillo/vessl:1.1_armV7

@@ -39,7 +39,6 @@ export class AppsComponent implements OnInit {
   getContainers(NetworkName: string) {
     this.VesslContainerService.getContainers(NetworkName).subscribe((data) => {
       this.containers = (data as Container[]);
-      console.log(this.containers)
     });
   }
   

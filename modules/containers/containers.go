@@ -295,7 +295,7 @@ func calculateStats(cstats types.Stats) ContainerStats {
 	system_cpu_delta := float64(cstats.CPUStats.SystemUsage - cstats.PreCPUStats.SystemUsage)
 	number_cpus := float64(cstats.CPUStats.OnlineCPUs)
 
-	fmt.Println(cstats.MemoryStats.Usage, cstats.MemoryStats.Stats["cache"])
+	//fmt.Println(cstats.MemoryStats.Usage, cstats.MemoryStats.Stats["cache"])
 	containerStats.CpuPct = math.Round(((cpu_delta/system_cpu_delta)*number_cpus*100)*100) / 100
 	containerStats.MemUsage = math.Round(byteToMegabyte(cstats.MemoryStats.Usage-cstats.MemoryStats.Stats["cache"])*100) / 100
 	containerStats.MemLimit = math.Round(byteToMegabyte(cstats.MemoryStats.Limit)*100) / 100
