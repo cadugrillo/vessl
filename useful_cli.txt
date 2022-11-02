@@ -33,4 +33,4 @@ func ParsePortSpecs(ports []string) (map[Port]struct{}, map[Port][]PortBinding, 
 --privileged
 
 //////BUILD MULTI ARCH DOCKER IMAGES////////////
-docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 --push -t cadugrillo/cg-edge-conf-api:x.x .
+docker buildx build --platform=linux/arm/v7,linux/arm64,linux/amd64 -t cadugrillo/vessl:0.1 --push .
