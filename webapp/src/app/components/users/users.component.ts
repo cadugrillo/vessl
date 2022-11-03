@@ -11,6 +11,7 @@ import { MessagePopupComponent } from '../../popups/message-popup/message-popup.
 export class UsersComponent implements OnInit {
 
   Users!: Users
+  Sources: string[] = ['Guest', 'User', 'Expert', 'Admin'];
 
   constructor(private VesslUsersService: VesslUsersService,
               public dialog: MatDialog) { }
@@ -46,11 +47,16 @@ export class UsersComponent implements OnInit {
     });
   }
 
-  AppsRepEditEnabled() {
-    if (this.VesslUsersService.CurrentUser.Username == 'master') {
-      return true
-    }
-    return false
+  getCurrentUserId() {
+    return this.VesslUsersService.CurrentUser.ID
+  }
+
+  roleUser() {
+    return this.VesslUsersService.user();
+  }
+
+  roleAdmin() {
+    return this.VesslUsersService.admin();
   }
 
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { VesslVolumesService, VolumeList } from '../../services/vessl-volumes.service';
+import { VesslUsersService } from '../../services/vessl-users.service';
 import {MatDialog} from '@angular/material/dialog';
 import { MessagePopupComponent } from '../../popups/message-popup/message-popup.component';
 
@@ -13,6 +14,7 @@ export class VolumesComponent implements OnInit {
   volumes!: VolumeList
 
   constructor(private VesslVolumesService: VesslVolumesService,
+              private VesslUsersService: VesslUsersService,
     public dialog: MatDialog) { }
 
   ngOnInit(): void {
@@ -34,6 +36,10 @@ export class VolumesComponent implements OnInit {
 
   hideVolume(volumeName: string) {
     return !volumeName.includes("vessl");
-   }
+  }
+
+  roleExpert() {
+    return this.VesslUsersService.expert();
+  }
 
 }

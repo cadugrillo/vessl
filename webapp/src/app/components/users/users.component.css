@@ -37,7 +37,7 @@
 
   .topline {
     display: inline-grid;
-    grid-template-columns: 350px 350px;
+    grid-template-columns: 340px 340px 340px;
   }
 
   .bottomline {

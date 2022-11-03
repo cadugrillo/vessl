@@ -28,7 +28,7 @@
                   </mat-form-field>
             </div>
             <h2>Network Settings:</h2>
-            <div class="secondline" *ngIf="filterEnabled()">
+            <div class="secondline">
                 <mat-form-field appearance="fill">
                     <mat-label>Network</mat-label>
                     <mat-select [(ngModel)]="networkName" disableOptionCentering >
@@ -98,7 +98,7 @@
             </div>
         </mat-card-content>
         <mat-card-actions align="end">
-            <button mat-button (click)="installContainer()">Launch App</button>
+            <button mat-button (click)="installContainer()" [disabled]="!roleExpert()">Launch App</button>
         </mat-card-actions>
     </mat-card>
 </div>

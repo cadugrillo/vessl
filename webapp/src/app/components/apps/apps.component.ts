@@ -98,11 +98,12 @@ export class AppsComponent implements OnInit {
     });
   }
 
-  filterEnabled() {
-    if (this.VesslUsersService.CurrentUser.Username == 'master') {
-      return true
-    }
-    return false
+  roleUser() {
+    return this.VesslUsersService.user();
+  }
+
+  roleExpert() {
+    return this.VesslUsersService.expert();
   }
 
   hideContainer(ContainerName: string) {

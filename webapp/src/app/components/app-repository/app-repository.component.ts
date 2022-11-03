@@ -34,4 +34,8 @@ export class AppRepositoryComponent implements OnInit {
   getInfo(info_url: string) {
     window.open(info_url,'_blank')
   }
+
+  roleExpert() {
+    return this.VesslUsersService.expert();
+  }
 }

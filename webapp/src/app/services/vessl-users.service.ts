@@ -69,7 +69,27 @@ export class VesslUsersService {
     return this.CurrentUser.ApiKey;
   }
 
+  ////////ROLES///////////
+  user() {
+    if (this.CurrentUser.Role == 'User' || this.CurrentUser.Role == 'Expert' ||this.CurrentUser.Role == 'Admin') {
+      return true
+    }
+    return false
+  }
 
+  expert() {
+    if (this.CurrentUser.Role == 'Expert' ||this.CurrentUser.Role == 'Admin') {
+      return true
+    }
+    return false
+  }
+
+  admin() {
+    if (this.CurrentUser.Role == 'Admin') {
+      return true
+    }
+    return false
+  }
 }
 export class Users {
   Users!: User[]
@@ -79,6 +99,7 @@ export class User {
   ID!: string
   Username!: string
   Password!: string
+  Role!: string
   FullName!: string
   Email!: string
   Telephone!: string

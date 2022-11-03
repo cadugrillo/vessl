@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { VesslImagesService, Image } from '../../services/vessl-images.service';
+import { VesslUsersService } from '../../services/vessl-users.service';
 import {MatDialog} from '@angular/material/dialog';
 import { MessagePopupComponent } from '../../popups/message-popup/message-popup.component';
 
@@ -13,6 +14,7 @@ export class ImagesComponent implements OnInit {
   images!: Image[]
 
   constructor(private VesslImagesService: VesslImagesService,
+              private VesslUsersService: VesslUsersService,
               public dialog: MatDialog) { }
 
   ngOnInit(): void {
@@ -34,6 +36,10 @@ export class ImagesComponent implements OnInit {
 
   hideImage(imageName: string) {
    return !imageName.includes("vessl");
+  }
+
+  roleExpert() {
+    return this.VesslUsersService.expert();
   }
 
 }

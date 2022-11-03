@@ -2,7 +2,7 @@
   <span>Apps</span>
 </mat-toolbar>
 <section>
-  <div class="example-button-row" *ngIf="filterEnabled()">
+  <div class="example-button-row">
     <mat-form-field appearance="standard">
       <mat-label>Network</mat-label>
       <mat-select [(ngModel)]="networkName" disableOptionCentering >
@@ -21,7 +21,6 @@
       <mat-card-title-group>
         <mat-card-title>{{container.Names[0]}}</mat-card-title>
         <mat-card-subtitle>{{container.State}}</mat-card-subtitle>
-        <!-- <img mat-card-sm-image src={{template.logo}} > -->
       </mat-card-title-group>
       <mat-card-content>
           <p>State: {{container.Status}}</p>
@@ -29,12 +28,12 @@
       </mat-card-content>
       <mat-card-actions align="end">
           <button mat-button [matMenuTriggerFor]="menu">actions</button>
-          <mat-menu #menu="matMenu">
-              <button mat-menu-item (click)="startContainer(container.Id)">Start</button>
-              <button mat-menu-item (click)="stopContainer(container.Id)">Stop</button>
-              <button mat-menu-item (click)="restartContainer(container.Id)">Restart</button>
-              <button mat-menu-item (click)="removeContainer(container.Id)">Remove</button>
-              <button mat-menu-item (click)="openConfig(container)">Configure</button>
+          <mat-menu #menu="matMenu" disableOptionCentering>
+              <button mat-menu-item (click)="startContainer(container.Id)"   *ngIf="roleUser()">Start</button>
+              <button mat-menu-item (click)="stopContainer(container.Id)"    *ngIf="roleUser()">Stop</button>
+              <button mat-menu-item (click)="restartContainer(container.Id)" *ngIf="roleUser()">Restart</button>
+              <button mat-menu-item (click)="removeContainer(container.Id)"  *ngIf="roleExpert()">Remove</button>
+              <button mat-menu-item (click)="openConfig(container)"          *ngIf="roleUser()">Configure</button>
               <button mat-menu-item (click)="getContainerStats(container.Id)">Stats</button>
               <button mat-menu-item (click)="getContainerLogs(container.Id)">Logs</button>
             </mat-menu>

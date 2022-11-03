@@ -93,10 +93,7 @@ export class AppLauncherComponent implements OnInit, OnDestroy {
     });
   }
 
-  filterEnabled() {
-    if (this.VesslUsersService.CurrentUser.Username == 'master') {
-      return true
-    }
-    return false
+  roleExpert() {
+    return this.VesslUsersService.expert();
   }
 }

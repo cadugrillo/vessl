@@ -3,13 +3,14 @@
 </mat-toolbar>
 <section>
     <div class="example-button-row">
-      <button mat-raised-button color="primary" (click)="addUser()">Add New User</button>
-      <button mat-raised-button color="primary" (click)="getUsers()">Read Configuration</button>
+      <button mat-raised-button color="primary" (click)="addUser()"  *ngIf="roleAdmin()">Add New User</button>
+      <button mat-raised-button color="primary" (click)="getUsers()" *ngIf="roleAdmin()">Read Configuration</button>
       <!-- <button mat-raised-button color="primary" (click)="updateUsers()">Write Configuration</button> -->
     </div>
 </section>
 <div class="Users">
-    <mat-card class="example-card" *ngFor="let user of Users?.Users; let i = index">
+    <span *ngFor="let user of Users?.Users; let i = index">
+    <mat-card class="example-card" *ngIf="roleAdmin() || getCurrentUserId()==user.ID">
         <mat-card-title-group>
           <mat-card-title></mat-card-title>
           <mat-card-subtitle></mat-card-subtitle>
@@ -18,29 +19,37 @@
             <div class="topline">
                 <mat-form-field class="example-full-width" appearance="fill">
                     <mat-label>Username</mat-label>
-                    <input matInput [disabled]="(user.ID == 'master')" placeholder="" [(ngModel)]="user.Username">
+                    <input matInput [disabled]="!roleAdmin()" placeholder="" [(ngModel)]="user.Username">
                 </mat-form-field>
                 <mat-form-field class="example-full-width" appearance="fill">
                     <mat-label>Password</mat-label>
-                    <input matInput type="password" placeholder="" [(ngModel)]="user.Password">
+                    <input matInput [disabled]="!roleUser()" type="password" placeholder="" [(ngModel)]="user.Password">
+                </mat-form-field>
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Role</mat-label>
+                    <mat-select [disabled]="!roleAdmin()" [(ngModel)]="user.Role" disableOptionCentering>
+                      <mat-option *ngFor="let Source of Sources" [value]="Source">
+                        {{Source}}
+                      </mat-option>
+                    </mat-select>
                 </mat-form-field>
             </div>
-            <div class="middleline">
+            <div class="middleline" *ngIf="roleAdmin()">
                 <h4>Select accessible areas:</h4>
             </div>
-            <div class="bottomline">
+            <div class="bottomline" *ngIf="roleAdmin()">
                 <!-- <mat-checkbox class="example-margin" color="primary" [disabled]="(user.ID == 'master')" [(ngModel)]="user.Permissions.Dashboard">Dashboard</mat-checkbox> -->
-                <mat-checkbox class="example-margin" color="primary" [disabled]="(user.ID == 'master')" [(ngModel)]="user.Permissions.Apps">Apps</mat-checkbox>
-                <mat-checkbox class="example-margin" color="primary" [disabled]="(user.ID == 'master')" [(ngModel)]="user.Permissions.AppsRepository">App Repository</mat-checkbox>
-                <mat-checkbox class="example-margin" color="primary" [disabled]="(user.ID == 'master')" [(ngModel)]="user.Permissions.AppLauncher">App Launcher</mat-checkbox>
-                <mat-checkbox class="example-margin" color="primary" [disabled]="(user.ID == 'master')" [(ngModel)]="user.Permissions.Images">Images</mat-checkbox>
-                <mat-checkbox class="example-margin" color="primary" [disabled]="(user.ID == 'master')" [(ngModel)]="user.Permissions.Volumes">Volumes</mat-checkbox>
-                <mat-checkbox class="example-margin" color="primary" [disabled]="(user.ID == 'master')" [(ngModel)]="user.Permissions.Networks">Networks</mat-checkbox>
-                <mat-checkbox class="example-margin" color="primary" [disabled]="(user.ID == 'master')" [(ngModel)]="user.Permissions.Users">Users</mat-checkbox>
-                <mat-checkbox class="example-margin" color="primary" [disabled]="(user.ID == 'master')" [(ngModel)]="user.Permissions.System">System</mat-checkbox>
-                <mat-checkbox class="example-margin" color="primary" [disabled]="(user.ID == 'master')" [(ngModel)]="user.Permissions.Settings">Settings</mat-checkbox>
+                <mat-checkbox class="example-margin" color="primary" [(ngModel)]="user.Permissions.Apps">Apps</mat-checkbox>
+                <mat-checkbox class="example-margin" color="primary" [(ngModel)]="user.Permissions.AppsRepository">App Repository</mat-checkbox>
+                <mat-checkbox class="example-margin" color="primary" [(ngModel)]="user.Permissions.AppLauncher">App Launcher</mat-checkbox>
+                <mat-checkbox class="example-margin" color="primary" [(ngModel)]="user.Permissions.Images">Images</mat-checkbox>
+                <mat-checkbox class="example-margin" color="primary" [(ngModel)]="user.Permissions.Volumes">Volumes</mat-checkbox>
+                <mat-checkbox class="example-margin" color="primary" [(ngModel)]="user.Permissions.Networks">Networks</mat-checkbox>
+                <mat-checkbox class="example-margin" color="primary" [(ngModel)]="user.Permissions.Users">Users</mat-checkbox>
+                <mat-checkbox class="example-margin" color="primary" [(ngModel)]="user.Permissions.System">System</mat-checkbox>
+                <mat-checkbox class="example-margin" color="primary" [(ngModel)]="user.Permissions.Settings">Settings</mat-checkbox>
             </div>
-            <div class="lastline" *ngIf="AppsRepEditEnabled()">
+            <div class="lastline" *ngIf="roleAdmin()">
                 <h4>Apps Repository URL:</h4>
                 <mat-form-field class="example-full-width" appearance="fill">
                     <mat-label>Apps Repository URL</mat-label>
@@ -49,8 +58,9 @@
             </div>
         </mat-card-content>
         <mat-card-actions align="end">
-            <button mat-button (click)="updateUser(user)">Update User</button>
-            <button mat-button [disabled]="(user.ID == 'master')" (click)="deleteUser(user.ID)">Delete User</button>
+            <button mat-button (click)="updateUser(user)"    [disabled]="!roleUser()">Update User</button>
+            <button mat-button (click)="deleteUser(user.ID)" [disabled]="!roleAdmin()" >Delete User</button>
         </mat-card-actions>
     </mat-card>
+    </span>
 </div>
