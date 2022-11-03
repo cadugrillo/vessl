@@ -2,7 +2,7 @@ version: "3.7"
 
 services:
   cg-edge-conf-api:
-    image: cadugrillo/vessl:0.1
+    image: cadugrillo/vessl:0.2
     container_name: vessl
     restart: always
     mem_limit: 256m
