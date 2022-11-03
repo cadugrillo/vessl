@@ -7,6 +7,7 @@ import (
 	"vessl/handlers"
 	"vessl/modules/helpers"
 
+	//"github.com/gin-contrib/pprof"
 	"github.com/gin-gonic/gin"
 )
 
@@ -15,6 +16,8 @@ func main() {
 	gin.SetMode(gin.ReleaseMode)
 	r := gin.Default()
 	r.Use(CORSMiddleware())
+
+	//pprof.Register(r)
 
 	r.NoRoute(func(c *gin.Context) {
 		dir, file := path.Split(c.Request.RequestURI)
@@ -56,9 +59,11 @@ func main() {
 	r.POST("/system/shutdown", helpers.ValidateApiKey(), handlers.ShutDownHostHandler)
 
 	err := r.RunTLS(":443", "./certs/cg-edge.crt", "./certs/cg-edge.key")
+	//err := r.Run(":4443")
 	if err != nil {
 		panic(err)
 	}
+
 }
 
 func CORSMiddleware() gin.HandlerFunc {
