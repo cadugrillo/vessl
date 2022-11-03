@@ -34,3 +34,9 @@ func ParsePortSpecs(ports []string) (map[Port]struct{}, map[Port][]PortBinding, 
 
 //////BUILD MULTI ARCH DOCKER IMAGES////////////
 docker buildx build --platform=linux/arm/v7,linux/arm64,linux/amd64 -t cadugrillo/vessl:0.1 --push .
+
+
+////////////////Profiling//////////////////////
+https://jvns.ca/blog/2017/09/24/profiling-go-with-pprof/
+https://dev.to/agamm/how-to-profile-go-with-pprof-in-30-seconds-592a
+https://pkg.go.dev/runtime/pprof
