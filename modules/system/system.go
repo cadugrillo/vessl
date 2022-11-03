@@ -39,10 +39,6 @@ type HostStats struct {
 	DiskTotal     float64   `json:"DiskTotal"`
 }
 
-var (
-	hostStats HostStats
-)
-
 func GetNetworkInfo() *ni.InterfaceSet {
 	is := ni.Parse(ni.Path("/etc/network/interfaces"))
 	return is
@@ -104,8 +100,9 @@ func ShutDownHost() string {
 
 func GetHostStats() HostStats {
 
+	var hostStats HostStats
+
 	url := "http://host.docker.internal:4383/host/stats"
-	//url := "http://localhost:4383/host/stats"
 
 	req, _ := http.NewRequest("GET", url, nil)
 

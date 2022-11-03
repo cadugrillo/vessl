@@ -8,11 +8,6 @@ import (
 	"github.com/docker/docker/client"
 )
 
-var (
-	NetworkListOptions   types.NetworkListOptions
-	NetworkCreateOptions types.NetworkCreate
-)
-
 func GetNetworks() []types.NetworkResource {
 	ctx := context.Background()
 	cli, err := client.NewClientWithOpts(client.FromEnv, client.WithAPIVersionNegotiation())
@@ -20,7 +15,7 @@ func GetNetworks() []types.NetworkResource {
 		panic(err)
 	}
 
-	networks, err := cli.NetworkList(ctx, NetworkListOptions)
+	networks, err := cli.NetworkList(ctx, types.NetworkListOptions{})
 	if err != nil {
 		panic(err)
 	}
@@ -29,6 +24,9 @@ func GetNetworks() []types.NetworkResource {
 }
 
 func CreateNetwork(Id string) string {
+
+	var NetworkCreateOptions types.NetworkCreate
+
 	ctx := context.Background()
 	cli, err := client.NewClientWithOpts(client.FromEnv, client.WithAPIVersionNegotiation())
 	if err != nil {

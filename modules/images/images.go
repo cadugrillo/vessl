@@ -8,12 +8,10 @@ import (
 	"github.com/docker/docker/client"
 )
 
-var (
-	ImageListOptions   types.ImageListOptions
-	ImageRemoveOptions types.ImageRemoveOptions
-)
-
 func GetImages() []types.ImageSummary {
+
+	var ImageListOptions types.ImageListOptions
+
 	ctx := context.Background()
 	cli, err := client.NewClientWithOpts(client.FromEnv, client.WithAPIVersionNegotiation())
 	if err != nil {
@@ -31,6 +29,9 @@ func GetImages() []types.ImageSummary {
 }
 
 func RemoveImage(Id string) string {
+
+	var ImageRemoveOptions types.ImageRemoveOptions
+
 	ctx := context.Background()
 	cli, err := client.NewClientWithOpts(client.FromEnv, client.WithAPIVersionNegotiation())
 	if err != nil {

@@ -28,12 +28,10 @@ type ContainerStats struct {
 	MemPct   float64 `json:"MemPct"`
 }
 
-var (
-	ContainerListOptions   types.ContainerListOptions
-	ContainerRemoveOptions types.ContainerRemoveOptions
-)
-
 func GetContainers(networkName string) []types.Container {
+
+	var ContainerListOptions types.ContainerListOptions
+
 	ctx := context.Background()
 	cli, err := client.NewClientWithOpts(client.FromEnv, client.WithAPIVersionNegotiation())
 	if err != nil {
@@ -166,6 +164,9 @@ func RestartContainer(Id string) string {
 }
 
 func RemoveContainer(Id string) string {
+
+	var ContainerRemoveOptions types.ContainerRemoveOptions
+
 	ctx := context.Background()
 	cli, err := client.NewClientWithOpts(client.FromEnv, client.WithAPIVersionNegotiation())
 	if err != nil {
