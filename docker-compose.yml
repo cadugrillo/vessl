@@ -5,7 +5,7 @@ services:
     image: cadugrillo/vessl:0.2
     container_name: vessl
     restart: always
-    mem_limit: 256m
+    mem_limit: 128m
     cpus: 0.5
     volumes:
       - vessl-database:/database

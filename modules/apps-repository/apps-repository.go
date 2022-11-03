@@ -44,8 +44,8 @@ func GetApps(UserId string) Response {
 		fmt.Println(err.Error())
 		return Response{}
 	}
-
 	defer res.Body.Close()
+
 	body, err := ioutil.ReadAll(res.Body)
 	if err != nil {
 		fmt.Println(err.Error())
