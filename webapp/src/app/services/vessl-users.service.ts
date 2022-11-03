@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
+import { CookieService } from 'ngx-cookie-service';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
 @Injectable({
@@ -11,25 +12,26 @@ export class VesslUsersService {
   CurrentUser!: User
   private authenticationSubject: BehaviorSubject<any>;
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient,
+              private CookieService: CookieService,) {
 
     this.authenticationSubject = new BehaviorSubject<boolean>(false);
   }
 
   getUsers() {
-    return this.httpClient.get(environment.gateway + '/users/json', {headers:({"Authorization": this.CurrentUser.ApiKey})});
+    return this.httpClient.get(environment.gateway + '/users/json', {headers:({"Authorization": this.getCurrentUserApiKey()})});
   }
 
   updateUser(User: User) {
-    return this.httpClient.post(environment.gateway + '/users/json', User, {headers:({"Authorization": this.CurrentUser.ApiKey})});
+    return this.httpClient.post(environment.gateway + '/users/json', User, {headers:({"Authorization": this.getCurrentUserApiKey()})});
   }
 
   addUser() {
-    return this.httpClient.get(environment.gateway + '/users/add', {headers:({"Authorization": this.CurrentUser.ApiKey})});
+    return this.httpClient.get(environment.gateway + '/users/add', {headers:({"Authorization": this.getCurrentUserApiKey()})});
   }
 
   deleteUser(Id: string) {
-    return this.httpClient.post(environment.gateway + '/users/'+ Id, "", {headers:({"Authorization": this.CurrentUser.ApiKey})});
+    return this.httpClient.post(environment.gateway + '/users/'+ Id, "", {headers:({"Authorization": this.getCurrentUserApiKey()})});
   }
 
   validateUser(User: User) {
@@ -44,6 +46,8 @@ export class VesslUsersService {
           this.authenticationSubject.next(false);
           subject.next(this.authenticationSubject.value);
         } else {
+          this.CookieService.set('vessl-token', this.CurrentUser.ApiKey);
+          this.CurrentUser.ApiKey = '';
           this.authenticationSubject.next(true);
           subject.next(this.authenticationSubject.value);
         }  
@@ -54,6 +58,7 @@ export class VesslUsersService {
 
   logout() {
     this.CurrentUser = {} as User
+    this.CookieService.delete('vessl-token');
     this.authenticationSubject.next(false);
   }
 
@@ -66,7 +71,8 @@ export class VesslUsersService {
   }
 
   getCurrentUserApiKey(): string {
-    return this.CurrentUser.ApiKey;
+    return this.CookieService.get('vessl-token')
+    //return this.CurrentUser.ApiKey;
   }
 
   ////////ROLES///////////

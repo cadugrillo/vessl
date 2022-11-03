@@ -1,6 +1,8 @@
   <mat-toolbar class="app-toolbar" color="primary">
     <img style="cursor:pointer" src="assets/logo.png" (click)="openWebPage()">
     <span class="example-spacer"></span>
+    <mat-icon *ngIf="isAuthenticated()">account_circle</mat-icon>
+    <span style="font-size: 12pt;" [innerText]="loggedUser()"></span>
     <button mat-icon-button class="example-icon" *ngIf="isAuthenticated()" (click)="logout()">Logout</button>
   </mat-toolbar>
   <menu1-item1></menu1-item1>

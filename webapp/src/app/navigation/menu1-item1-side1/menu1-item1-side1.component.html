@@ -10,6 +10,6 @@
     <mat-list-option *ngIf="NetworksMenuEnabled()" routerLink="Networks">Networks</mat-list-option>
     <mat-list-option *ngIf="SystemMenuEnabled()" routerLink="System">System</mat-list-option>
     <mat-list-option *ngIf="UsersMenuEnabled()" routerLink="Users">Users</mat-list-option>
-    <mat-list-option *ngIf="SettingsMenuEnabled()" routerLink="Settings">Host Settings</mat-list-option>
-    <mat-list-option routerLink="Dashboard">Host Stats</mat-list-option>
+    <mat-list-option *ngIf="HostSettingMenuEnabled()" routerLink="Settings">Host Settings</mat-list-option>
+    <mat-list-option *ngIf="HostStatsMenuEnabled()"routerLink="Dashboard">Host Stats</mat-list-option>
   </mat-selection-list>

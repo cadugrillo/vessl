@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { CookieService } from 'ngx-cookie-service';
 
 import { AppComponent } from './app.component';
 import { AppsComponent } from './components/apps/apps.component';
@@ -92,7 +93,7 @@ import { StatsPopupComponent } from './popups/stats-popup/stats-popup.component'
     MatProgressSpinnerModule,
     MatProgressBarModule
   ],
-  providers: [VesslContainersService, VesslSystemService, VesslUsersService,VesslImagesService,
+  providers: [CookieService, VesslContainersService, VesslSystemService, VesslUsersService,VesslImagesService,
     VesslVolumesService,VesslNetworksService,{
     provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptor,

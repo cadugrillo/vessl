@@ -11,7 +11,7 @@ import (
 )
 
 func main() {
-	debug.SetGCPercent(20)
+	debug.SetGCPercent(10)
 	gin.SetMode(gin.ReleaseMode)
 	r := gin.Default()
 	r.Use(CORSMiddleware())
@@ -64,8 +64,8 @@ func main() {
 func CORSMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
-		c.Writer.Header().Set("Access-Control-Allow-Headers", "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With")
-		c.Writer.Header().Set("Access-Control-Allow-Methods", "DELETE, GET, OPTIONS, POST, PUT")
+		c.Writer.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization, accept")
+		c.Writer.Header().Set("Access-Control-Allow-Methods", "GET, OPTIONS, POST")
 
 		if c.Request.Method == "OPTIONS" {
 			c.AbortWithStatus(204)

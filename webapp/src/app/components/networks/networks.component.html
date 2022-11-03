@@ -30,10 +30,6 @@
                 Subnet: {{config.Subnet}}, IP Range: {{config.IPRange}}, Gateway: {{config.Gateway}}
             </div>
             <p></p>
-            <div>Containers:</div>
-            <div *ngFor="let container of network.Containers| keyvalue">
-                {{container.key}}:{{container.value}}
-            </div>
         </mat-card-content>
         <mat-card-actions align="end">
             <button mat-button (click)="removeNetwork(network.Id)">Remove Network</button>

@@ -163,7 +163,7 @@ func AddUser() string {
 		log.Println(err.Error())
 		return err.Error()
 	}
-	_, err = r.Exec(xid.New().String(), xid.New().String(), "", "User", "", "", "", "https://raw.githubusercontent.com/cadugrillo/cg-edge-resources/main/templates-1.0.json", "", 0, true, false, false, false, false, false, false, false, false, false)
+	_, err = r.Exec(xid.New().String(), xid.New().String(), "", "User", "", "", "", "https://raw.githubusercontent.com/cadugrillo/cg-edge-resources/main/templates-1.0.json", "", 0, false, true, false, false, false, false, false, false, false, false)
 	if err != nil {
 		log.Println(err.Error())
 		return err.Error()
@@ -181,7 +181,7 @@ func UpdateUser(User User) string {
 			log.Println(err.Error())
 			return err.Error()
 		}
-		_, err = r.Exec(User.Username, User.Role, User.FullName, User.Email, User.Telephone, User.AppsRepositoryUrl, true, User.Permissions.Apps, User.Permissions.AppsRepository, User.Permissions.Users, User.Permissions.Settings, User.Permissions.System, User.Permissions.Images, User.Permissions.AppLauncher, User.Permissions.Volumes, User.Permissions.Networks, User.ID)
+		_, err = r.Exec(User.Username, User.Role, User.FullName, User.Email, User.Telephone, User.AppsRepositoryUrl, User.Permissions.Dashboard, true, User.Permissions.AppsRepository, User.Permissions.Users, User.Permissions.Settings, User.Permissions.System, User.Permissions.Images, User.Permissions.AppLauncher, User.Permissions.Volumes, User.Permissions.Networks, User.ID)
 		if err != nil {
 			log.Println(err.Error())
 			return err.Error()
@@ -196,7 +196,7 @@ func UpdateUser(User User) string {
 		log.Println(err.Error())
 		return err.Error()
 	}
-	_, err = r.Exec(User.Username, User.Password, User.Role, User.FullName, User.Email, User.Telephone, User.AppsRepositoryUrl, true, User.Permissions.Apps, User.Permissions.AppsRepository, User.Permissions.Users, User.Permissions.Settings, User.Permissions.System, User.Permissions.Images, User.Permissions.AppLauncher, User.Permissions.Volumes, User.Permissions.Networks, User.ID)
+	_, err = r.Exec(User.Username, User.Password, User.Role, User.FullName, User.Email, User.Telephone, User.AppsRepositoryUrl, User.Permissions.Dashboard, true, User.Permissions.AppsRepository, User.Permissions.Users, User.Permissions.Settings, User.Permissions.System, User.Permissions.Images, User.Permissions.AppLauncher, User.Permissions.Volumes, User.Permissions.Networks, User.ID)
 	if err != nil {
 		log.Println(err.Error())
 		return err.Error()

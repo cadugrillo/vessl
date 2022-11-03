@@ -24,6 +24,7 @@
     "@popperjs/core": "^2.10.2",
     "aws-amplify": "^4.3.20",
     "file-saver": "^2.0.5",
+    "ngx-cookie-service": "^14.0.1",
     "resolve-url": "^0.2.1",
     "rxjs": "~7.5.0",
     "source-map-resolve": "^0.6.0",

@@ -44,15 +44,19 @@ export class Menu1Item1Side1Component implements OnInit {
     return this.VesslUsersService.CurrentUser.Permissions.Networks
   }
 
-  SettingsMenuEnabled() {
-    return this.VesslUsersService.CurrentUser.Permissions.Settings
+  SystemMenuEnabled() {
+    return this.VesslUsersService.CurrentUser.Permissions.System
   }
 
   UsersMenuEnabled() {
     return this.VesslUsersService.CurrentUser.Permissions.Users
   }
 
-  SystemMenuEnabled() {
-    return this.VesslUsersService.CurrentUser.Permissions.System
+  HostSettingMenuEnabled() {
+    return this.VesslUsersService.CurrentUser.Permissions.Settings
+  }
+
+  HostStatsMenuEnabled() {
+    return this.VesslUsersService.CurrentUser.Permissions.Dashboard
   }
 }

@@ -31,6 +31,13 @@ export class AppComponent {
     return this.VesslUsersService.isAuthenticated();
   }
 
+  loggedUser() {
+    if (this.isAuthenticated()) {
+      return this.VesslUsersService.CurrentUser.Username;
+    }
+    return ''
+  }
+
   openWebPage() {
     window.open('https://github.com/cadugrillo/vessl', '_blank');
   }
