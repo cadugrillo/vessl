@@ -12,12 +12,12 @@ func GetNetworks() []types.NetworkResource {
 	ctx := context.Background()
 	cli, err := client.NewClientWithOpts(client.FromEnv, client.WithAPIVersionNegotiation())
 	if err != nil {
-		panic(err)
+		return []types.NetworkResource{}
 	}
 
 	networks, err := cli.NetworkList(ctx, types.NetworkListOptions{})
 	if err != nil {
-		panic(err)
+		return []types.NetworkResource{}
 	}
 
 	defer ctx.Done()

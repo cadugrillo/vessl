@@ -15,14 +15,14 @@ func GetImages() []types.ImageSummary {
 	ctx := context.Background()
 	cli, err := client.NewClientWithOpts(client.FromEnv, client.WithAPIVersionNegotiation())
 	if err != nil {
-		panic(err)
+		return []types.ImageSummary{}
 	}
 
 	ImageListOptions.All = false
 
 	images, err := cli.ImageList(ctx, ImageListOptions)
 	if err != nil {
-		panic(err)
+		return []types.ImageSummary{}
 	}
 
 	defer ctx.Done()

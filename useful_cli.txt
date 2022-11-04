@@ -40,3 +40,5 @@ docker buildx build --platform=linux/arm/v7,linux/arm64,linux/amd64 -t cadugrill
 https://jvns.ca/blog/2017/09/24/profiling-go-with-pprof/
 https://dev.to/agamm/how-to-profile-go-with-pprof-in-30-seconds-592a
 https://pkg.go.dev/runtime/pprof
+
+go tool pprof http://localhost:8080/debug/pprof/heap
