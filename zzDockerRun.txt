@@ -1,5 +1,5 @@
 $ docker network create vessl-default
-$ docker run -dp 443:443 --name=vessl --restart=always -m 128M --cpus=0.5 \
+$ docker run -dp 443:443 --name=vessl --restart=always \
   -v vessl-database:/database \
   -v /var/run/docker.sock:/var/run/docker.sock \
   -v /etc/network:/etc/network \
@@ -9,7 +9,7 @@ $ docker run -dp 443:443 --name=vessl --restart=always -m 128M --cpus=0.5 \
 -----------BlueBox--------------
 
 $ sudo docker network create vessl-default
-$ sudo docker run -dp 443:443 --name=vessl --restart=always -m 128M \
+$ sudo docker run -dp 443:443 --name=vessl --restart=always \
   -v vessl-database:/database \
   -v /var/run/docker.sock:/var/run/docker.sock \
   -v /etc/network:/etc/network \
@@ -19,7 +19,7 @@ $ sudo docker run -dp 443:443 --name=vessl --restart=always -m 128M \
 ---------With Host Stats Integration----------------
 
 $ docker network create vessl-default
-$ docker run -dp 443:443 --name=vessl --restart=always -m 128M --cpus=0.5 \
+$ docker run -dp 443:443 --name=vessl --restart=always \
   -v vessl-database:/database \
   -v /var/run/docker.sock:/var/run/docker.sock \
   -v /etc/network:/etc/network \
