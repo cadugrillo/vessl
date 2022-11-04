@@ -2,7 +2,7 @@ package system
 
 import (
 	"encoding/json"
-	"io/ioutil"
+	"io"
 	"net"
 	"net/http"
 
@@ -78,10 +78,12 @@ func RestartHost() string {
 
 	req, _ := http.NewRequest("POST", url, nil)
 
-	_, err := http.DefaultClient.Do(req)
+	res, err := http.DefaultClient.Do(req)
 	if err != nil {
 		return err.Error()
 	}
+
+	defer res.Body.Close()
 	return ""
 }
 
@@ -91,10 +93,12 @@ func ShutDownHost() string {
 
 	req, _ := http.NewRequest("POST", url, nil)
 
-	_, err := http.DefaultClient.Do(req)
+	res, err := http.DefaultClient.Do(req)
 	if err != nil {
 		return err.Error()
 	}
+
+	defer res.Body.Close()
 	return ""
 }
 
@@ -113,13 +117,15 @@ func GetHostStats() HostStats {
 	}
 	defer res.Body.Close()
 
-	body, err := ioutil.ReadAll(res.Body)
+	body, err := io.ReadAll(res.Body)
 	if err != nil {
 		println(err.Error())
 		return hostStats
 	}
 
 	json.Unmarshal(body, &hostStats)
+
+	defer res.Body.Close()
 	return hostStats
 
 }

@@ -25,6 +25,8 @@ func GetImages() []types.ImageSummary {
 		panic(err)
 	}
 
+	defer ctx.Done()
+	defer cli.Close()
 	return images
 }
 
@@ -45,6 +47,9 @@ func RemoveImage(Id string) string {
 	if _, err := cli.ImageRemove(ctx, Id, ImageRemoveOptions); err != nil {
 		return err.Error()
 	}
+
+	defer ctx.Done()
+	defer cli.Close()
 	fmt.Println("Success")
 	return "Image successfully removed"
 }

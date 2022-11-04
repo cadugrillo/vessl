@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"io/ioutil"
+
 	"math"
 	"os"
 
@@ -51,6 +51,8 @@ func GetContainers(networkName string) []types.Container {
 	if err != nil {
 		return []types.Container{}
 	}
+	defer ctx.Done()
+	defer cli.Close()
 
 	return containers
 }
@@ -114,6 +116,8 @@ func InstallContainer(AppTemplate apps_repository.Template) string {
 		return err.Error()
 	}
 
+	defer ctx.Done()
+	defer cli.Close()
 	fmt.Println(resp.ID)
 	return fmt.Sprintf("App ID: %s installed successfuly", resp.ID[:10])
 }
@@ -129,6 +133,9 @@ func StartContainer(Id string) string {
 	if err := cli.ContainerStart(ctx, Id, types.ContainerStartOptions{}); err != nil {
 		return err.Error()
 	}
+
+	defer ctx.Done()
+	defer cli.Close()
 	fmt.Println("Success")
 	return "App successfully started"
 }
@@ -144,6 +151,9 @@ func StopContainer(Id string) string {
 	if err := cli.ContainerStop(ctx, Id, nil); err != nil {
 		return err.Error()
 	}
+
+	defer ctx.Done()
+	defer cli.Close()
 	fmt.Println("Success")
 	return "App successfully stopped"
 }
@@ -159,6 +169,9 @@ func RestartContainer(Id string) string {
 	if err := cli.ContainerRestart(ctx, Id, nil); err != nil {
 		return err.Error()
 	}
+
+	defer ctx.Done()
+	defer cli.Close()
 	fmt.Println("Success")
 	return "App successfully restarted"
 }
@@ -180,6 +193,9 @@ func RemoveContainer(Id string) string {
 	if err := cli.ContainerRemove(ctx, Id, ContainerRemoveOptions); err != nil {
 		return err.Error()
 	}
+
+	defer ctx.Done()
+	defer cli.Close()
 	fmt.Println("Success")
 	return "App successfully removed"
 }
@@ -201,7 +217,10 @@ func Logs(Id string) string {
 	if err != nil {
 		return err.Error()
 	}
+
 	defer out.Close()
+	defer ctx.Done()
+	defer cli.Close()
 	return string(b)
 }
 
@@ -217,6 +236,8 @@ func GetDockerServerInfo() types.Info {
 		return types.Info{}
 	}
 
+	defer ctx.Done()
+	defer cli.Close()
 	return info
 }
 
@@ -234,7 +255,7 @@ func GetContainerStats(Id string) ContainerStats {
 	if err != nil {
 		return ContainerStats{Name: "Internal Error 2"}
 	}
-	statsBody, err := ioutil.ReadAll(stats.Body)
+	statsBody, err := io.ReadAll(stats.Body)
 	if err != nil {
 		return ContainerStats{Name: "Internal Error 3"}
 	}
@@ -243,6 +264,9 @@ func GetContainerStats(Id string) ContainerStats {
 	if err != nil {
 		return ContainerStats{Name: "Internal Error 4"}
 	}
+
+	defer ctx.Done()
+	defer cli.Close()
 	return calculateStats(cstats)
 }
 
@@ -267,7 +291,7 @@ func GetCompleteStats() []ContainerStats {
 			return []ContainerStats{{Name: "Internal Error 2"}}
 		}
 
-		statsBody, err := ioutil.ReadAll(stats.Body)
+		statsBody, err := io.ReadAll(stats.Body)
 		if err != nil {
 			return []ContainerStats{{Name: "Internal Error 3"}}
 		}
@@ -286,6 +310,8 @@ func GetCompleteStats() []ContainerStats {
 
 	}
 
+	defer ctx.Done()
+	defer cli.Close()
 	return totalStats
 }
 

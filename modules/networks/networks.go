@@ -20,6 +20,8 @@ func GetNetworks() []types.NetworkResource {
 		panic(err)
 	}
 
+	defer ctx.Done()
+	defer cli.Close()
 	return networks
 }
 
@@ -39,6 +41,9 @@ func CreateNetwork(Id string) string {
 	if err != nil {
 		return err.Error()
 	}
+
+	defer ctx.Done()
+	defer cli.Close()
 	return fmt.Sprintf("Network ID: %s created successfuly", resp.ID[:10])
 }
 
@@ -53,6 +58,9 @@ func RemoveNetwork(Id string) string {
 	if err := cli.NetworkRemove(ctx, Id); err != nil {
 		return err.Error()
 	}
+
+	defer ctx.Done()
+	defer cli.Close()
 	fmt.Println("Success")
 	return "Network successfully removed"
 }

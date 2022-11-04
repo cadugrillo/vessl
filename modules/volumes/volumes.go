@@ -22,6 +22,8 @@ func GetVolumes() volume.VolumeListOKBody {
 		panic(err)
 	}
 
+	defer ctx.Done()
+	defer cli.Close()
 	return volumes
 }
 
@@ -39,5 +41,8 @@ func RemoveVolume(Id string) string {
 		return err.Error()
 	}
 	fmt.Println("Success")
+
+	defer ctx.Done()
+	defer cli.Close()
 	return "Volume successfully removed"
 }
