@@ -19,7 +19,8 @@ export class AppComponent {
   }
 
   public ngOnInit(): void {
-  
+    this.VesslUsersService.deleteCookie();
+    this.router.navigate(['/Login'])
   }
 
   logout() {

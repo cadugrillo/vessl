@@ -25,12 +25,4 @@ export class SystemComponent implements OnInit {
       this.SystemInfo = (data as SystemInfo);
     });
   }
-
-  restartHostSystem() {
-    this.dialog.open(SysRestartPopupComponent, {data: {title: "Reboot System", text: "Are you sure you want to reboot the system?"}});
-  }
-
-  shutdownHostSystem() {
-    this.dialog.open(SysShutdownPopupComponent, {data: {title: "Shutdown System", text: "Are you sure you want to shutdown the system?"}});
-  }
 }

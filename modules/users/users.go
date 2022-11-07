@@ -2,6 +2,7 @@ package users
 
 import (
 	"database/sql"
+	"fmt"
 	"log"
 	"os"
 	"sync"
@@ -50,9 +51,10 @@ type ApiKeyData struct {
 }
 
 var (
-	once sync.Once
-	db   *sql.DB
-	//err  error
+	once           sync.Once
+	db             *sql.DB
+	loginRetries   int
+	loginRetriesTs int64
 )
 
 func init() {
@@ -230,14 +232,28 @@ func Validate(User User) User {
 	none := User
 	none.Username = "invalid"
 
+	fmt.Println(loginRetries)
+
+	if loginRetries >= 4 {
+		if time.Now().UnixMilli()-loginRetriesTs < 300000 {
+			none.Username = "locked"
+			return none
+		}
+		loginRetries = 0
+	}
+
 	Users := GetUsersValidation()
 	for i := 0; i < len(Users.Users); i++ {
 		if User.Username == Users.Users[i].Username {
 			if User.Password == Users.Users[i].Password {
+				loginRetries = 0
 				return UpdateApiKey(Users.Users[i])
 			}
 		}
 	}
+	loginRetries++
+	loginRetriesTs = time.Now().UnixMilli()
+	none.Password = fmt.Sprintf("Failed Attemps %d of 5", loginRetries)
 	return none
 }
 

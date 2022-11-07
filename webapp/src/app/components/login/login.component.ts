@@ -23,10 +23,12 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    this.VesslUsersService.Login(this.User).subscribe((data) => {
-      this.isValidUser = (data as boolean);
-      if (!this.isValidUser) {
-        this.dialog.open(MessagePopupComponent, {data: {title: "Login", text: "Invalid Username or Password!"}});
+    this.VesslUsersService.Login(this.User).subscribe((user) => {
+      if (user.Username == "invalid" || user.Username == "") {
+        this.dialog.open(MessagePopupComponent, {data: {title: "Login", text: "Invalid Username or Password."+user.Password}});
+      }
+      if (user.Username == "locked") {
+        this.dialog.open(MessagePopupComponent, {data: {title: "Login", text: "System locked. Wait 5 minutes before next attempt"}});
       }
       this.router.navigate(['/Apps']);
     });

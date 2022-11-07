@@ -38,19 +38,18 @@ export class VesslUsersService {
     return this.httpClient.post(environment.gateway + '/users/validate', User);
   }
 
-  Login(User: User): Observable<any> {
+  Login(User: User): Observable<User> {
     var subject = new Subject<any>();
     this.validateUser(User).subscribe((data) => {
         this.CurrentUser = data as User;
-        if (this.CurrentUser.Username == "invalid" || this.CurrentUser.Username == "") {
+        if (this.CurrentUser.Username == "invalid" || this.CurrentUser.Username == "locked" || this.CurrentUser.Username == "") {
           this.authenticationSubject.next(false);
-          subject.next(this.authenticationSubject.value);
         } else {
           this.CookieService.set('vessl-token', this.CurrentUser.ApiKey);
           this.CurrentUser.ApiKey = '';
           this.authenticationSubject.next(true);
-          subject.next(this.authenticationSubject.value);
-        }  
+        }
+        subject.next(this.CurrentUser)  
     });
     return subject.asObservable();
   }
@@ -73,6 +72,10 @@ export class VesslUsersService {
   getCurrentUserApiKey(): string {
     return this.CookieService.get('vessl-token')
     //return this.CurrentUser.ApiKey;
+  }
+
+  deleteCookie() {
+    this.CookieService.delete('vessl-token');
   }
 
   ////////ROLES///////////

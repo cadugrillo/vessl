@@ -3,8 +3,8 @@
 </mat-toolbar>
 <section>
     <div class="example-button-row">
-      <button mat-raised-button color="primary" (click)="createNetwork()">Create Network</button>
-      <mat-form-field appearance="standard">
+      <button mat-raised-button color="primary" (click)="createNetwork()" *ngIf="roleExpert()">Create Network</button>
+      <mat-form-field appearance="standard" *ngIf="roleExpert()">
         <mat-label>Network Name</mat-label>
         <input matInput placeholder="my-network" [(ngModel)]="networkName">
     </mat-form-field>
@@ -32,7 +32,7 @@
             <p></p>
         </mat-card-content>
         <mat-card-actions align="end">
-            <button mat-button (click)="removeNetwork(network.Id)">Remove Network</button>
+            <button mat-button (click)="removeNetwork(network.Id)" [disabled]="!roleExpert()">Remove Network</button>
         </mat-card-actions>
     </mat-card>
 </div>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { VesslNetworksService, Network } from '../../services/vessl-networks.service';
+import { VesslUsersService } from '../../services/vessl-users.service';
 import {MatDialog} from '@angular/material/dialog';
 import { MessagePopupComponent } from '../../popups/message-popup/message-popup.component';
 import { WaitPopupComponent } from '../wait-popup/wait-popup.component';
@@ -15,6 +16,7 @@ export class NetworksComponent implements OnInit {
   networkName!: string
 
   constructor(private VesslNetworksService: VesslNetworksService,
+    private VesslUsersService: VesslUsersService,
     public dialog: MatDialog) { }
 
   ngOnInit(): void {
@@ -41,6 +43,10 @@ export class NetworksComponent implements OnInit {
       this.dialog.open(MessagePopupComponent, {data: {title: "Remove Network", text: data}});
       this.getNetworks();
     });
+  }
+
+  roleExpert() {
+    return this.VesslUsersService.expert();
   }
 
 }

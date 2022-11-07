@@ -4,8 +4,8 @@
 <mat-tab-group class="tab-group">
     <mat-tab label="Network Settings">
       <div class="example-button-row">
-        <button mat-raised-button color="primary" (click)="getHostNetwork()">Read Configuration</button>
-        <button mat-raised-button color="primary" (click)="setHostNetwork()">Write Configuration</button>
+        <button mat-raised-button color="primary" (click)="getHostNetwork()" [disabled]="!roleExpert()">Read Configuration</button>
+        <button mat-raised-button color="primary" (click)="setHostNetwork()" [disabled]="!roleExpert()">Write Configuration</button>
       </div>
       <div class="Interfaces">
           <mat-card class="example-card" *ngFor="let Adapter of InterfaceSet?.Adapters">
@@ -43,8 +43,8 @@
   <mat-tab label="Reboot/Shutdown">
     <section>
         <div class="example-button-row">
-          <button mat-raised-button color="primary" (click)="restartHostSystem()">Reboot System</button>
-          <button mat-raised-button color="primary" (click)="shutdownHostSystem()">Shutdown System</button>
+          <button mat-raised-button color="primary" (click)="restartHostSystem()"  [disabled]="!roleExpert()">Reboot System</button>
+          <button mat-raised-button color="primary" (click)="shutdownHostSystem()" [disabled]="!roleExpert()">Shutdown System</button>
         </div>
     </section>
 </mat-tab> 

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { VesslSystemService, InterfaceSet } from '../../services/vessl-system.service';
+import { VesslUsersService } from '../../services/vessl-users.service';
 import {MatDialog} from '@angular/material/dialog';
 import { MessagePopupComponent} from '../../popups/message-popup/message-popup.component';
 import { SysRestartPopupComponent } from '../sys-restart-popup/sys-restart-popup.component';
@@ -28,6 +29,7 @@ export class SettingsComponent implements OnInit {
   ];
 
   constructor(private VesslSystemService: VesslSystemService,
+              private VesslUsersService: VesslUsersService,
               public dialog: MatDialog) { }
 
   ngOnInit(): void {
@@ -53,5 +55,9 @@ export class SettingsComponent implements OnInit {
 
   shutdownHostSystem() {
     this.dialog.open(SysShutdownPopupComponent, {data: {title: "Shutdown System", text: "Are you sure you want to shutdown the system?"}});
+  }
+
+  roleExpert() {
+    return this.VesslUsersService.expert();
   }
 }
