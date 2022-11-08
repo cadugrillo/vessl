@@ -3,7 +3,7 @@ $ docker run -dp 443:443 --name=vessl --restart=always \
   -v vessl-database:/database \
   -v /var/run/docker.sock:/var/run/docker.sock \
   -v /etc/network:/etc/network \
-  --network=vessl-default cadugrillo/vessl:0.3
+  --network=vessl-default vessl/vessl:0.1
 
 
 -----------BlueBox--------------
@@ -13,7 +13,7 @@ $ sudo docker run -dp 443:443 --name=vessl --restart=always \
   -v vessl-database:/database \
   -v /var/run/docker.sock:/var/run/docker.sock \
   -v /etc/network:/etc/network \
-  --network=vessl-default cadugrillo/vessl:0.3
+  --network=vessl-default vessl/vessl:0.1
 
 
 ---------With Host Stats Integration----------------
@@ -24,4 +24,4 @@ $ docker run -dp 443:443 --name=vessl --restart=always \
   -v /var/run/docker.sock:/var/run/docker.sock \
   -v /etc/network:/etc/network \
   --add-host=host.docker.internal:host-gateway \
-  --network=vessl-default cadugrillo/vessl:0.3
+  --network=vessl-default vessl/vessl:0.1
