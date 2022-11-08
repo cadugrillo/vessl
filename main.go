@@ -58,7 +58,7 @@ func main() {
 	r.POST("/system/restart", helpers.ValidateApiKey(), handlers.RestartHostHandler)
 	r.POST("/system/shutdown", helpers.ValidateApiKey(), handlers.ShutDownHostHandler)
 
-	err := r.RunTLS(":4443", "./certs/cg-edge.crt", "./certs/cg-edge.key")
+	err := r.RunTLS(":443", "./certs/cg-edge.crt", "./certs/cg-edge.key")
 	if err != nil {
 		panic(err)
 	}
