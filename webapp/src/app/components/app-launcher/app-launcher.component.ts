@@ -37,7 +37,7 @@ export class AppLauncherComponent implements OnInit, OnDestroy {
     this.appTemplate.ports = [];
     this.appTemplate.env = [];
     this.appTemplate.volumes = [];
-    this.appTemplate.restart_policy = "always"
+    this.appTemplate.restart_policy = "unless-stopped"
     this.VesslContainerService.setTemplateToInstall(this.appTemplate);
   }
 
@@ -95,5 +95,9 @@ export class AppLauncherComponent implements OnInit, OnDestroy {
 
   roleExpert() {
     return this.VesslUsersService.expert();
+  }
+
+  roleVessl_User() {
+    return this.VesslUsersService.vessl_user();
   }
 }

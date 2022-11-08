@@ -38,4 +38,8 @@ export class AppRepositoryComponent implements OnInit {
   roleExpert() {
     return this.VesslUsersService.expert();
   }
+
+  roleVessl_User() {
+    return this.VesslUsersService.vessl_user();
+  }
 }

@@ -9,8 +9,8 @@ import { AppComponent } from './app.component';
 import { AppsComponent } from './components/apps/apps.component';
 import { FormsModule } from '@angular/forms';
 import { TokenInterceptor } from './token.interceptor';
-import { Menu1Item1Component } from './navigation/menu1-item1/menu1-item1.component'
-import { Menu1Item1Side1Component } from './navigation/menu1-item1-side1/menu1-item1-side1.component'
+import { Menu1Item1Component } from './navigation/overview/menu1-item1.component'
+import { Menu1Item1Side1Component } from './navigation/side-menu/menu1-item1-side1.component'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
@@ -27,11 +27,11 @@ import {MatListModule} from '@angular/material/list';
 import {MatSelectModule} from '@angular/material/select';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { DashboardComponent } from './components/host-stats/dashboard.component';
 import { AppRepositoryComponent } from './components/app-repository/app-repository.component';
 import { UsersComponent } from './components/users/users.component';
 import { SystemComponent } from './components/system/system.component';
-import { SettingsComponent } from './components/settings/settings.component';
+import { SettingsComponent } from './components/host-settings/settings.component';
 import { VesslContainersService } from './services/vessl-containers.service';
 import { VesslSystemService } from './services/vessl-system.service';
 import { WaitPopupComponent } from './components/wait-popup/wait-popup.component';

@@ -46,8 +46,8 @@
                 <mat-checkbox class="checkbox-margin" color="primary" [(ngModel)]="user.Permissions.Networks">Networks</mat-checkbox>
                 <mat-checkbox class="checkbox-margin" color="primary" [(ngModel)]="user.Permissions.System">System</mat-checkbox>
                 <mat-checkbox class="checkbox-margin" color="primary" [(ngModel)]="user.Permissions.Users">Users</mat-checkbox>
-                <mat-checkbox class="checkbox-margin" color="primary" [(ngModel)]="user.Permissions.Settings">Host Settings</mat-checkbox>
-                <mat-checkbox class="checkbox-margin" color="primary" [(ngModel)]="user.Permissions.Dashboard">Host Stats</mat-checkbox>
+                <mat-checkbox class="checkbox-margin" color="primary" [(ngModel)]="user.Permissions.HostSettings">Host Settings</mat-checkbox>
+                <mat-checkbox class="checkbox-margin" color="primary" [(ngModel)]="user.Permissions.HostStats">Host Stats</mat-checkbox>
             </div>
             <div class="lastline" *ngIf="roleAdmin()">
                 <h4>Apps Repository URL:</h4>

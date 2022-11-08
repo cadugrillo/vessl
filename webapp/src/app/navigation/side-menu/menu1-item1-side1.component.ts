@@ -53,10 +53,10 @@ export class Menu1Item1Side1Component implements OnInit {
   }
 
   HostSettingMenuEnabled() {
-    return this.VesslUsersService.CurrentUser.Permissions.Settings
+    return this.VesslUsersService.CurrentUser.Permissions.HostSettings
   }
 
   HostStatsMenuEnabled() {
-    return this.VesslUsersService.CurrentUser.Permissions.Dashboard
+    return this.VesslUsersService.CurrentUser.Permissions.HostStats
   }
 }

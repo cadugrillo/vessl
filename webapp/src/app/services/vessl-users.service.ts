@@ -80,7 +80,14 @@ export class VesslUsersService {
 
   ////////ROLES///////////
   user() {
-    if (this.CurrentUser.Role == 'User' || this.CurrentUser.Role == 'Expert' ||this.CurrentUser.Role == 'Admin') {
+    if (this.CurrentUser.Role == 'User' || this.CurrentUser.Role == 'Vessl-User' || this.CurrentUser.Role == 'Expert' ||this.CurrentUser.Role == 'Admin') {
+      return true
+    }
+    return false
+  }
+
+  vessl_user() {
+    if (this.CurrentUser.Role == 'Vessl-User' || this.CurrentUser.Role == 'Expert' ||this.CurrentUser.Role == 'Admin') {
       return true
     }
     return false
@@ -118,15 +125,15 @@ export class User {
 }
 
 class Permission {
-  Dashboard!: boolean
+  
 	Apps!: boolean
 	AppsRepository!: boolean
-	Users!: boolean
-	Settings!: boolean
-	System!: boolean
+  AppLauncher!: boolean
 	Images!: boolean
-	AppLauncher!: boolean
 	Volumes!: boolean
 	Networks!: boolean
-	Placeholder4!: boolean
+  System!: boolean
+  Users!: boolean
+  HostSettings!: boolean
+  HostStats!: boolean
 }

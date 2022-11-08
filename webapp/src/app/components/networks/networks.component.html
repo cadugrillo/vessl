@@ -3,11 +3,11 @@
 </mat-toolbar>
 <section>
     <div class="example-button-row">
-      <button mat-raised-button color="primary" (click)="createNetwork()" *ngIf="roleExpert()">Create Network</button>
       <mat-form-field appearance="standard" *ngIf="roleExpert()">
         <mat-label>Network Name</mat-label>
         <input matInput placeholder="my-network" [(ngModel)]="networkName">
-    </mat-form-field>
+      </mat-form-field>
+      <button mat-raised-button color="primary" (click)="createNetwork()" *ngIf="roleExpert()">Create Network</button>
     </div>
 </section>
 <div class="Networks">

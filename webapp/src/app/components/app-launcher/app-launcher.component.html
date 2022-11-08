@@ -12,15 +12,15 @@
             <div class="topline">
                 <mat-form-field class="example-full-width" appearance="fill">
                     <mat-label>App Name</mat-label>
-                    <input matInput placeholder="my-app" [(ngModel)]="appTemplate.hostname">
+                    <input matInput placeholder="my-app" [(ngModel)]="appTemplate.hostname" [disabled]="!roleExpert()">
                 </mat-form-field>
                 <mat-form-field class="example-full-width" appearance="fill">
                     <mat-label>App Image</mat-label>
-                    <input matInput placeholder="my-app-repo/my-app:version" [(ngModel)]="appTemplate.image">
+                    <input matInput placeholder="my-app-repo/my-app:version" [(ngModel)]="appTemplate.image" [disabled]="!roleExpert()">
                 </mat-form-field>
                 <mat-form-field class="example-full-width" appearance="fill">
                     <mat-label>Restart Policy</mat-label>
-                    <mat-select [(ngModel)]="appTemplate.restart_policy">
+                    <mat-select [(ngModel)]="appTemplate.restart_policy" [disabled]="!roleExpert()">
                       <mat-option *ngFor="let Source of Sources" [value]="Source">
                         {{Source}}
                       </mat-option>
@@ -31,7 +31,7 @@
             <div class="secondline">
                 <mat-form-field appearance="fill">
                     <mat-label>Network</mat-label>
-                    <mat-select [(ngModel)]="networkName" disableOptionCentering >
+                    <mat-select [(ngModel)]="networkName" disableOptionCentering  [disabled]="!roleExpert()">
                       <mat-option *ngFor="let network of networks" [value]="network.Name">
                         {{network.Name}}
                       </mat-option>
@@ -41,10 +41,10 @@
             <div class="inner-section">
                 <h4>Port Binding:</h4>
                 <div class="example-button-row">
-                    <button mat-icon-button color="primary" (click)="addPort()">
+                    <button mat-icon-button color="primary" (click)="addPort()" [disabled]="!roleExpert()">
                         <mat-icon>add</mat-icon>
                     </button>
-                    <button mat-icon-button color="primary" (click)="deletePort()">
+                    <button mat-icon-button color="primary" (click)="deletePort()" [disabled]="!roleExpert()">
                         <mat-icon>remove</mat-icon>
                     </button>
                 </div>
@@ -53,7 +53,7 @@
                 <span *ngFor="let Port of appTemplate.ports; let i = index; trackBy:trackByFn">
                     <mat-form-field class="example-full-width" appearance="fill">
                         <mat-label>Port Bind</mat-label>
-                        <input matInput placeholder="host-port:app-port/tcp" [(ngModel)]="appTemplate.ports[i]">
+                        <input matInput placeholder="host-port:app-port/tcp" [(ngModel)]="appTemplate.ports[i]" [disabled]="!roleExpert()">
                     </mat-form-field>
                 </span>
             </div>
@@ -61,10 +61,10 @@
             <div class="inner-section">
                 <h4>Environment Variables:</h4>
                 <div class="example-button-row">
-                    <button mat-icon-button color="primary" (click)="addEnv()">
+                    <button mat-icon-button color="primary" (click)="addEnv()" [disabled]="!roleExpert()">
                         <mat-icon>add</mat-icon>
                     </button>
-                    <button mat-icon-button color="primary" (click)="deleteEnv()">
+                    <button mat-icon-button color="primary" (click)="deleteEnv()" [disabled]="!roleExpert()">
                         <mat-icon>remove</mat-icon>
                     </button>
                 </div>
@@ -73,17 +73,17 @@
                 <span *ngFor="let Env of appTemplate.env; let i = index;  trackBy:trackByFn">
                     <mat-form-field class="example-full-width" appearance="fill">
                         <mat-label>Env Variable</mat-label>
-                        <input matInput placeholder="ENV_NAME=env_value" [(ngModel)]="appTemplate.env[i]">
+                        <input matInput placeholder="ENV_NAME=env_value" [(ngModel)]="appTemplate.env[i]" [disabled]="!roleExpert()">
                     </mat-form-field>
                 </span>
             </div>
             <div class="inner-section">
                 <h4>Volumes:</h4>
                 <div class="example-button-row">
-                    <button mat-icon-button color="primary" (click)="addVolume()">
+                    <button mat-icon-button color="primary" (click)="addVolume()" [disabled]="!roleExpert()">
                         <mat-icon>add</mat-icon>
                     </button>
-                    <button mat-icon-button color="primary" (click)="deleteVolume()">
+                    <button mat-icon-button color="primary" (click)="deleteVolume()" [disabled]="!roleExpert()">
                         <mat-icon>remove</mat-icon>
                     </button>
                 </div>
@@ -92,13 +92,13 @@
                 <span *ngFor="let Volume of appTemplate.volumes; let i = index;  trackBy:trackByFn">
                     <mat-form-field class="example-full-width" appearance="fill">
                         <mat-label>Volume</mat-label>
-                        <input matInput placeholder="host-path:app-path" [(ngModel)]="appTemplate.volumes[i]">
+                        <input matInput placeholder="host-path:app-path" [(ngModel)]="appTemplate.volumes[i]" [disabled]="!roleExpert()">
                     </mat-form-field>
                 </span>
             </div>
         </mat-card-content>
         <mat-card-actions align="end">
-            <button mat-button (click)="installContainer()" [disabled]="!roleExpert()">Launch App</button>
+            <button mat-button (click)="installContainer()" [disabled]="!roleVessl_User()">Launch App</button>
         </mat-card-actions>
     </mat-card>
 </div>

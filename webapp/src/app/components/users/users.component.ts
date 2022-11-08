@@ -11,7 +11,7 @@ import { MessagePopupComponent } from '../../popups/message-popup/message-popup.
 export class UsersComponent implements OnInit {
 
   Users!: Users
-  Sources: string[] = ['Guest', 'User', 'Expert', 'Admin'];
+  Sources: string[] = ['Guest', 'User', 'Vessl-User', 'Expert', 'Admin'];
 
   constructor(private VesslUsersService: VesslUsersService,
               public dialog: MatDialog) { }

@@ -10,13 +10,14 @@
         </mat-card-title-group>
         <mat-card-content>
             <p>Platform: {{template.platform}}</p>
-            <p>Network: {{template.network}}</p>
+            <p>Default Network: {{template.network}}</p>
+            <p>Categories: {{template.categories}}</p>
         </mat-card-content>
         <mat-card-actions align="end">
             <button mat-button [matMenuTriggerFor]="menu">actions</button>
             <mat-menu #menu="matMenu">
                 <button mat-menu-item (click)="getInfo(template.info_url)">Info</button>
-                <button mat-menu-item (click)="installContainer(template)" *ngIf="roleExpert()">Install</button>
+                <button mat-menu-item (click)="installContainer(template)" *ngIf="roleVessl_User()">Install</button>
               </mat-menu>
           </mat-card-actions>
   </mat-card>

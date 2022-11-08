@@ -4,11 +4,11 @@ import { AppLauncherComponent } from './components/app-launcher/app-launcher.com
 import { AppRepositoryComponent } from './components/app-repository/app-repository.component';
 import { AppsComponent } from './components/apps/apps.component';
 import { AuthGuardService } from './services/auth-guard.service';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { DashboardComponent } from './components/host-stats/dashboard.component';
 import { ImagesComponent } from './components/images/images.component';
 import { LoginComponent } from './components/login/login.component';
 import { NetworksComponent } from './components/networks/networks.component';
-import { SettingsComponent } from './components/settings/settings.component';
+import { SettingsComponent } from './components/host-settings/settings.component';
 import { SystemComponent } from './components/system/system.component';
 import { UsersComponent } from './components/users/users.component';
 import { VolumesComponent } from './components/volumes/volumes.component';

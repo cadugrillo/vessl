@@ -21,7 +21,7 @@ section {
 .example-card {
   max-width: 300px;
   max-height: 300px;
-  margin-bottom: 80px;
+  margin-bottom: 50px;
   background-color: rgb(225, 238, 247);
 }
 
