@@ -120,6 +120,7 @@ export class Template {
 	restart_policy!: string
 	network!: string
   env!: string[]
+  cmd!: string[]
 	ports!: string[]
 	volumes!: string[]
 }

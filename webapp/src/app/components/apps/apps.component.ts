@@ -31,6 +31,7 @@ export class AppsComponent implements OnInit {
     this.getContainers(this.networkName);
     this.emptyTemplate.ports = [];
     this.emptyTemplate.env = [];
+    this.emptyTemplate.cmd = [];
     this.emptyTemplate.volumes = [];
     this.emptyTemplate.restart_policy = "always";
     this.VesslContainerService.setTemplateToInstall(this.emptyTemplate);
@@ -84,7 +85,7 @@ export class AppsComponent implements OnInit {
     this.dialog.open(WaitPopupComponent, {});
     this.VesslContainerService.getContainersLogs(Id).subscribe((data) =>{
       this.dialog.closeAll();
-      return saveAs(new Blob([data as string], { type: 'TXT' }), 'logs.txt');
+      return saveAs(new Blob([data as string], { type: 'TXT' }), 'messages_'+Id.substring(0,11)+'.log');
     });
   }
 

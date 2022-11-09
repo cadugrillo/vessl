@@ -3,7 +3,7 @@ package apps_repository
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 	users "vessl/modules/users"
 )
@@ -27,6 +27,7 @@ type Template struct {
 	Restart_policy string   `json:"restart_policy"`
 	Network        string   `json:"network"`
 	Env            []string `json:"env"`
+	Cmd            []string `json:"cmd"`
 	Ports          []string `json:"ports"`
 	Volumes        []string `json:"volumes"`
 }
@@ -46,7 +47,7 @@ func GetApps(UserId string) Response {
 	}
 	defer res.Body.Close()
 
-	body, err := ioutil.ReadAll(res.Body)
+	body, err := io.ReadAll(res.Body)
 	if err != nil {
 		fmt.Println(err.Error())
 		return Response{}

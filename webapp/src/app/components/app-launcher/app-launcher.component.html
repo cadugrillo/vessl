@@ -96,6 +96,25 @@
                     </mat-form-field>
                 </span>
             </div>
+            <div class="inner-section">
+                <h4>Commands:</h4>
+                <div class="example-button-row">
+                    <button mat-icon-button color="primary" (click)="addCmd()" [disabled]="!roleExpert()">
+                        <mat-icon>add</mat-icon>
+                    </button>
+                    <button mat-icon-button color="primary" (click)="deleteCmd()" [disabled]="!roleExpert()">
+                        <mat-icon>remove</mat-icon>
+                    </button>
+                </div>
+            </div>
+            <div class="thirdline">
+                <span *ngFor="let Cmd of appTemplate.cmd; let i = index;  trackBy:trackByFn">
+                    <mat-form-field class="example-full-width" appearance="fill">
+                        <mat-label>Command</mat-label>
+                        <input matInput placeholder="-s" [(ngModel)]="appTemplate.cmd[i]" [disabled]="!roleExpert()">
+                    </mat-form-field>
+                </span>
+            </div>
         </mat-card-content>
         <mat-card-actions align="end">
             <button mat-button (click)="installContainer()" [disabled]="!roleVessl_User()">Launch App</button>

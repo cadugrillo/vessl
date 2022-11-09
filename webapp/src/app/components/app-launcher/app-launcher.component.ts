@@ -16,6 +16,7 @@ export class AppLauncherComponent implements OnInit, OnDestroy {
   appTemplate!: Template;
   newPort!: string
   newEnv!: string
+  newCmd!: string
   newVolume!: string
   networks!: Network[]
   networkName: string = "vessl-default"
@@ -70,6 +71,15 @@ export class AppLauncherComponent implements OnInit, OnDestroy {
 
   deleteEnv() {
     this.appTemplate.env.splice(-1);
+  }
+
+  addCmd() {
+    this.newCmd = "";
+    this.appTemplate.cmd.push(this.newCmd);
+  }
+
+  deleteCmd() {
+    this.appTemplate.cmd.splice(-1);
   }
 
   addVolume() {

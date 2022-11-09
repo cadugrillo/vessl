@@ -105,6 +105,7 @@ func InstallContainer(AppTemplate apps_repository.Template) string {
 		Image:    AppTemplate.Image,
 		Hostname: AppTemplate.Hostname,
 		Env:      AppTemplate.Env,
+		Cmd:      AppTemplate.Cmd,
 	}
 
 	resp, err := cli.ContainerCreate(ctx, ContainerConfig, HostConfig, NetworkConfig, nil, AppTemplate.Hostname)
