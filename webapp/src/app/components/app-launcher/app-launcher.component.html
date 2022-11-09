@@ -20,7 +20,7 @@
                 </mat-form-field>
                 <mat-form-field class="example-full-width" appearance="fill">
                     <mat-label>Restart Policy</mat-label>
-                    <mat-select [(ngModel)]="appTemplate.restart_policy" [disabled]="!roleExpert()">
+                    <mat-select [(ngModel)]="appTemplate.restart_policy" disableOptionCentering [disabled]="!roleExpert()">
                       <mat-option *ngFor="let Source of Sources" [value]="Source">
                         {{Source}}
                       </mat-option>
@@ -31,7 +31,7 @@
             <div class="secondline">
                 <mat-form-field appearance="fill">
                     <mat-label>Network</mat-label>
-                    <mat-select [(ngModel)]="networkName" disableOptionCentering  [disabled]="!roleExpert()">
+                    <mat-select [(ngModel)]="appTemplate.network" disableOptionCentering  [disabled]="!roleExpert()">
                       <mat-option *ngFor="let network of networks" [value]="network.Name">
                         {{network.Name}}
                       </mat-option>

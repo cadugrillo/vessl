@@ -19,7 +19,6 @@ export class AppLauncherComponent implements OnInit, OnDestroy {
   newCmd!: string
   newVolume!: string
   networks!: Network[]
-  networkName: string = "vessl-default"
 
   Sources: string[] = ['no', 'on-failure', 'always', 'unless-stopped'];
 
@@ -37,8 +36,10 @@ export class AppLauncherComponent implements OnInit, OnDestroy {
     this.appTemplate = new Template();
     this.appTemplate.ports = [];
     this.appTemplate.env = [];
+    this.appTemplate.cmd = [];
     this.appTemplate.volumes = [];
     this.appTemplate.restart_policy = "unless-stopped"
+    this.appTemplate.network = "vessl-default";
     this.VesslContainerService.setTemplateToInstall(this.appTemplate);
   }
 
@@ -48,7 +49,6 @@ export class AppLauncherComponent implements OnInit, OnDestroy {
 
   installContainer() {
     this.dialog.open(WaitPopupComponent, {});
-    this.appTemplate.network = this.networkName
     this.VesslContainerService.installContainer(this.appTemplate).subscribe((data) => {
       this.dialog.closeAll();
       this.dialog.open(MessagePopupComponent, {data: {title: "App Installation", text: data}});

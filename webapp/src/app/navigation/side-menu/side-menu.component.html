@@ -1,0 +1,15 @@
+<mat-toolbar class="app-toolbar">
+  <span></span>
+</mat-toolbar>
+<mat-selection-list class="selection" color="primary" *ngIf="isAuthenticated()" #options [multiple]="false">
+    <mat-list-option *ngIf="AppsMenuEnabled()"        routerLink="Apps"           [selected]="currentRouterUrl()=='/Apps'">Apps</mat-list-option>
+    <mat-list-option *ngIf="AppsRepMenuEnabled()"     routerLink="App-Repository" [selected]="currentRouterUrl()=='/App-Repository'">App Repository</mat-list-option>
+    <mat-list-option *ngIf="AppLaunchMenuEnabled()"   routerLink="App-Launcher"   [selected]="currentRouterUrl()=='/App-Launcher'">App Launcher</mat-list-option>
+    <mat-list-option *ngIf="ImagesMenuEnabled()"      routerLink="Images"         [selected]="currentRouterUrl()=='/Images'">Images</mat-list-option>
+    <mat-list-option *ngIf="VolumesMenuEnabled()"     routerLink="Volumes"        [selected]="currentRouterUrl()=='/Volumes'">Volumes</mat-list-option>
+    <mat-list-option *ngIf="NetworksMenuEnabled()"    routerLink="Networks"       [selected]="currentRouterUrl()=='/Networks'">Networks</mat-list-option>
+    <mat-list-option *ngIf="SystemMenuEnabled()"      routerLink="System"         [selected]="currentRouterUrl()=='/System'">System</mat-list-option>
+    <mat-list-option *ngIf="UsersMenuEnabled()"       routerLink="Users"          [selected]="currentRouterUrl()=='/Users'">Users</mat-list-option>
+    <mat-list-option *ngIf="HostSettingMenuEnabled()" routerLink="HostSettings"   [selected]="currentRouterUrl()=='/HostSettings'">Host Settings</mat-list-option>
+    <mat-list-option *ngIf="HostStatsMenuEnabled()"   routerLink="HostStats"      [selected]="currentRouterUrl()=='/HostStats'">Host Stats</mat-list-option>
+  </mat-selection-list>

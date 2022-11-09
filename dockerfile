@@ -29,7 +29,7 @@ RUN npm install -g @angular/cli
 RUN ng build --output-path=/webapp/dist
 
 #BUILD A SMALL FOOTPRINT IMAGE
-FROM nginx:alpine
+FROM alpine:latest
 
 COPY --from=go-builder /Vessl /Vessl
 COPY --from=go-builder /apps /apps
@@ -39,5 +39,5 @@ RUN mkdir -p /database
 
 EXPOSE 443
 
-CMD [ "/Vessl" ]
+ENTRYPOINT [ "/Vessl" ]
 

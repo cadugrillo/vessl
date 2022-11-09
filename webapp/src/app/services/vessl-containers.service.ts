@@ -119,6 +119,7 @@ export class Template {
 	image!: string
 	restart_policy!: string
 	network!: string
+  run!: string[]
   env!: string[]
   cmd!: string[]
 	ports!: string[]

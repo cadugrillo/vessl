@@ -26,6 +26,7 @@ type Template struct {
 	Image          string   `json:"image"`
 	Restart_policy string   `json:"restart_policy"`
 	Network        string   `json:"network"`
+	Run            []string `json:"run"`
 	Env            []string `json:"env"`
 	Cmd            []string `json:"cmd"`
 	Ports          []string `json:"ports"`

@@ -20,7 +20,7 @@ const routes: Routes = [
 
   { path: '', redirectTo: 'Login', pathMatch: 'full' },
   { path: 'Login', component: LoginComponent},
-  { path: 'Dashboard', component: DashboardComponent, canActivate: [AuthGuardService]},
+  { path: 'HostStats', component: DashboardComponent, canActivate: [AuthGuardService]},
   { path: 'Apps', component: AppsComponent, canActivate: [AuthGuardService]},
   { path: 'App-Repository', component: AppRepositoryComponent, canActivate: [AuthGuardService]},
   { path: 'App-Launcher', component: AppLauncherComponent, canActivate: [AuthGuardService]},
@@ -29,7 +29,7 @@ const routes: Routes = [
   { path: 'Networks', component: NetworksComponent, canActivate: [AuthGuardService]},
   { path: 'Users', component: UsersComponent, canActivate: [AuthGuardService]},
   { path: 'System', component: SystemComponent, canActivate: [AuthGuardService]},
-  { path: 'Settings', component: SettingsComponent, canActivate: [AuthGuardService]},
+  { path: 'HostSettings', component: SettingsComponent, canActivate: [AuthGuardService]},
   { path: '**', redirectTo: 'Login'},
  
 

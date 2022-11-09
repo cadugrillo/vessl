@@ -9,8 +9,8 @@ import { AppComponent } from './app.component';
 import { AppsComponent } from './components/apps/apps.component';
 import { FormsModule } from '@angular/forms';
 import { TokenInterceptor } from './token.interceptor';
-import { Menu1Item1Component } from './navigation/overview/menu1-item1.component'
-import { Menu1Item1Side1Component } from './navigation/side-menu/menu1-item1-side1.component'
+import { OverviewComponent } from './navigation/overview/overview.component'
+import { SideMenuComponent } from './navigation/side-menu/side-menu.component'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
@@ -54,8 +54,8 @@ import { StatsPopupComponent } from './popups/stats-popup/stats-popup.component'
   declarations: [
     AppComponent,
     AppsComponent,
-    Menu1Item1Component,
-    Menu1Item1Side1Component,
+    OverviewComponent,
+    SideMenuComponent,
     MessagePopupComponent,
     DashboardComponent,
     AppRepositoryComponent,

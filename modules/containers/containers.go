@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"strings"
 
 	"math"
 	"os"
@@ -26,6 +27,10 @@ type ContainerStats struct {
 	MemUsage float64 `json:"MemUsage"`
 	MemLimit float64 `json:"MemLimit"`
 	MemPct   float64 `json:"MemPct"`
+}
+
+type RunRef struct {
+	Privileged bool
 }
 
 func GetContainers(networkName string) []types.Container {
@@ -77,6 +82,8 @@ func InstallContainer(AppTemplate apps_repository.Template) string {
 		return "Unable to create docker port"
 	}
 
+	runRef := ParseRunField(AppTemplate.Run)
+
 	// Configured hostConfig:
 	HostConfig := &container.HostConfig{
 		Binds:        AppTemplate.Volumes,
@@ -89,6 +96,7 @@ func InstallContainer(AppTemplate apps_repository.Template) string {
 			Type:   "json-file",
 			Config: map[string]string{},
 		},
+		Privileged: runRef.Privileged,
 	}
 
 	//////NETWORK CONFIGURATION////////
@@ -335,4 +343,18 @@ func calculateStats(cstats types.Stats) ContainerStats {
 
 func byteToMegabyte(Byte uint64) float64 {
 	return (float64(Byte) / 1024) / 1024
+}
+
+func ParseRunField(RunField []string) RunRef {
+
+	var runref RunRef
+
+	for _, rf := range RunField {
+
+		switch strings.ToLower(rf) {
+		case "--privileged":
+			runref.Privileged = true
+		}
+	}
+	return runref
 }

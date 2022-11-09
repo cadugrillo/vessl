@@ -34,6 +34,7 @@ export class AppsComponent implements OnInit {
     this.emptyTemplate.cmd = [];
     this.emptyTemplate.volumes = [];
     this.emptyTemplate.restart_policy = "always";
+    this.emptyTemplate.network = "vessl-default";
     this.VesslContainerService.setTemplateToInstall(this.emptyTemplate);
   }
 

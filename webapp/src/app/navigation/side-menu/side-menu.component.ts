@@ -1,16 +1,18 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { VesslUsersService, User } from '../../services/vessl-users.service'
 
 @Component({
   selector: 'menu1-item1-side1',
-  templateUrl: './menu1-item1-side1.component.html',
-  styleUrls: ['./menu1-item1-side1.component.css']
+  templateUrl: './side-menu.component.html',
+  styleUrls: ['./side-menu.component.css']
 })
-export class Menu1Item1Side1Component implements OnInit {
+export class SideMenuComponent implements OnInit {
 
   currentUser!: User
 
-  constructor(private VesslUsersService: VesslUsersService) {}
+  constructor(private VesslUsersService: VesslUsersService,
+              private router: Router) {}
 
   ngOnInit(): void {
     
@@ -59,4 +61,9 @@ export class Menu1Item1Side1Component implements OnInit {
   HostStatsMenuEnabled() {
     return this.VesslUsersService.CurrentUser.Permissions.HostStats
   }
+
+  currentRouterUrl() {
+    return this.router.url
+  }
+
 }
