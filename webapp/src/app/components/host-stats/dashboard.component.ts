@@ -37,15 +37,15 @@ export class DashboardComponent implements OnInit, OnDestroy {
   getHostStats() {
     this.VesslSystemService.getHostStats().subscribe((data) => {
       this.HostStats = (data as HostStats);
-      this.RamTotal = (this.HostStats.RamTotal / 1000).toFixed(2);
-      this.RamUsed = (this.HostStats.RamUsed / 1000).toFixed(2);
-      this.RamAvailable = (this.HostStats.RamAvailable / 1000).toFixed(2);
-      this.RamFree = (this.HostStats.RamFree / 1000).toFixed(2);
+      this.RamTotal = (this.HostStats.RamTotal).toFixed(2);
+      this.RamUsed = (this.HostStats.RamUsed).toFixed(2);
+      this.RamAvailable = (this.HostStats.RamAvailable).toFixed(2);
+      this.RamFree = (this.HostStats.RamFree).toFixed(2);
       this.RamUsedBar = (this.HostStats.RamUsed/this.HostStats.RamTotal) * 100;
       this.RamAvailableBar = (this.HostStats.RamAvailable/this.HostStats.RamTotal) * 100;
       this.RamFreeBar = (this.HostStats.RamFree/this.HostStats.RamTotal) * 100;
-      this.DiskTotal = (this.HostStats.DiskTotal / 1000).toFixed(2);
-      this.DiskAvailable = (this.HostStats.DiskAvailable / 1000).toFixed(2);
+      this.DiskTotal = (this.HostStats.DiskTotal).toFixed(2);
+      this.DiskAvailable = (this.HostStats.DiskAvailable).toFixed(2);
       this.DiskAvailableBar = (this.HostStats.DiskAvailable/this.HostStats.DiskTotal) * 100;
     });
   }
