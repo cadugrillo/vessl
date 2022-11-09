@@ -1,9 +1,3 @@
-//////RUN MYSQL CONTAINER/////////////
-docker run --name mysql -e MYSQL_ROOT_PASSWORD=cgEdgeRoot -e MYSQL_DATABASE=cgEdge -d -p 3306:3306 mysql:latest
-
-////CONNECT TO MYSQL DOCKER CONTAINER CLI///////
-docker exec -it mysql bash -l
-
 /////ATTACH TO CONTAINER/////////////////
 docker attach --sig-proxy=false <container name>
 
