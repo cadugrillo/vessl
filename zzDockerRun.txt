@@ -25,3 +25,12 @@ $ docker run -dp 443:443 --name=vessl --restart=always \
   -v /etc/network:/etc/network \
   --add-host=host.docker.internal:host-gateway \
   --network=vessl-default vessl/vessl:0.2
+
+
+  ------------------Mac OS---------------------------
+
+  $ docker network create vessl-default
+$ docker run -dp 443:443 --name=vessl --restart=always \
+  -v vessl-database:/database \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  --network=vessl-default vessl/vessl:0.2
