@@ -78,7 +78,7 @@ func SetNetworkInfo(InterfaceSet InterfaceSet) string {
 
 func RestartHost() string {
 
-	url := "http://host.docker.internal:4383/host/restart"
+	url := "http://vessl-host-control:4383/host/restart"
 
 	req, _ := http.NewRequest("POST", url, nil)
 
@@ -93,7 +93,7 @@ func RestartHost() string {
 
 func ShutDownHost() string {
 
-	url := "http://host.docker.internal:4383/host/shutdown"
+	url := "http://vessl-host-control:4383/host/shutdown"
 
 	req, _ := http.NewRequest("POST", url, nil)
 
