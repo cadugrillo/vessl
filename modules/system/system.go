@@ -1,12 +1,16 @@
 package system
 
 import (
-	"encoding/json"
-	"io"
+	"fmt"
+	"math"
 	"net"
 	"net/http"
+	"time"
 
 	ni "github.com/hilt0n/netif"
+	"github.com/shirou/gopsutil/cpu"
+	"github.com/shirou/gopsutil/disk"
+	"github.com/shirou/gopsutil/mem"
 )
 
 type InterfaceSet struct {
@@ -106,26 +110,50 @@ func GetHostStats() HostStats {
 
 	var hostStats HostStats
 
-	url := "http://host.docker.internal:4383/host/stats"
-
-	req, _ := http.NewRequest("GET", url, nil)
-
-	res, err := http.DefaultClient.Do(req)
+	cpuPercent, err := cpu.Percent(time.Second, true)
 	if err != nil {
-		println(err.Error())
-		return hostStats
+		fmt.Println(err.Error())
+		return HostStats{}
 	}
-	defer res.Body.Close()
+	hostStats.CpuUsage = cpuPercent
 
-	body, err := io.ReadAll(res.Body)
-	if err != nil {
-		println(err.Error())
-		return hostStats
+	for i := 0; i < len(hostStats.CpuUsage); i++ {
+		hostStats.CpuUsage[i] = math.Round(hostStats.CpuUsage[i]*100) / 100
 	}
 
-	json.Unmarshal(body, &hostStats)
+	m, err := mem.VirtualMemory()
+	if err != nil {
+		fmt.Println(err.Error())
+		return HostStats{}
+	}
+	hostStats.RamTotal = getReadableSize(m.Total)
+	hostStats.RamUsed = getReadableSize(m.Used)
+	hostStats.RamUsedPct = math.Round(m.UsedPercent*100) / 100
+	hostStats.RamAvailable = getReadableSize(m.Available)
+	hostStats.RamFree = getReadableSize(m.Free)
 
-	defer res.Body.Close()
+	diskUsage, err := disk.Usage("/")
+	if err != nil {
+		fmt.Println(err.Error())
+		return HostStats{}
+	}
+
+	hostStats.DiskUsage = math.Round(diskUsage.UsedPercent*100) / 100
+	hostStats.DiskAvailable = getReadableSize(diskUsage.Free)
+	hostStats.DiskTotal = getReadableSize(diskUsage.Total)
+
 	return hostStats
+}
 
+func getReadableSize(sizeInBytes uint64) (readableSize float64) {
+	var (
+		units = []string{"KB", "MB"} //, "GB", "TB", "PB}
+		size  = float64(sizeInBytes)
+		i     = 0
+	)
+	for ; i < len(units); i++ { //&& size >= 1000
+		size = size / 1024
+	}
+
+	return math.Round(size*100) / 100
 }
