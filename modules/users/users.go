@@ -103,9 +103,9 @@ func initialiseDBconn() {
 		masterUser.ApiKeyTs = 0
 		masterUser.Permissions.Apps = true
 		masterUser.Permissions.AppsRepository = true
-		masterUser.Permissions.HostStats = false
+		masterUser.Permissions.HostStats = true
 		masterUser.Permissions.Images = true
-		masterUser.Permissions.HostSettings = false
+		masterUser.Permissions.HostSettings = true
 		masterUser.Permissions.System = true
 		masterUser.Permissions.Users = true
 		masterUser.Permissions.AppLauncher = true

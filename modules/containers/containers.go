@@ -31,6 +31,7 @@ type ContainerStats struct {
 
 type RunRef struct {
 	Privileged bool
+	PidMode    string
 }
 
 func GetContainers(networkName string) []types.Container {
@@ -97,6 +98,7 @@ func InstallContainer(AppTemplate apps_repository.Template) string {
 			Config: map[string]string{},
 		},
 		Privileged: runRef.Privileged,
+		PidMode:    container.PidMode(runRef.PidMode),
 	}
 
 	//////NETWORK CONFIGURATION////////
@@ -354,7 +356,10 @@ func ParseRunField(RunField []string) RunRef {
 		switch strings.ToLower(rf) {
 		case "--privileged":
 			runref.Privileged = true
+		case "--pid=host":
+			runref.PidMode = "host"
 		}
+
 	}
 	return runref
 }
