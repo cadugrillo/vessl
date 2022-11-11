@@ -6,7 +6,7 @@ $ docker run -dp 443:443 --name=vessl --restart=always \
   --network=vessl-default vessl/vessl:0.3
 
 
------------BlueBox--------------
+----------------BlueBox--------------
 
 $ sudo docker network create vessl-default
 $ sudo docker run -dp 443:443 --name=vessl --restart=always \
@@ -23,3 +23,11 @@ $ docker run -dp 443:443 --name=vessl --restart=always \
   -v vessl-database:/database \
   -v /var/run/docker.sock:/var/run/docker.sock \
   --network=vessl-default vessl/vessl:0.3
+
+
+
+  ----------------Host-Control-------------------
+
+  docker run -d --name=vessl-host-control \
+--restart=always --privileged --pid=host \
+--network=vessl-default vessl/host-control:0.1
