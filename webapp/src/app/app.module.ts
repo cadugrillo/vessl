@@ -47,6 +47,7 @@ import { VolumesComponent } from './components/volumes/volumes.component';
 import { VesslNetworksService } from './services/vessl-networks.service';
 import { NetworksComponent } from './components/networks/networks.component';
 import { StatsPopupComponent } from './popups/stats-popup/stats-popup.component';
+import { FilterPipe } from './pipes/filter.pipe';
 
 
 
@@ -71,6 +72,7 @@ import { StatsPopupComponent } from './popups/stats-popup/stats-popup.component'
     VolumesComponent,
     NetworksComponent,
     StatsPopupComponent,
+    FilterPipe,
   ],
   imports: [
     AppRoutingModule,
