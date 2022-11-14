@@ -100,6 +100,13 @@ export class AppsComponent implements OnInit {
     });
   }
 
+  filterContainer(container: Container) {
+    for (var i=0; i < container.Names.length; i++) {
+      return !container.Names[i].toLowerCase().includes('vessl', 0);
+    }
+    return true
+  }
+
   roleUser() {
     return this.VesslUsersService.user();
   }
@@ -107,9 +114,4 @@ export class AppsComponent implements OnInit {
   roleExpert() {
     return this.VesslUsersService.expert();
   }
-
-  hideContainer(ContainerName: string) {
-    return !ContainerName.includes("vessl");
-   }
-
 }
