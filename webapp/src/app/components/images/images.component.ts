@@ -35,7 +35,7 @@ export class ImagesComponent implements OnInit {
   }
 
   hideImage(imageName: string) {
-   return !imageName.includes("vessl");
+   return !imageName.includes("vessl/vessl");
   }
 
   roleExpert() {
