@@ -3,7 +3,7 @@ $ docker run -dp 443:443 --name=vessl --restart=always \
   -v vessl-database:/database \
   -v /var/run/docker.sock:/var/run/docker.sock \
   -v /etc/network:/etc/network \
-  --network=vessl-default vessl/vessl:0.3
+  --network=vessl-default vessl/vessl:latest
 
 
 ----------------BlueBox--------------
@@ -13,7 +13,7 @@ $ sudo docker run -dp 443:443 --name=vessl --restart=always \
   -v vessl-database:/database \
   -v /var/run/docker.sock:/var/run/docker.sock \
   -v /etc/network:/etc/network \
-  --network=vessl-default vessl/vessl:0.3
+  --network=vessl-default vessl/vessl:latest
 
 
   ------------------Mac OS---------------------------
@@ -22,7 +22,7 @@ $ sudo docker run -dp 443:443 --name=vessl --restart=always \
 $ docker run -dp 443:443 --name=vessl --restart=always \
   -v vessl-database:/database \
   -v /var/run/docker.sock:/var/run/docker.sock \
-  --network=vessl-default vessl/vessl:0.3
+  --network=vessl-default vessl/vessl:latest
 
 
 
@@ -30,4 +30,4 @@ $ docker run -dp 443:443 --name=vessl --restart=always \
 
   docker run -d --name=vessl-host-control \
 --restart=always --privileged --pid=host \
---network=vessl-default vessl/host-control:0.1
+--network=vessl-default vessl/host-control:latest
