@@ -1,17 +1,28 @@
 package main
 
 import (
+	"log"
 	"path"
 	"path/filepath"
 	"runtime/debug"
 	"vessl/handlers"
+	"vessl/modules/certificates"
 	"vessl/modules/helpers"
 
 	//"github.com/gin-contrib/pprof"
 	"github.com/gin-gonic/gin"
 )
 
+func init() {
+	err := certificates.GenCerts()
+	if err != nil {
+		log.Println(err.Error())
+		panic(err)
+	}
+}
+
 func main() {
+
 	debug.SetGCPercent(10)
 	gin.SetMode(gin.ReleaseMode)
 	r := gin.Default()
@@ -58,7 +69,7 @@ func main() {
 	r.POST("/system/restart", helpers.ValidateApiKey(), handlers.RestartHostHandler)
 	r.POST("/system/shutdown", helpers.ValidateApiKey(), handlers.ShutDownHostHandler)
 
-	err := r.RunTLS(":443", "./certs/cg-edge.crt", "./certs/cg-edge.key")
+	err := r.RunTLS(":443", "./certs/vessl.crt", "./certs/vessl.key")
 	if err != nil {
 		panic(err)
 	}

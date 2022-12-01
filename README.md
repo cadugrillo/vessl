@@ -1,6 +1,54 @@
-<p align="center">
-  <img title="vessl" src='https://raw.githubusercontent.com/cadugrillo/cg-edge-resources/main/cg-edge-banner.png' />
+<p align="left">
+  <img title="vessl" src='https://raw.githubusercontent.com/cadugrillo/vessl-resources/main/vessl-banner.png' />
 </p>
 
+# Vessl
+
 Vessl is a simple container management UI service focused on deploy and maintain Docker containers running in an IOT device based on Linux OS.
-The application allows you to manage resources (containers, images, iamge repository, users, etc.) through a simple GUI.  
+The application allows you to manage resources (containers, images, image repository, users, etc.) through a simple GUI.
+
+## Features
+
+- Manage Containers (Start, Stop, Restart, Remove, Configure, Stats, Logs)
+- Launch Containers
+- Manage COntainers Template Repository
+- Get Statistics from Host Environment
+- User Management
+- Manage Images, Volumes, Networks
+
+## Quick Start
+
+- Prerequisites
+  - Docker engine
+
+- How to run
+```
+docker network create vessl-default
+
+docker run -dp 443:443 --name=vessl --restart=always \
+  -v vessl-database:/database \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  --network=vessl-default vessl/vessl:latest
+```
+
+- If running on Linux you can manage IP Addresses from Vessl by adding the following line to the run command
+  - -v /etc/network:/etc/network
+```
+docker run -dp 443:443 --name=vessl --restart=always \
+  -v vessl-database:/database \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  -v /etc/network:/etc/network \
+  --network=vessl-default vessl/vessl:latest
+```
+
+- If running on Linux you can reboot and shutdown from Vessl by running this container
+```
+docker run -d --name=vessl-host-control \
+  --restart=always --privileged --pid=host \
+  --network=vessl-default vessl/host-control:latest
+```
+
+#### On your web browser navigate to: https://localhost or https://"your-ip-address" 
+
+- default Username: master
+- default Password: cgMaster@3306
