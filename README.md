@@ -9,9 +9,12 @@ The application allows you to manage resources (containers, images, image reposi
 
 ## Features
 
-- First
-- Second
-- Third
+- Manage Containers (Start, Stop, Restart, Remove, Configure, Stats, Logs)
+- Launch Containers
+- Manage COntainers Template Repository
+- Get Statistics from Host Environment
+- User Management
+- Manage Images, Volumes, Networks
 
 ## Quick Start
 
@@ -30,5 +33,5 @@ docker run -dp 443:443 --name=vessl --restart=always \
 
 #### On your web browser navigate to: https://localhost or https://"your-ip-address" 
 
-#### default Username: master
-#### default Password: cgMaster@3306
+- default Username: master
+- default Password: cgMaster@3306
