@@ -18,7 +18,7 @@ The application allows you to manage resources (containers, images, image reposi
 - Prerequisites
   - Docker engine
 
-
+- How to run
 ```
 docker network create vessl-default
 
@@ -28,7 +28,7 @@ docker run -dp 443:443 --name=vessl --restart=always \
   --network=vessl-default vessl/vessl:latest
 ```
 
-### https://localhost or https://<your-ip-address> 
+#### On your web browser navigate to: https://localhost or https://"your-ip-address" 
 
-### default Username: master
-### default Password: cgMaster@3306
+#### default Username: master
+#### default Password: cgMaster@3306
