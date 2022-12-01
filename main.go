@@ -13,15 +13,22 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func init() {
-	err := certificates.GenCerts()
-	if err != nil {
-		fmt.Println(err.Error())
-		panic(err)
-	}
-}
+// func init() {
+// 	err := certificates.GenCerts()
+// 	if err != nil {
+// 		fmt.Println(err.Error())
+// 		panic(err)
+// 	}
+// }
 
 func main() {
+
+	certErr := certificates.GenCerts()
+	if certErr != nil {
+		fmt.Println(certErr.Error())
+		//panic(certErr)
+	}
+
 	debug.SetGCPercent(10)
 	gin.SetMode(gin.ReleaseMode)
 	r := gin.Default()
