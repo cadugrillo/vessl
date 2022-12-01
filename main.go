@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"path"
 	"path/filepath"
 	"runtime/debug"
@@ -15,6 +16,7 @@ import (
 func init() {
 	err := certificates.GenCerts()
 	if err != nil {
+		fmt.Println(err.Error())
 		panic(err)
 	}
 }
