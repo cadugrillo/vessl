@@ -14,12 +14,12 @@ import (
 	"time"
 )
 
-func GenCerts() (err error) {
+func GenCerts() error {
 
-	_, err = os.Stat("./certs/vessl.key")
+	_, err := os.Stat("./certs/vessl.key")
 	if err == nil {
 		fmt.Println("TLS Certificates already exists - creation skipped")
-		return
+		return err
 	}
 
 	ca := &x509.Certificate{
@@ -120,5 +120,5 @@ func GenCerts() (err error) {
 	})
 
 	fmt.Println("TLS Certificates created")
-	return
+	return nil
 }
