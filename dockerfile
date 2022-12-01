@@ -14,7 +14,6 @@ RUN go mod download
 COPY main.go ./
 COPY ./handlers/ /usr/local/go/src/vessl/handlers
 COPY ./modules/ /usr/local/go/src/vessl/modules
-RUN mkdir -p /apps
 RUN CGO_ENABLED=1 GOOS=${TARGETOS} GOARCH=${TARGETARCH} GOFLAGS=-mod=mod go build -ldflags="-w -s" -o /Vessl
 
 #BUILD WEBAPP
@@ -32,9 +31,8 @@ RUN ng build --output-path=/webapp/dist
 FROM alpine:latest
 
 COPY --from=go-builder /Vessl /Vessl
-COPY --from=go-builder /apps /apps
 COPY --from=node-builder /webapp/dist/ /webapp/dist/
-COPY ./certs/ /certs
+RUN mkdir -p /certs
 RUN mkdir -p /database
 
 EXPOSE 443
