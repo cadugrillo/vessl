@@ -47,7 +47,7 @@ docker run -dp 443:443 --name=vessl --restart=always \
   --network=vessl-default vessl/vessl:latest
 ```
 
-- If running on Linux you can manage IP Addresses from Vessl by adding the following line to the run command
+- If running on Linux using /etc/network/interfaces for network configuration, you can manage interfaces from Vessl by adding the following line to the run command
   - -v /etc/network:/etc/network
 ```
 docker run -dp 443:443 --name=vessl --restart=always \
