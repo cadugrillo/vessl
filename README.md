@@ -16,6 +16,19 @@ The application allows you to manage resources (containers, images, image reposi
 - User Management
 - Manage Images, Volumes, Networks
 
+Apps             |  App Repository
+:-------------------------:|:-------------------------:
+![](https://raw.githubusercontent.com/cadugrillo/vessl-resources/main/screenshots/apps.png)  |  ![](https://raw.githubusercontent.com/cadugrillo/vessl-resources/main/screenshots/apps_repository.png)
+App Launcher             |  Host Stats
+:-------------------------:|:-------------------------:
+![](https://raw.githubusercontent.com/cadugrillo/vessl-resources/main/screenshots/app_launcher.png)  |  ![](https://raw.githubusercontent.com/cadugrillo/vessl-resources/main/screenshots/host_stats.png)
+Images             |  Volumes             |  Networks
+:-------------------------:|:-------------------------:|:-------------------------:
+![](https://raw.githubusercontent.com/cadugrillo/vessl-resources/main/screenshots/images.png)  |  ![](https://raw.githubusercontent.com/cadugrillo/vessl-resources/main/screenshots/volumes.png)  |  ![](https://raw.githubusercontent.com/cadugrillo/vessl-resources/main/screenshots/networks.png)
+System             |  Users             |  Host Settings
+:-------------------------:|:-------------------------:|:-------------------------:
+![](https://raw.githubusercontent.com/cadugrillo/vessl-resources/main/screenshots/system.png)  |  ![](https://raw.githubusercontent.com/cadugrillo/vessl-resources/main/screenshots/users.png)  |  ![](https://raw.githubusercontent.com/cadugrillo/vessl-resources/main/screenshots/host_settings.png)
+
 ## Quick Start
 
 - Prerequisites
