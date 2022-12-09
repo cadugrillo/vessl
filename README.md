@@ -19,6 +19,7 @@ The application allows you to manage resources (containers, images, image reposi
 Apps             |  App Repository
 :-------------------------:|:-------------------------:
 ![](https://raw.githubusercontent.com/cadugrillo/vessl-resources/main/screenshots/apps.png)  |  ![](https://raw.githubusercontent.com/cadugrillo/vessl-resources/main/screenshots/apps_repository.png)
+
 App Launcher             |  Host Stats
 :-------------------------:|:-------------------------:
 ![](https://raw.githubusercontent.com/cadugrillo/vessl-resources/main/screenshots/app_launcher.png)  |  ![](https://raw.githubusercontent.com/cadugrillo/vessl-resources/main/screenshots/host_stats.png)
