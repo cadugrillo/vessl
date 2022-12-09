@@ -46,8 +46,12 @@ docker run -dp 443:443 --name=vessl --restart=always \
   -v /var/run/docker.sock:/var/run/docker.sock \
   --network=vessl-default vessl/vessl:latest
 ```
+- On your web browser navigate to: https://localhost or https://"your-ip-address" 
+- default Username: master
+- default Password: cgMaster@3306
 
-- If running on Linux using /etc/network/interfaces for network configuration, you can manage interfaces from Vessl by adding the following line to the run command
+
+#### If running on Linux using /etc/network/interfaces for network configuration, you can manage interfaces from Vessl by adding the following line to the run command
   - -v /etc/network:/etc/network
 ```
 docker run -dp 443:443 --name=vessl --restart=always \
@@ -57,14 +61,9 @@ docker run -dp 443:443 --name=vessl --restart=always \
   --network=vessl-default vessl/vessl:latest
 ```
 
-- If running on Linux you can reboot and shutdown from Vessl by running this container
+#### If running on Linux, you can reboot and shutdown from Vessl by running this container
 ```
 docker run -d --name=vessl-host-control \
   --restart=always --privileged --pid=host \
   --network=vessl-default vessl/host-control:latest
 ```
-
-#### On your web browser navigate to: https://localhost or https://"your-ip-address" 
-
-- default Username: master
-- default Password: cgMaster@3306
