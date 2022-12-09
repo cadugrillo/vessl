@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - '!*.md'
+      - '!*.txt'
       - '!.github/workflows/*.yml'
     branches:
       - "main"
