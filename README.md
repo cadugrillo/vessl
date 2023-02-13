@@ -11,7 +11,7 @@ The application allows you to manage resources (containers, images, image reposi
 
 - Manage Containers (Start, Stop, Restart, Remove, Configure, Stats, Logs)
 - Launch Containers
-- Manage COntainers Template Repository
+- Manage Containers Template Repository
 - Get Statistics from Host Environment
 - User Management
 - Manage Images, Volumes, Networks
