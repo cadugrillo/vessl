@@ -1,9 +1,3 @@
-.app-toolbar {
-  position: fixed;
-  z-index: 1000;
-  margin-top: 64px;
-}
-
 section {
   display: table;
   margin-top: 148px;

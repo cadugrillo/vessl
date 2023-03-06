@@ -1,16 +1,16 @@
-.app-toolbar {
+/* .app-toolbar {
   position: fixed;
   z-index: 1000;
   margin-top: 64px;
-}
+} */
 
-.Users {
+/* .Users {
   margin-top: 148px;
   margin-left: 20px;
-  }
+  } */
 
   .example-card {
-    max-width: 667px;
+    max-width: 700px;
     max-height: 250px;
     margin-bottom: 50px;
     background-color: rgb(245, 245, 248);

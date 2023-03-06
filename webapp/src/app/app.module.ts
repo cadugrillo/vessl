@@ -48,6 +48,9 @@ import { VesslNetworksService } from './services/vessl-networks.service';
 import { NetworksComponent } from './components/networks/networks.component';
 import { StatsPopupComponent } from './popups/stats-popup/stats-popup.component';
 import { FilterPipe } from './pipes/filter.pipe';
+import { NavMenuComponent } from './navigation/nav-menu/nav-menu.component';
+import { LayoutModule } from '@angular/cdk/layout';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 
 
@@ -73,6 +76,7 @@ import { FilterPipe } from './pipes/filter.pipe';
     NetworksComponent,
     StatsPopupComponent,
     FilterPipe,
+    NavMenuComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -93,7 +97,9 @@ import { FilterPipe } from './pipes/filter.pipe';
     MatMenuModule,
     MatSelectModule,
     MatProgressSpinnerModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    LayoutModule,
+    MatSidenavModule
   ],
   providers: [CookieService, VesslContainersService, VesslSystemService, VesslUsersService,VesslImagesService,
     VesslVolumesService,VesslNetworksService,{

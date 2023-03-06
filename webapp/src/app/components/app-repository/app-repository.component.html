@@ -3,7 +3,7 @@
 </mat-toolbar>
 <section>
   <div class="example-button-row">
-    <mat-form-field appearance="standard">
+    <mat-form-field appearance="fill">
       <mat-label>Category</mat-label>
       <mat-select [(ngModel)]="categoryName" disableOptionCentering >
           <mat-option *ngFor="let category of categories" [value]="category">
