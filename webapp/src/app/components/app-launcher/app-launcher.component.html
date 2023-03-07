@@ -1,123 +1,121 @@
 <mat-toolbar class="app-toolbar">
     <span>App Launcher</span>
 </mat-toolbar>
-<div class="Launcher">
-    <mat-card class="example-card" *ngIf="appTemplate">
-        <mat-card-title-group>
-          <mat-card-title></mat-card-title>
-          <mat-card-subtitle></mat-card-subtitle>
-        </mat-card-title-group>
-        <mat-card-content>
-            <h2>Basic Settings:</h2>
-            <div class="topline">
-                <mat-form-field class="example-full-width" appearance="fill">
-                    <mat-label>App Name</mat-label>
-                    <input matInput placeholder="my-app" [(ngModel)]="appTemplate.hostname" [disabled]="!roleExpert()">
+<mat-card class="app-card" *ngIf="appTemplate">
+    <mat-card-header>
+      <mat-card-title></mat-card-title>
+      <mat-card-subtitle></mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <h2>Basic Settings:</h2>
+        <div class="topline">
+            <mat-form-field class="form-width" appearance="fill">
+                <mat-label>App Name</mat-label>
+                <input matInput placeholder="my-app" [(ngModel)]="appTemplate.hostname" [disabled]="!roleExpert()">
+            </mat-form-field>
+            <mat-form-field class="form-width" appearance="fill">
+                <mat-label>App Image</mat-label>
+                <input matInput placeholder="my-app-repo/my-app:version" [(ngModel)]="appTemplate.image" [disabled]="!roleExpert()">
+            </mat-form-field>
+            <mat-form-field class="form-width-dropdown" appearance="fill">
+                <mat-label>Restart Policy</mat-label>
+                <mat-select [(ngModel)]="appTemplate.restart_policy" disableOptionCentering [disabled]="!roleExpert()">
+                  <mat-option *ngFor="let Source of Sources" [value]="Source">
+                    {{Source}}
+                  </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <h2>Network Settings:</h2>
+        <div class="secondline">
+            <mat-form-field class="form-width-dropdown" appearance="fill">
+                <mat-label>Network</mat-label>
+                <mat-select [(ngModel)]="appTemplate.network" disableOptionCentering  [disabled]="!roleExpert()">
+                  <mat-option *ngFor="let network of networks" [value]="network.Name">
+                    {{network.Name}}
+                  </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="inner-section">
+            <h4>Port Binding:</h4>
+            <div class="button-row">
+                <button mat-icon-button color="primary" (click)="addPort()" [disabled]="!roleExpert()">
+                    <mat-icon>add</mat-icon>
+                </button>
+                <button mat-icon-button color="primary" (click)="deletePort()" [disabled]="!roleExpert()">
+                    <mat-icon>remove</mat-icon>
+                </button>
+            </div>
+        </div>
+        <div class="thirdline">
+            <span *ngFor="let Port of appTemplate.ports; let i = index; trackBy:trackByFn">
+                <mat-form-field class="form-width-dropdown" appearance="fill">
+                    <mat-label>Port Bind</mat-label>
+                    <input matInput placeholder="host-port:app-port/tcp" [(ngModel)]="appTemplate.ports[i]" [disabled]="!roleExpert()">
                 </mat-form-field>
-                <mat-form-field class="example-full-width" appearance="fill">
-                    <mat-label>App Image</mat-label>
-                    <input matInput placeholder="my-app-repo/my-app:version" [(ngModel)]="appTemplate.image" [disabled]="!roleExpert()">
+            </span>
+        </div>
+        <h2>Advanced Settings:</h2>
+        <div class="inner-section">
+            <h4>Environment Variables:</h4>
+            <div class="button-row">
+                <button mat-icon-button color="primary" (click)="addEnv()" [disabled]="!roleExpert()">
+                    <mat-icon>add</mat-icon>
+                </button>
+                <button mat-icon-button color="primary" (click)="deleteEnv()" [disabled]="!roleExpert()">
+                    <mat-icon>remove</mat-icon>
+                </button>
+            </div>
+        </div>
+        <div class="fourthline">
+            <span *ngFor="let Env of appTemplate.env; let i = index;  trackBy:trackByFn">
+                <mat-form-field class="form-width" appearance="fill">
+                    <mat-label>Env Variable</mat-label>
+                    <input matInput placeholder="ENV_NAME=env_value" [(ngModel)]="appTemplate.env[i]" [disabled]="!roleExpert()">
                 </mat-form-field>
-                <mat-form-field class="example-full-width" appearance="fill">
-                    <mat-label>Restart Policy</mat-label>
-                    <mat-select [(ngModel)]="appTemplate.restart_policy" disableOptionCentering [disabled]="!roleExpert()">
-                      <mat-option *ngFor="let Source of Sources" [value]="Source">
-                        {{Source}}
-                      </mat-option>
-                    </mat-select>
-                  </mat-form-field>
+            </span>
+        </div>
+        <div class="inner-section">
+            <h4>Volumes:</h4>
+            <div class="button-row">
+                <button mat-icon-button color="primary" (click)="addVolume()" [disabled]="!roleExpert()">
+                    <mat-icon>add</mat-icon>
+                </button>
+                <button mat-icon-button color="primary" (click)="deleteVolume()" [disabled]="!roleExpert()">
+                    <mat-icon>remove</mat-icon>
+                </button>
             </div>
-            <h2>Network Settings:</h2>
-            <div class="secondline">
-                <mat-form-field appearance="fill">
-                    <mat-label>Network</mat-label>
-                    <mat-select [(ngModel)]="appTemplate.network" disableOptionCentering  [disabled]="!roleExpert()">
-                      <mat-option *ngFor="let network of networks" [value]="network.Name">
-                        {{network.Name}}
-                      </mat-option>
-                    </mat-select>
+        </div>
+        <div class="fifthline">
+            <span *ngFor="let Volume of appTemplate.volumes; let i = index;  trackBy:trackByFn">
+                <mat-form-field class="form-width" appearance="fill">
+                    <mat-label>Volume</mat-label>
+                    <input matInput placeholder="host-path:app-path" [(ngModel)]="appTemplate.volumes[i]" [disabled]="!roleExpert()">
                 </mat-form-field>
+            </span>
+        </div>
+        <div class="inner-section">
+            <h4>Commands:</h4>
+            <div class="button-row">
+                <button mat-icon-button color="primary" (click)="addCmd()" [disabled]="!roleExpert()">
+                    <mat-icon>add</mat-icon>
+                </button>
+                <button mat-icon-button color="primary" (click)="deleteCmd()" [disabled]="!roleExpert()">
+                    <mat-icon>remove</mat-icon>
+                </button>
             </div>
-            <div class="inner-section">
-                <h4>Port Binding:</h4>
-                <div class="example-button-row">
-                    <button mat-icon-button color="primary" (click)="addPort()" [disabled]="!roleExpert()">
-                        <mat-icon>add</mat-icon>
-                    </button>
-                    <button mat-icon-button color="primary" (click)="deletePort()" [disabled]="!roleExpert()">
-                        <mat-icon>remove</mat-icon>
-                    </button>
-                </div>
-            </div>
-            <div class="thirdline">
-                <span *ngFor="let Port of appTemplate.ports; let i = index; trackBy:trackByFn">
-                    <mat-form-field class="example-full-width" appearance="fill">
-                        <mat-label>Port Bind</mat-label>
-                        <input matInput placeholder="host-port:app-port/tcp" [(ngModel)]="appTemplate.ports[i]" [disabled]="!roleExpert()">
-                    </mat-form-field>
-                </span>
-            </div>
-            <h2>Advanced Settings:</h2>
-            <div class="inner-section">
-                <h4>Environment Variables:</h4>
-                <div class="example-button-row">
-                    <button mat-icon-button color="primary" (click)="addEnv()" [disabled]="!roleExpert()">
-                        <mat-icon>add</mat-icon>
-                    </button>
-                    <button mat-icon-button color="primary" (click)="deleteEnv()" [disabled]="!roleExpert()">
-                        <mat-icon>remove</mat-icon>
-                    </button>
-                </div>
-            </div>
-            <div class="fourthline">
-                <span *ngFor="let Env of appTemplate.env; let i = index;  trackBy:trackByFn">
-                    <mat-form-field class="example-full-width" appearance="fill">
-                        <mat-label>Env Variable</mat-label>
-                        <input matInput placeholder="ENV_NAME=env_value" [(ngModel)]="appTemplate.env[i]" [disabled]="!roleExpert()">
-                    </mat-form-field>
-                </span>
-            </div>
-            <div class="inner-section">
-                <h4>Volumes:</h4>
-                <div class="example-button-row">
-                    <button mat-icon-button color="primary" (click)="addVolume()" [disabled]="!roleExpert()">
-                        <mat-icon>add</mat-icon>
-                    </button>
-                    <button mat-icon-button color="primary" (click)="deleteVolume()" [disabled]="!roleExpert()">
-                        <mat-icon>remove</mat-icon>
-                    </button>
-                </div>
-            </div>
-            <div class="fifthline">
-                <span *ngFor="let Volume of appTemplate.volumes; let i = index;  trackBy:trackByFn">
-                    <mat-form-field class="example-full-width" appearance="fill">
-                        <mat-label>Volume</mat-label>
-                        <input matInput placeholder="host-path:app-path" [(ngModel)]="appTemplate.volumes[i]" [disabled]="!roleExpert()">
-                    </mat-form-field>
-                </span>
-            </div>
-            <div class="inner-section">
-                <h4>Commands:</h4>
-                <div class="example-button-row">
-                    <button mat-icon-button color="primary" (click)="addCmd()" [disabled]="!roleExpert()">
-                        <mat-icon>add</mat-icon>
-                    </button>
-                    <button mat-icon-button color="primary" (click)="deleteCmd()" [disabled]="!roleExpert()">
-                        <mat-icon>remove</mat-icon>
-                    </button>
-                </div>
-            </div>
-            <div class="thirdline">
-                <span *ngFor="let Cmd of appTemplate.cmd; let i = index;  trackBy:trackByFn">
-                    <mat-form-field class="example-full-width" appearance="fill">
-                        <mat-label>Command</mat-label>
-                        <input matInput placeholder="-s" [(ngModel)]="appTemplate.cmd[i]" [disabled]="!roleExpert()">
-                    </mat-form-field>
-                </span>
-            </div>
-        </mat-card-content>
-        <mat-card-actions align="end">
-            <button mat-button (click)="installContainer()" [disabled]="!roleVessl_User()">Launch App</button>
-        </mat-card-actions>
-    </mat-card>
-</div>
+        </div>
+        <div class="thirdline">
+            <span *ngFor="let Cmd of appTemplate.cmd; let i = index;  trackBy:trackByFn">
+                <mat-form-field class="form-width" appearance="fill">
+                    <mat-label>Command</mat-label>
+                    <input matInput placeholder="-s" [(ngModel)]="appTemplate.cmd[i]" [disabled]="!roleExpert()">
+                </mat-form-field>
+            </span>
+        </div>
+    </mat-card-content>
+    <mat-card-actions align="end">
+        <button mat-button (click)="installContainer()" [disabled]="!roleVessl_User()">Launch App</button>
+    </mat-card-actions>
+</mat-card>

@@ -1,37 +1,39 @@
 <mat-toolbar class="app-toolbar">
   <span>Apps Repository</span>
 </mat-toolbar>
-<section>
-  <div class="example-button-row">
-    <mat-form-field appearance="fill">
-      <mat-label>Category</mat-label>
-      <mat-select [(ngModel)]="categoryName" disableOptionCentering >
-          <mat-option *ngFor="let category of categories" [value]="category">
-            {{category}}
-          </mat-option>
-      </mat-select>
-    </mat-form-field>
-    <button mat-raised-button color="primary" (click)="filterCategory(categoryName)">Filter</button>
+<div class="filter-group">
+  <mat-form-field appearance="fill">
+    <mat-label>Category</mat-label>
+    <mat-select [(ngModel)]="categoryName" disableOptionCentering >
+        <mat-option *ngFor="let category of categories" [value]="category">
+          {{category}}
+        </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <button mat-raised-button class="mat-button" color="primary" (click)="filterCategory(categoryName)">Filter</button>
+</div>
+<div class="containers">
+  <div fxLayout="row wrap" fxLayoutGap="30px grid" *ngIf="containersRepo && selectedCategoryName" style="padding-left: 30px; padding-right: 30px;">
+    <div fxFlex.xs="100%" fxFlex.sm="50%" fxFlex.md="33.3%" fxFlex="25%" *ngFor="let template of containersRepo.templates | filter: filterTemplate.bind(this)">
+      <mat-card class="app-card">
+        <mat-card-header>
+          <mat-card-title>{{template.name}} </mat-card-title>
+          <mat-card-subtitle>{{template.description}} </mat-card-subtitle>
+          <img mat-card-sm-image src={{template.logo}} >
+        </mat-card-header>
+        <mat-card-content>
+            <p>Platform: {{template.platform}}</p>
+            <p>Default Network: {{template.network}}</p>
+            <p>Categories: {{template.categories}}</p>
+        </mat-card-content>
+        <mat-card-actions align="end">
+            <button mat-button [matMenuTriggerFor]="menu">actions</button>
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="getInfo(template.info_url)">Info</button>
+                <button mat-menu-item (click)="installContainer(template)" *ngIf="roleVessl_User()">Install</button>
+              </mat-menu>
+          </mat-card-actions>
+      </mat-card>
+    </div>
   </div>
-</section>
-<div class="containersRepo" *ngIf="containersRepo && selectedCategoryName">
-    <mat-card class="example-card" *ngFor="let template of containersRepo.templates | filter: filterTemplate.bind(this)">
-      <mat-card-title-group>
-        <mat-card-title>{{template.name}} </mat-card-title>
-        <mat-card-subtitle>{{template.description}} </mat-card-subtitle>
-        <img mat-card-sm-image src={{template.logo}} >
-      </mat-card-title-group>
-      <mat-card-content>
-          <p>Platform: {{template.platform}}</p>
-          <p>Default Network: {{template.network}}</p>
-          <p>Categories: {{template.categories}}</p>
-      </mat-card-content>
-      <mat-card-actions align="end">
-          <button mat-button [matMenuTriggerFor]="menu">actions</button>
-          <mat-menu #menu="matMenu">
-              <button mat-menu-item (click)="getInfo(template.info_url)">Info</button>
-              <button mat-menu-item (click)="installContainer(template)" *ngIf="roleVessl_User()">Install</button>
-            </mat-menu>
-        </mat-card-actions>
-  </mat-card>
 <div>

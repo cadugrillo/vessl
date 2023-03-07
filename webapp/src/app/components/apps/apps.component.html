@@ -14,8 +14,8 @@
   <button mat-raised-button class="mat-button" color="primary" (click)="getContainers(networkName)">Filter</button>
 </div>
 <div class="containers">
-  <div fxLayout="row wrap" fxLayoutAlign="start start" fxLayoutGap="30px grid" *ngIf="containers" style="padding-left: 30px; padding-right: 30px;">
-    <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let container of containers | filter: filterContainer.bind(this)">
+  <div fxLayout="row wrap" fxLayoutGap="30px grid" *ngIf="containers" style="padding-left: 30px; padding-right: 30px;">
+    <div fxFlex.xs="100%" fxFlex.sm="50%" fxFlex.md="33.3%" fxFlex="25%" *ngFor="let container of containers | filter: filterContainer.bind(this)">
       <mat-card class="app-card">
           <mat-card-header>
             <mat-card-title>{{container.Names[0]}}</mat-card-title>
