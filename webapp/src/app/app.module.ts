@@ -50,6 +50,7 @@ import { StatsPopupComponent } from './popups/stats-popup/stats-popup.component'
 import { FilterPipe } from './pipes/filter.pipe';
 import { NavMenuComponent } from './navigation/nav-menu/nav-menu.component';
 import { LayoutModule } from '@angular/cdk/layout';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatSidenavModule } from '@angular/material/sidenav';
 
 
@@ -99,7 +100,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     MatProgressSpinnerModule,
     MatProgressBarModule,
     LayoutModule,
-    MatSidenavModule
+    MatSidenavModule,
+    FlexLayoutModule
   ],
   providers: [CookieService, VesslContainersService, VesslSystemService, VesslUsersService,VesslImagesService,
     VesslVolumesService,VesslNetworksService,{
