@@ -10,7 +10,7 @@
 </div>
 
     <mat-card class="app-card" *ngFor="let network of networks; let i = index">
-        <mat-card-title-group>
+        <mat-card-header>
           <mat-card-title>{{network.Name}}</mat-card-title>
           <mat-card-subtitle>
             <p>Created at: {{network.Created}}</p>
@@ -19,7 +19,7 @@
                 {{label.key}}:{{label.value}}
             </div>
         </mat-card-subtitle>
-        </mat-card-title-group>
+        </mat-card-header>
         <mat-card-content>
             <p>Driver: {{network.Driver}}</p>
             <p>IPAM Driver: {{network.IPAM.Driver}}</p>
