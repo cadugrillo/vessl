@@ -1,41 +1,28 @@
-.app-toolbar {
-  position: fixed;
-  z-index: 1000;
-  margin-top: 64px;
-}
-
 .tab-group {
-  margin-top: 148px;
-  margin-left: 20px;
+  margin-top: 30px;
+  margin-left: 30px;
 }
 
 .Interfaces {
-    display: inline-grid;
-    margin-top: 30px;
-    grid-template-columns: 400px 400px;
-    
+  display: inline-flex;
+  flex-wrap: wrap; 
   }
 
-  .example-card {
-    max-width: 360px;
-    max-height: 350px;
-    margin-bottom: 50px;
+  .app-card {
+    margin-right: 30px;
+    margin-bottom: 30px;
+    max-width: 260px;
+    max-height: 480px;
     background-color: rgb(245, 245, 248);
   }
 
-  .example-full-width {
-    width: 90%;
+  .form-width-dropdown {
+    width: 200px;
+    margin-right: 20px;
   }
 
-  .example-button-row {
+  .mat-button {
     margin-top: 20px;
-    display: table-cell;
-    width: 700px;
-    margin-bottom: 20px;
-  }
-
-  button {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 30px;
   }

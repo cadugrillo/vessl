@@ -1,71 +1,28 @@
-.app-toolbar {
-    position: fixed;
-    z-index: 1000;
-    margin-top: 64px;
+  .app-card {
+    margin-top: 30px;
+    margin-left: 30px;
+    margin-right: 30px;
+    max-width: 1000px;
+    max-height: 2000px;
+    margin-bottom: 50px;
+    background-color: rgb(245, 245, 248);
   }
-  
-    .Launcher {
-      margin-top: 148px;
-      margin-left: 20px;
-      position: absolute;
-    }
-  
-    .example-card {
-      max-width: 1150px;
-      max-height: 1200px;
-      margin-bottom: 50px;
-      background-color: rgb(245, 245, 248);
-    }
-  
-    .example-full-width {
-      width: 90%;
-    }
-  
-    .inner-section {
-        display: table;
-    
-    }
-  
-    .example-button-row {
-      display: table-cell;
-      width: 700px;
-    }
-    
-    .mat-button-base {
-      margin: 8px 8px;
-    }
-  
-    .topline {
-      display: inline-grid;
-      grid-template-columns: 350px 350px 350px;
-    }
 
-    .secondline {
-        display: inline-grid;
-        grid-template-columns: 350px 350px 350px;
-      }
+  .form-width {
+    width: 300px;
+    margin-right: 20px;
+  }
 
-    .thirdline {
-        display: inline-grid;
-        grid-template-columns: 210px 210px 210px 210px 210px;
-    }
-    
-    .fourthline {
-        display: inline-grid;
-        grid-template-columns: 350px 350px 350px;
-    }
-    
-    .fifthline {
-        display: inline-grid;
-        grid-template-columns: 525px 525px;
-    } 
+  .form-width-dropdown {
+    width: 200px;
+    margin-right: 20px;
+  }
+
+  .inner-section {
+      display: table;
   
-    .bottomline {
-      display: table-cell;
-      width: 800px;
-      margin: 20px 20px 20px 20px 20px 20px 20px;
-    }
-  
-    .example-margin {
-      margin-left: 20px;
-    }
+  }
+
+  .button-row {
+    display: table-cell;
+  }

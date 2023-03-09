@@ -3,10 +3,10 @@
 </mat-toolbar>
 <div class="system" *ngIf="HostStats">
     <mat-card class="cpu-card" *ngIf="HostStats">
-        <mat-card-title-group>
+        <mat-card-header>
           <mat-card-title>CPU Usage</mat-card-title>
           <mat-card-subtitle>Info related to CPU Usage.</mat-card-subtitle>
-        </mat-card-title-group>
+        </mat-card-header>
         <mat-card-content>
             <div class="topline">
                 <div class="CPU" *ngFor="let cpuUsage of HostStats.CpuUsage; let i = index">
@@ -18,10 +18,10 @@
         <mat-card-actions align="end"></mat-card-actions>
     </mat-card>
     <mat-card class="memory-card" *ngIf="HostStats && RamTotal && RamUsed && RamAvailable && RamFree">
-        <mat-card-title-group>
+        <mat-card-header>
           <mat-card-title>Memory Usage ({{RamTotal}} Gb available)</mat-card-title>
           <mat-card-subtitle>Info related to RAM Memory Usage.</mat-card-subtitle>
-        </mat-card-title-group>
+        </mat-card-header>
         <mat-card-content>
             <div class="RAMmemory">
                 <div class="RAM">
@@ -45,10 +45,10 @@
         <mat-card-actions align="end"></mat-card-actions>
     </mat-card>
     <mat-card class="disk-card" *ngIf="HostStats && DiskTotal && DiskAvailable">
-        <mat-card-title-group>
+        <mat-card-header>
           <mat-card-title>Disk Usage ({{DiskTotal}} Gb available)</mat-card-title>
           <mat-card-subtitle>Info related to Disk Usage.</mat-card-subtitle>
-        </mat-card-title-group>
+        </mat-card-header>
         <mat-card-content>
             <div class="RAMmemory">
                 <div class="RAM">

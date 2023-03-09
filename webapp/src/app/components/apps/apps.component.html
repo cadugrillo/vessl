@@ -1,41 +1,43 @@
 <mat-toolbar class="app-toolbar">
   <span>Apps</span>
 </mat-toolbar>
-<section>
-  <div class="example-button-row">
-    <mat-form-field appearance="standard">
-      <mat-label>Network</mat-label>
-      <mat-select [(ngModel)]="networkName" disableOptionCentering >
-        <mat-option [value]="'All'">All</mat-option>
-        <mat-option *ngFor="let network of networks" [value]="network.Name">
-          {{network.Name}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-    <button mat-raised-button color="primary" (click)="getContainers(networkName)">Filter</button>
-  </div>
-</section>
-<div class="containers" *ngIf="containers">
-  <mat-card class="example-card" *ngFor="let container of containers | filter: filterContainer.bind(this)">
-      <mat-card-title-group>
-        <mat-card-title>{{container.Names[0]}}</mat-card-title>
-        <mat-card-subtitle>{{container.State}}</mat-card-subtitle>
-      </mat-card-title-group>
-      <mat-card-content>
-          <p>State: {{container.Status}}</p>
-          <p>Network: {{container.HostConfig.NetworkMode}}</p>
-      </mat-card-content>
-      <mat-card-actions align="end">
-          <button mat-button [matMenuTriggerFor]="menu">actions</button>
-          <mat-menu #menu="matMenu" disableOptionCentering>
-              <button mat-menu-item (click)="startContainer(container.Id)"   *ngIf="roleUser()">Start</button>
-              <button mat-menu-item (click)="stopContainer(container.Id)"    *ngIf="roleUser()">Stop</button>
-              <button mat-menu-item (click)="restartContainer(container.Id)" *ngIf="roleUser()">Restart</button>
-              <button mat-menu-item (click)="removeContainer(container.Id)"  *ngIf="roleExpert()">Remove</button>
-              <button mat-menu-item (click)="openConfig(container)"          *ngIf="roleUser()">Configure</button>
-              <button mat-menu-item (click)="getContainerStats(container.Id)">Stats</button>
-              <button mat-menu-item (click)="getContainerLogs(container.Id)">Logs</button>
-            </mat-menu>
-        </mat-card-actions>
-    </mat-card>
-<div>
+<div class="filter-group">
+  <mat-form-field appearance="fill">
+    <mat-label>Network</mat-label>
+    <mat-select [(ngModel)]="networkName" disableOptionCentering >
+      <mat-option [value]="'All'">All</mat-option>
+      <mat-option *ngFor="let network of networks" [value]="network.Name">
+        {{network.Name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <button mat-raised-button class="mat-button" color="primary" (click)="getContainers(networkName)">Filter</button>
+</div>
+<div class="containers">
+  <div fxLayout="row wrap" fxLayoutGap="30px grid" *ngIf="containers" style="padding-left: 30px; padding-right: 30px;">
+    <div fxFlex.xs="100%" fxFlex.sm="50%" fxFlex.md="33.3%" fxFlex="25%" *ngFor="let container of containers | filter: filterContainer.bind(this)">
+      <mat-card class="app-card">
+          <mat-card-header>
+            <mat-card-title>{{container.Names[0]}}</mat-card-title>
+            <mat-card-subtitle>{{container.State}}</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+              <p>State: {{container.Status}}</p>
+              <p>Network: {{container.HostConfig.NetworkMode}}</p>
+          </mat-card-content>
+          <mat-card-actions align="end">
+              <button mat-button [matMenuTriggerFor]="menu">actions</button>
+              <mat-menu #menu="matMenu" disableOptionCentering>
+                  <button mat-menu-item (click)="startContainer(container.Id)"   *ngIf="roleUser()">Start</button>
+                  <button mat-menu-item (click)="stopContainer(container.Id)"    *ngIf="roleUser()">Stop</button>
+                  <button mat-menu-item (click)="restartContainer(container.Id)" *ngIf="roleUser()">Restart</button>
+                  <button mat-menu-item (click)="removeContainer(container.Id)"  *ngIf="roleExpert()">Remove</button>
+                  <button mat-menu-item (click)="openConfig(container)"          *ngIf="roleUser()">Configure</button>
+                  <button mat-menu-item (click)="getContainerStats(container.Id)">Stats</button>
+                  <button mat-menu-item (click)="getContainerLogs(container.Id)">Logs</button>
+                </mat-menu>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+  <div>
+</div>

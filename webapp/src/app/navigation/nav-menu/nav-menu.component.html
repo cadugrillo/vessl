@@ -1,0 +1,39 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="false">
+    <mat-toolbar>Menu</mat-toolbar>
+    <mat-nav-list *ngIf="isAuthenticated()">
+      <a mat-list-item *ngIf="AppsMenuEnabled()" routerLink="Apps" (click)="drawer.toggle()">Apps</a> 
+      <a mat-list-item *ngIf="AppsRepMenuEnabled()" routerLink="App-Repository" (click)="drawer.toggle()">App Repository</a>
+      <a mat-list-item *ngIf="AppLaunchMenuEnabled()" routerLink="App-Launcher" (click)="drawer.toggle()">App Launcher</a>
+      <a mat-list-item *ngIf="ImagesMenuEnabled()" routerLink="Images" (click)="drawer.toggle()">Images</a>
+      <a mat-list-item *ngIf="VolumesMenuEnabled()" routerLink="Volumes" (click)="drawer.toggle()">Volumes</a>
+      <a mat-list-item *ngIf="NetworksMenuEnabled()" routerLink="Networks" (click)="drawer.toggle()">Networks</a>
+      <a mat-list-item *ngIf="SystemMenuEnabled()" routerLink="System" (click)="drawer.toggle()">System</a>
+      <a mat-list-item *ngIf="UsersMenuEnabled()" routerLink="Users" (click)="drawer.toggle()">Users</a>
+      <a mat-list-item *ngIf="HostSettingMenuEnabled()" routerLink="HostSettings" (click)="drawer.toggle()">Host Settings</a>
+      <a mat-list-item *ngIf="HostStatsMenuEnabled()" routerLink="HostStats" (click)="drawer.toggle()">Host Stats</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+        *ngIf="isAuthenticated()">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <img style="cursor:pointer" src="assets/logo.png" (click)="openWebPage()">
+      <span class="example-spacer"></span>
+      <mat-icon *ngIf="isAuthenticated()">account_circle</mat-icon>
+      <span style="font-size: 12pt;" [innerText]="loggedUser()"></span>
+      <button mat-button class="example-icon" *ngIf="isAuthenticated()" (click)="logout()">Logout</button>
+    </mat-toolbar>
+    <!-- Add Content Here -->
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

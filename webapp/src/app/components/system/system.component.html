@@ -1,15 +1,14 @@
 <mat-toolbar class="app-toolbar">
     <span>System</span>
 </mat-toolbar>
-<mat-tab-group class="tab-group">
+<mat-tab-group dynamicHeight mat-stretch-tabs="false" mat-align-tabs="start" class="tab-group">
     <mat-tab label="System Info">
         <div class="system">
-            <mat-card class="example-card" *ngIf="SystemInfo">
-                <mat-card-title-group>
+            <mat-card class="app-card">
+                <mat-card-header>
                   <mat-card-title>Host System:</mat-card-title>
                   <mat-card-subtitle>Info related to the Host Operating System.</mat-card-subtitle>
-                  <!-- <img mat-card-sm-image src={{template.logo}} > -->
-                </mat-card-title-group>
+                </mat-card-header>
                 <mat-card-content>
                     <p>Host Name: {{SystemInfo.Name}}</p>
                     <p>Operating System: {{SystemInfo.OperatingSystem}}</p>
@@ -19,14 +18,12 @@
                     <p>Total RAM Memory: {{SystemInfo.MemTotal}} Bytes</p>
                     <p>System Time: {{SystemInfo.SystemTime}}</p>
                 </mat-card-content>
-                <mat-card-actions align="end"></mat-card-actions>
             </mat-card>
-            <mat-card class="example-card" *ngIf="SystemInfo">
-                <mat-card-title-group>
+            <mat-card class="app-card">
+                <mat-card-header>
                   <mat-card-title>Containers Engine:</mat-card-title>
                   <mat-card-subtitle>Info related to the Host Containers Engine.</mat-card-subtitle>
-                  <!-- <img mat-card-sm-image src={{template.logo}} > -->
-                </mat-card-title-group>
+                </mat-card-header>
                 <mat-card-content>
                     <p>Server Version: {{SystemInfo.ServerVersion}}</p>
                     <p>Containers: {{SystemInfo.Containers}}</p>
@@ -35,19 +32,17 @@
                     <p>Containers Paused: {{SystemInfo.ContainersPaused}}</p>
                     <p>Images: {{SystemInfo.Images}}</p>
                 </mat-card-content>
-                <mat-card-actions align="end"></mat-card-actions>
             </mat-card>
         </div>
     </mat-tab>
     <mat-tab label="Warnings">
-        <div class="warning">
+        <div class="Warnings">
             <mat-card class="warning-card" *ngFor="let Warning of SystemInfo.Warnings">
-                <mat-card-title-group>
+                <mat-card-header>
                   <mat-card-title></mat-card-title>
                   <mat-card-subtitle>{{Warning}}</mat-card-subtitle>
-                </mat-card-title-group>
+                </mat-card-header>
                 <mat-card-content></mat-card-content>
-                <mat-card-actions align="end"></mat-card-actions>
             </mat-card>
         </div>
     </mat-tab>

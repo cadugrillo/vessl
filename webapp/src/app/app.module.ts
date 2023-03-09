@@ -9,8 +9,6 @@ import { AppComponent } from './app.component';
 import { AppsComponent } from './components/apps/apps.component';
 import { FormsModule } from '@angular/forms';
 import { TokenInterceptor } from './token.interceptor';
-import { OverviewComponent } from './navigation/overview/overview.component'
-import { SideMenuComponent } from './navigation/side-menu/side-menu.component'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
@@ -27,7 +25,7 @@ import {MatListModule} from '@angular/material/list';
 import {MatSelectModule} from '@angular/material/select';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
-import { DashboardComponent } from './components/host-stats/dashboard.component';
+import { StatsComponent } from './components/host-stats/stats.component';
 import { AppRepositoryComponent } from './components/app-repository/app-repository.component';
 import { UsersComponent } from './components/users/users.component';
 import { SystemComponent } from './components/system/system.component';
@@ -48,6 +46,10 @@ import { VesslNetworksService } from './services/vessl-networks.service';
 import { NetworksComponent } from './components/networks/networks.component';
 import { StatsPopupComponent } from './popups/stats-popup/stats-popup.component';
 import { FilterPipe } from './pipes/filter.pipe';
+import { NavMenuComponent } from './navigation/nav-menu/nav-menu.component';
+import { LayoutModule } from '@angular/cdk/layout';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 
 
@@ -55,10 +57,8 @@ import { FilterPipe } from './pipes/filter.pipe';
   declarations: [
     AppComponent,
     AppsComponent,
-    OverviewComponent,
-    SideMenuComponent,
     MessagePopupComponent,
-    DashboardComponent,
+    StatsComponent,
     AppRepositoryComponent,
     UsersComponent,
     SystemComponent,
@@ -73,6 +73,7 @@ import { FilterPipe } from './pipes/filter.pipe';
     NetworksComponent,
     StatsPopupComponent,
     FilterPipe,
+    NavMenuComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -93,7 +94,10 @@ import { FilterPipe } from './pipes/filter.pipe';
     MatMenuModule,
     MatSelectModule,
     MatProgressSpinnerModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    LayoutModule,
+    MatSidenavModule,
+    FlexLayoutModule
   ],
   providers: [CookieService, VesslContainersService, VesslSystemService, VesslUsersService,VesslImagesService,
     VesslVolumesService,VesslNetworksService,{

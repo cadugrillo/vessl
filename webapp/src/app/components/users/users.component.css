@@ -1,53 +1,39 @@
-.app-toolbar {
-  position: fixed;
-  z-index: 1000;
-  margin-top: 64px;
-}
 
 .Users {
-    margin-left: 20px;
+    margin-top: 20px;
+    margin-left: 30px;
+    margin-right: 30px;
   }
 
-  .example-card {
-    max-width: 1000px;
-    max-height: 350px;
-    margin-bottom: 50px;
+  .user-card {
+    max-width: 1300px;
+    max-height: 650px;
+    margin-bottom: 30px;
     background-color: rgb(245, 245, 248);
-  }
-
-  .example-full-width {
-    width: 90%;
   }
 
   .rep-full-width {
     width: 99%;
   }
 
-  section {
-    display: table;
-    margin-top: 148px;
-    margin-left: 20px;
-    margin-bottom: 20px;
+  .button-row {
+    margin-top: 30px;
+    margin-left: 30px;
+    
   }
 
-  .example-button-row {
-    display: table-cell;
-    width: 700px;
+  .mat-button {
+    margin-right: 10px;
   }
   
-  .example-button-row .mat-button-base {
-    margin: 8px 8px;
+  .form-width {
+    width: 300px;
+    margin-right: 20px;
   }
 
-  .topline {
-    display: inline-grid;
-    grid-template-columns: 340px 340px 340px;
-  }
-
-  .bottomline {
-    display: table-cell;
-    width: 1000px;
-    margin: 20px 20px 20px 20px 20px 20px 20px 20px 20px 20px;
+  .form-width-dropdown {
+    width: 200px;
+    margin-right: 20px;
   }
 
   .lastline {

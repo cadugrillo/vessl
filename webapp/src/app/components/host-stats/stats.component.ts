@@ -5,11 +5,11 @@ import { Subscription, timer } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  selector: 'app-stats',
+  templateUrl: './stats.component.html',
+  styleUrls: ['./stats.component.css']
 })
-export class DashboardComponent implements OnInit, OnDestroy {
+export class StatsComponent implements OnInit, OnDestroy {
 
   subscription !: Subscription;
   HostStats: HostStats = new HostStats();

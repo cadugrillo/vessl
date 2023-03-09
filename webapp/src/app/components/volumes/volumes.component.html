@@ -1,16 +1,16 @@
 <mat-toolbar class="app-toolbar">
     <span>Volumes</span>
 </mat-toolbar>
-<div class="Images">
+<div class="Volumes">
     <span *ngFor="let volume of volumes?.Volumes; let i = index">
-        <mat-card class="example-card" *ngIf="hideVolume(volume.Name)">
-            <mat-card-title-group>
+        <mat-card class="app-card" *ngIf="hideVolume(volume.Name)">
+            <mat-card-header>
                 <mat-card-title>{{volume.Name}}</mat-card-title>
                 <mat-card-subtitle>
                      <p>Created at: {{volume.CreatedAt}}</p>
                     <p>Labels: {{volume.Labels}}</p>
                 </mat-card-subtitle>
-            </mat-card-title-group>
+            </mat-card-header>
             <mat-card-content>
                 <p>Driver: {{volume.Driver}}</p>
                 <p>Mount Point: {{volume.Mountpoint}}</p>
