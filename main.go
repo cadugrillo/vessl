@@ -69,15 +69,15 @@ func main() {
 	r.POST("/system/restart", helpers.ValidateApiKey(), handlers.RestartHostHandler)
 	r.POST("/system/shutdown", helpers.ValidateApiKey(), handlers.ShutDownHostHandler)
 
-	// err := r.RunTLS(":443", "./certs/vessl.crt", "./certs/vessl.key")
-	// if err != nil {
-	// 	panic(err)
-	// }
-
-	err := r.Run(":8080")
+	err := r.RunTLS(":443", "./certs/vessl.crt", "./certs/vessl.key")
 	if err != nil {
 		panic(err)
 	}
+
+	// err := r.Run(":8080")
+	// if err != nil {
+	// 	panic(err)
+	// }
 
 }
 
