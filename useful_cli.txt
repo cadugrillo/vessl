@@ -1,28 +1,12 @@
 /////ATTACH TO CONTAINER/////////////////
 docker attach --sig-proxy=false <container name>
 
-
-export GIN_MODE=release
-
-///////DOCKER ATTACH//////////////
- docker attach --sig-proxy=false  <CONTAINER NAME>
-
 ///////////CURL/////////////////
 curl localhost:3000/todo
 curl localhost:3000/todo -d '{"message": "finish writing the article"}'
 
-
-
-docker run -dp 4300:4300 -v /home/edge/apps:/apps cadugrillo/cg-edge-conf-api:1.0
-
-
-func ParsePortSpecs(ports []string) (map[Port]struct{}, map[Port][]PortBinding, error)
-
---privileged
-
 //////BUILD MULTI ARCH DOCKER IMAGES////////////
 docker buildx build --platform=linux/arm/v7,linux/arm64,linux/amd64 -t vessl/vessl:0.4 --push .
-
 
 ////////////////Profiling//////////////////////
 https://jvns.ca/blog/2017/09/24/profiling-go-with-pprof/
