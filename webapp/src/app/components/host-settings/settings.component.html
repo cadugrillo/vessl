@@ -1,51 +1,49 @@
 <mat-toolbar class="app-toolbar">
   <span>Host Settings</span>
 </mat-toolbar>
-<mat-tab-group class="tab-group">
+<mat-tab-group dynamicHeight mat-stretch-tabs="false" mat-align-tabs="start" class="tab-group">
     <mat-tab label="Network Settings">
-      <div class="example-button-row">
-        <button mat-raised-button color="primary" (click)="getHostNetwork()" [disabled]="!roleExpert()">Read Configuration</button>
-        <button mat-raised-button color="primary" (click)="setHostNetwork()" [disabled]="!roleExpert()">Write Configuration</button>
-      </div>
-      <div class="Interfaces">
-          <mat-card class="example-card" *ngFor="let Adapter of InterfaceSet?.Adapters">
-              <mat-card-title-group>
-                <mat-card-title>Interface: {{Adapter.Name}}</mat-card-title>
-                <mat-card-subtitle></mat-card-subtitle>
-              </mat-card-title-group>
-              <mat-card-content>
-                  <mat-form-field appearance="fill">
-                      <mat-label>Type</mat-label>
-                      <mat-select [(ngModel)]="Adapter.AddrSource">
-                        <mat-option *ngFor="let Source of Sources" [value]="Source.value">
-                          {{Source.viewValue}}
-                        </mat-option>
-                      </mat-select>
+      <div>
+        <button mat-raised-button class="mat-button" color="primary" (click)="getHostNetwork()" [disabled]="!roleExpert()">Read Configuration</button>
+        <button mat-raised-button class="mat-button" color="primary" (click)="setHostNetwork()" [disabled]="!roleExpert()">Write Configuration</button>
+      </div>  
+        <div class="Interfaces">
+            <mat-card class="app-card" *ngFor="let Adapter of InterfaceSet?.Adapters">
+                <mat-card-header>
+                  <mat-card-title>Interface: {{Adapter.Name}}</mat-card-title>
+                  <mat-card-subtitle></mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Type</mat-label>
+                        <mat-select [(ngModel)]="Adapter.AddrSource">
+                          <mat-option *ngFor="let Source of Sources" [value]="Source.value">
+                            {{Source.viewValue}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    <mat-form-field class="form-width-dropdown" appearance="fill" *ngIf="Adapter.AddrSource != 1">
+                        <mat-label>IP Address</mat-label>
+                        <input matInput placeholder="192.168.0.10" [(ngModel)]="Adapter.Address">
                     </mat-form-field>
-                  <mat-form-field class="example-full-width" appearance="fill" *ngIf="Adapter.AddrSource != 1">
-                      <mat-label>IP Address</mat-label>
-                      <input matInput placeholder="192.168.0.10" [(ngModel)]="Adapter.Address">
-                  </mat-form-field>
-                  <mat-form-field class="example-full-width" appearance="fill" *ngIf="Adapter.AddrSource != 1">
-                      <mat-label>Mask</mat-label>
-                      <input matInput placeholder="255.255.255.0" [(ngModel)]="Adapter.Netmask">
-                  </mat-form-field>
-                  <mat-form-field class="example-full-width" appearance="fill" *ngIf="Adapter.AddrSource != 1">
-                      <mat-label>Gateway</mat-label>
-                      <input matInput placeholder="192.168.0.1" [(ngModel)]="Adapter.Gateway">
-                  </mat-form-field>
-              </mat-card-content>
-              <mat-card-actions align="end">
-              </mat-card-actions>
-          </mat-card>
-      </div>
+                    <mat-form-field class="form-width-dropdown" appearance="fill" *ngIf="Adapter.AddrSource != 1">
+                        <mat-label>Mask</mat-label>
+                        <input matInput placeholder="255.255.255.0" [(ngModel)]="Adapter.Netmask">
+                    </mat-form-field>
+                    <mat-form-field class="form-width-dropdown" appearance="fill" *ngIf="Adapter.AddrSource != 1">
+                        <mat-label>Gateway</mat-label>
+                        <input matInput placeholder="192.168.0.1" [(ngModel)]="Adapter.Gateway">
+                    </mat-form-field>
+                </mat-card-content>
+                <mat-card-actions align="end">
+                </mat-card-actions>
+            </mat-card>
+        </div>
   </mat-tab>
   <mat-tab label="Reboot/Shutdown">
-    <section>
-        <div class="example-button-row">
-          <button mat-raised-button color="primary" (click)="restartHostSystem()"  [disabled]="!roleExpert()">Reboot System</button>
-          <button mat-raised-button color="primary" (click)="shutdownHostSystem()" [disabled]="!roleExpert()">Shutdown System</button>
-        </div>
-    </section>
-</mat-tab> 
+    <div style="height: 95%;">
+      <button mat-raised-button class="mat-button" color="primary" (click)="restartHostSystem()"  [disabled]="!roleExpert()">Reboot System</button>
+      <button mat-raised-button class="mat-button" color="primary" (click)="shutdownHostSystem()" [disabled]="!roleExpert()">Shutdown System</button>
+  </div>
+  </mat-tab> 
 </mat-tab-group>  

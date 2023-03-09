@@ -4,7 +4,7 @@ import { AppLauncherComponent } from './components/app-launcher/app-launcher.com
 import { AppRepositoryComponent } from './components/app-repository/app-repository.component';
 import { AppsComponent } from './components/apps/apps.component';
 import { AuthGuardService } from './services/auth-guard.service';
-import { DashboardComponent } from './components/host-stats/dashboard.component';
+import { StatsComponent } from './components/host-stats/stats.component';
 import { ImagesComponent } from './components/images/images.component';
 import { LoginComponent } from './components/login/login.component';
 import { NetworksComponent } from './components/networks/networks.component';
@@ -20,7 +20,7 @@ const routes: Routes = [
 
   { path: '', redirectTo: 'Login', pathMatch: 'full' },
   { path: 'Login', component: LoginComponent},
-  { path: 'HostStats', component: DashboardComponent, canActivate: [AuthGuardService]},
+  { path: 'HostStats', component: StatsComponent, canActivate: [AuthGuardService]},
   { path: 'Apps', component: AppsComponent, canActivate: [AuthGuardService]},
   { path: 'App-Repository', component: AppRepositoryComponent, canActivate: [AuthGuardService]},
   { path: 'App-Launcher', component: AppLauncherComponent, canActivate: [AuthGuardService]},

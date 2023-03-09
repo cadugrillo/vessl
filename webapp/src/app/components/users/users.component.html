@@ -1,31 +1,28 @@
 <mat-toolbar class="app-toolbar">
     <span>Users</span>
 </mat-toolbar>
-<section>
-    <div class="example-button-row">
-      <button mat-raised-button color="primary" (click)="addUser()"  *ngIf="roleAdmin()">Add New User</button>
-      <button mat-raised-button color="primary" (click)="getUsers()" *ngIf="roleAdmin()">Read Configuration</button>
-      <!-- <button mat-raised-button color="primary" (click)="updateUsers()">Write Configuration</button> -->
+    <div class="button-row">
+      <button mat-raised-button class="mat-button" color="primary" (click)="addUser()"  *ngIf="roleAdmin()">Add New User</button>
+      <button mat-raised-button class="mat-button" color="primary" (click)="getUsers()" *ngIf="roleAdmin()">Read Configuration</button>
     </div>
-</section>
 <div class="Users">
     <span *ngFor="let user of Users?.Users; let i = index">
-    <mat-card class="example-card" *ngIf="roleAdmin() || getCurrentUserId()==user.ID">
-        <mat-card-title-group>
+    <mat-card class="user-card" *ngIf="roleAdmin() || getCurrentUserId()==user.ID">
+        <mat-card-header>
           <mat-card-title></mat-card-title>
           <mat-card-subtitle></mat-card-subtitle>
-        </mat-card-title-group>
+        </mat-card-header>
         <mat-card-content>
             <div class="topline">
-                <mat-form-field class="example-full-width" appearance="fill">
+                <mat-form-field class="form-width" appearance="fill">
                     <mat-label>Username</mat-label>
                     <input matInput [disabled]="!roleAdmin()" placeholder="" [(ngModel)]="user.Username">
                 </mat-form-field>
-                <mat-form-field class="example-full-width" appearance="fill">
+                <mat-form-field class="form-width" appearance="fill">
                     <mat-label>Password</mat-label>
                     <input matInput [disabled]="!roleUser()" type="password" placeholder="" [(ngModel)]="user.Password">
                 </mat-form-field>
-                <mat-form-field class="example-full-width" appearance="fill">
+                <mat-form-field class="form-width-dropdown" appearance="fill">
                     <mat-label>Role</mat-label>
                     <mat-select [disabled]="!roleAdmin()" [(ngModel)]="user.Role" disableOptionCentering>
                       <mat-option *ngFor="let Source of Sources" [value]="Source">
