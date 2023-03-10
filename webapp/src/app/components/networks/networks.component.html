@@ -6,7 +6,7 @@
     <mat-label>Network Name</mat-label>
     <input matInput placeholder="my-network" [(ngModel)]="networkName">
   </mat-form-field>
-  <button mat-raised-button class="mat-button" color="primary" (click)="createNetwork()" *ngIf="roleExpert()">Create Network</button>
+  <button mat-raised-button class="mat-button" color="primary" (click)="createNetwork()" *ngIf="roleExpert()">Create</button>
 </div>
 
     <mat-card class="app-card" *ngFor="let network of networks; let i = index">
