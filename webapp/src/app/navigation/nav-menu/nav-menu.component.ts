@@ -46,6 +46,10 @@ export class NavMenuComponent {
       window.open('https://github.com/cadugrillo/vessl', '_blank');
     }
 
+    openDocs() {
+      window.open('https://cadugrillo.github.io/vessl-docs/', '_blank');
+    }
+
     AppsMenuEnabled() {
       return this.VesslUsersService.CurrentUser.Permissions.Apps
     }
