@@ -24,6 +24,10 @@ export class VesslImagesService {
   removeImage(Id: string) {
     return this.httpClient.post(environment.gateway + '/images/'+ Id + '/remove', '', this.httpOptions);
   }
+
+  inspectImage(Id: string) {
+    return this.httpClient.post(environment.gateway + '/images/'+ Id + '/inspect', '', this.httpOptions);
+  }
 }
 
 export class Image {

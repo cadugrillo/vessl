@@ -72,6 +72,12 @@ export class AppsComponent implements OnInit {
     });
   }
 
+  inspectContainer(Id: string) {
+    this.VesslContainerService.inspectContainer(Id).subscribe((data) =>{
+      return saveAs(new Blob([JSON.stringify(data, null, 2)], { type: 'JSON' }), 'inspect_container_'+Id.substring(0,11)+'.json');
+    });
+  }
+
   getContainerStats(Id: string) {
     this.dialog.open(WaitPopupComponent, {});
     this.VesslContainerService.getContainerStats(Id).subscribe((data) => {
@@ -86,7 +92,7 @@ export class AppsComponent implements OnInit {
     this.dialog.open(WaitPopupComponent, {});
     this.VesslContainerService.getContainersLogs(Id).subscribe((data) =>{
       this.dialog.closeAll();
-      return saveAs(new Blob([data as string], { type: 'TXT' }), 'messages_'+Id.substring(0,11)+'.log');
+      return saveAs(new Blob([data as string], { type: 'TXT' }), 'messages_'+Id.substring(0,12)+'.log');
     });
   }
 

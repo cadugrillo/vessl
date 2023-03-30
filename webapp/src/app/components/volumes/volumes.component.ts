@@ -3,6 +3,7 @@ import { VesslVolumesService, VolumeList } from '../../services/vessl-volumes.se
 import { VesslUsersService } from '../../services/vessl-users.service';
 import {MatDialog} from '@angular/material/dialog';
 import { MessagePopupComponent } from '../../popups/message-popup/message-popup.component';
+import { saveAs } from "file-saver";
 
 @Component({
   selector: 'app-volumes',
@@ -31,6 +32,12 @@ export class VolumesComponent implements OnInit {
     this.VesslVolumesService.removeVolume(Id).subscribe((data) =>{
       this.dialog.open(MessagePopupComponent, {data: {title: "Remove Volume", text: data}});
       this.getVolumes();
+    });
+  }
+
+  inspectVolume(Id: string) {
+    this.VesslVolumesService.inspectVolume(Id).subscribe((data) =>{
+      return saveAs(new Blob([JSON.stringify(data, null, 2)], { type: 'JSON' }), 'inspect_volume_'+Id+'.json');
     });
   }
 

@@ -28,6 +28,10 @@ headers: new HttpHeaders({
   removeNetwork(Id: string) {
     return this.httpClient.post(environment.gateway + '/networks/'+ Id + '/remove', '', this.httpOptions);
   }
+
+  inspectNetwork(Id: string) {
+    return this.httpClient.post(environment.gateway + '/networks/'+ Id + '/inspect', '', this.httpOptions);
+  }
 }
 
 export class Network {

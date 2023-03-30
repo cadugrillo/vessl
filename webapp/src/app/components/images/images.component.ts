@@ -3,6 +3,7 @@ import { VesslImagesService, Image } from '../../services/vessl-images.service';
 import { VesslUsersService } from '../../services/vessl-users.service';
 import {MatDialog} from '@angular/material/dialog';
 import { MessagePopupComponent } from '../../popups/message-popup/message-popup.component';
+import { saveAs } from "file-saver";
 
 @Component({
   selector: 'app-images',
@@ -31,6 +32,12 @@ export class ImagesComponent implements OnInit {
     this.VesslImagesService.removeImage(Id).subscribe((data) =>{
       this.dialog.open(MessagePopupComponent, {data: {title: "Remove Image", text: data}});
       this.getImages();
+    });
+  }
+
+  inspectImage(Id: string) {
+    this.VesslImagesService.inspectImage(Id).subscribe((data) =>{
+      return saveAs(new Blob([JSON.stringify(data, null, 2)], { type: 'JSON' }), 'inspect_image_'+Id.substring(0,12)+'.json');
     });
   }
 

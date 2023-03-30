@@ -30,7 +30,8 @@
             <p></p>
         </mat-card-content>
         <mat-card-actions align="end">
-            <button mat-button (click)="removeNetwork(network.Id)" [disabled]="!roleExpert()">Remove Network</button>
+            <button mat-button (click)="inspectNetwork(network.Id)" [disabled]="!roleExpert()">Inspect</button>
+            <button mat-button (click)="removeNetwork(network.Id)" [disabled]="!roleExpert()">Remove</button>
         </mat-card-actions>
     </mat-card>
 

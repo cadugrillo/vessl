@@ -53,3 +53,20 @@ func RemoveImage(Id string) string {
 	fmt.Println("Success")
 	return "Image successfully removed"
 }
+
+func InspectImage(Id string) (types.ImageInspect, error) {
+
+	ctx := context.Background()
+	cli, err := client.NewClientWithOpts(client.FromEnv, client.WithAPIVersionNegotiation())
+	if err != nil {
+		return types.ImageInspect{}, err
+	}
+	ii, _, err := cli.ImageInspectWithRaw(ctx, Id)
+	if err != nil {
+		return types.ImageInspect{}, err
+	}
+	defer ctx.Done()
+	defer cli.Close()
+
+	return ii, nil
+}

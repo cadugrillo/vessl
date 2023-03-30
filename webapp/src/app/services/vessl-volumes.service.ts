@@ -24,6 +24,10 @@ headers: new HttpHeaders({
   removeVolume(Id: string) {
     return this.httpClient.post(environment.gateway + '/volumes/'+ Id + '/remove', '', this.httpOptions);
   }
+
+  inspectVolume(Id: string) {
+    return this.httpClient.post(environment.gateway + '/volumes/'+ Id + '/inspect', '', this.httpOptions);
+  }
 }
 
 export class VolumeList {
