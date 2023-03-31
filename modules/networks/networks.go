@@ -64,3 +64,20 @@ func RemoveNetwork(Id string) string {
 	fmt.Println("Success")
 	return "Network successfully removed"
 }
+
+func InspectNetwork(Id string) (types.NetworkResource, error) {
+
+	ctx := context.Background()
+	cli, err := client.NewClientWithOpts(client.FromEnv, client.WithAPIVersionNegotiation())
+	if err != nil {
+		return types.NetworkResource{}, err
+	}
+	ni, err := cli.NetworkInspect(ctx, Id, types.NetworkInspectOptions{})
+	if err != nil {
+		return types.NetworkResource{}, err
+	}
+	defer ctx.Done()
+	defer cli.Close()
+
+	return ni, nil
+}

@@ -17,7 +17,8 @@
                 <p>Scope: {{volume.Scope}}</p>
             </mat-card-content>
             <mat-card-actions align="end">
-                <button mat-button (click)="removeVolume(volume.Name)" [disabled]="!roleExpert()">Remove Volume</button>
+                <button mat-button (click)="inspectVolume(volume.Name)" [disabled]="!roleExpert()">Inspect</button>
+                <button mat-button (click)="removeVolume(volume.Name)" [disabled]="!roleExpert()">Remove</button>
             </mat-card-actions>
         </mat-card>
     </span>

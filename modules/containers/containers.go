@@ -70,13 +70,6 @@ func InstallContainer(AppTemplate apps_repository.Template) string {
 		return err.Error()
 	}
 
-	out, err := cli.ImagePull(ctx, AppTemplate.Image, types.ImagePullOptions{})
-	if err != nil {
-		return err.Error()
-	}
-	defer out.Close()
-	io.Copy(os.Stdout, out)
-
 	_, portBindings, err := nat.ParsePortSpecs(AppTemplate.Ports)
 	if err != nil {
 		fmt.Println("Unable to create docker port")
@@ -120,7 +113,19 @@ func InstallContainer(AppTemplate apps_repository.Template) string {
 
 	resp, err := cli.ContainerCreate(ctx, ContainerConfig, HostConfig, NetworkConfig, nil, AppTemplate.Hostname)
 	if err != nil {
-		return err.Error()
+		fmt.Println(err.Error())
+
+		out, err := cli.ImagePull(ctx, AppTemplate.Image, types.ImagePullOptions{})
+		if err != nil {
+			return err.Error()
+		}
+		defer out.Close()
+		io.Copy(os.Stdout, out)
+
+		resp, err = cli.ContainerCreate(ctx, ContainerConfig, HostConfig, NetworkConfig, nil, AppTemplate.Hostname)
+		if err != nil {
+			fmt.Println(err.Error())
+		}
 	}
 
 	if err := cli.ContainerStart(ctx, resp.ID, types.ContainerStartOptions{}); err != nil {
@@ -209,6 +214,23 @@ func RemoveContainer(Id string) string {
 	defer cli.Close()
 	fmt.Println("Success")
 	return "App successfully removed"
+}
+
+func InspectContainer(Id string) (types.ContainerJSON, error) {
+
+	ctx := context.Background()
+	cli, err := client.NewClientWithOpts(client.FromEnv, client.WithAPIVersionNegotiation())
+	if err != nil {
+		return types.ContainerJSON{}, err
+	}
+	ci, err := cli.ContainerInspect(ctx, Id)
+	if err != nil {
+		return types.ContainerJSON{}, err
+	}
+	defer ctx.Done()
+	defer cli.Close()
+
+	return ci, nil
 }
 
 func Logs(Id string) string {

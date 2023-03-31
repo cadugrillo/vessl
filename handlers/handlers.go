@@ -57,6 +57,15 @@ func RemoveContainerHandler(c *gin.Context) {
 	c.JSON(http.StatusOK, containers.RemoveContainer(Id))
 }
 
+func InspectContainerHandler(c *gin.Context) {
+	Id := c.Param("Id")
+	ci, err := containers.InspectContainer(Id)
+	if err != nil {
+		c.JSON(http.StatusOK, err.Error())
+	}
+	c.JSON(http.StatusOK, ci)
+}
+
 func GetContainerStatsHandler(c *gin.Context) {
 	Id := c.Param("Id")
 	c.JSON(http.StatusOK, containers.GetContainerStats(Id))
@@ -85,6 +94,15 @@ func RemoveImageHandler(c *gin.Context) {
 	c.JSON(http.StatusOK, images.RemoveImage(Id))
 }
 
+func InspectImageHandler(c *gin.Context) {
+	Id := c.Param("Id")
+	ii, err := images.InspectImage(Id)
+	if err != nil {
+		c.JSON(http.StatusOK, err.Error())
+	}
+	c.JSON(http.StatusOK, ii)
+}
+
 // ///////////VOLUMES HANDLERS////////////////////
 func GetVolumesHandler(c *gin.Context) {
 	c.JSON(http.StatusOK, volumes.GetVolumes())
@@ -93,6 +111,15 @@ func GetVolumesHandler(c *gin.Context) {
 func RemoveVolumeHandler(c *gin.Context) {
 	Id := c.Param("Id")
 	c.JSON(http.StatusOK, volumes.RemoveVolume(Id))
+}
+
+func InspectVolumeHandler(c *gin.Context) {
+	Id := c.Param("Id")
+	vi, err := volumes.InspectVolume(Id)
+	if err != nil {
+		c.JSON(http.StatusOK, err.Error())
+	}
+	c.JSON(http.StatusOK, vi)
 }
 
 // ///////////NETWORKS HANDLERS////////////////////
@@ -108,6 +135,15 @@ func CreateNetworkHandler(c *gin.Context) {
 func RemoveNetworkHandler(c *gin.Context) {
 	Id := c.Param("Id")
 	c.JSON(http.StatusOK, networks.RemoveNetwork(Id))
+}
+
+func InspectNetworkHandler(c *gin.Context) {
+	Id := c.Param("Id")
+	ni, err := networks.InspectNetwork(Id)
+	if err != nil {
+		c.JSON(http.StatusOK, err.Error())
+	}
+	c.JSON(http.StatusOK, ni)
 }
 
 // ////////////USERS HANDLERS/////////////////////

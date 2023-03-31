@@ -4,6 +4,7 @@ import { VesslUsersService } from '../../services/vessl-users.service';
 import {MatDialog} from '@angular/material/dialog';
 import { MessagePopupComponent } from '../../popups/message-popup/message-popup.component';
 import { WaitPopupComponent } from '../wait-popup/wait-popup.component';
+import { saveAs } from "file-saver";
 
 @Component({
   selector: 'app-networks',
@@ -42,6 +43,12 @@ export class NetworksComponent implements OnInit {
     this.VesslNetworksService.removeNetwork(Id).subscribe((data) =>{
       this.dialog.open(MessagePopupComponent, {data: {title: "Remove Network", text: data}});
       this.getNetworks();
+    });
+  }
+
+  inspectNetwork(Id: string) {
+    this.VesslNetworksService.inspectNetwork(Id).subscribe((data) =>{
+      return saveAs(new Blob([JSON.stringify(data, null, 2)], { type: 'JSON' }), 'inspect_network_'+Id.substring(0,12)+'.json');
     });
   }
 

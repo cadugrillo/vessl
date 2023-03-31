@@ -49,6 +49,10 @@ export class VesslContainersService {
     return this.httpClient.post(environment.gateway + '/containers/'+ Id + '/remove', '', this.httpOptions);
   }
 
+  inspectContainer(Id: string) {
+    return this.httpClient.post(environment.gateway + '/containers/'+ Id + '/inspect', '', this.httpOptions);
+  }
+
   getContainerStats(Id: string) {
     return this.httpClient.get(environment.gateway + '/containers/'+ Id + '/stats', this.httpOptions);
   }

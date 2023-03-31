@@ -32,6 +32,7 @@
                   <button mat-menu-item (click)="stopContainer(container.Id)"    *ngIf="roleUser()">Stop</button>
                   <button mat-menu-item (click)="restartContainer(container.Id)" *ngIf="roleUser()">Restart</button>
                   <button mat-menu-item (click)="removeContainer(container.Id)"  *ngIf="roleExpert()">Remove</button>
+                  <button mat-menu-item (click)="inspectContainer(container.Id)"  *ngIf="roleExpert()">Inspect</button>
                   <button mat-menu-item (click)="openConfig(container)"          *ngIf="roleUser()">Configure</button>
                   <button mat-menu-item (click)="getContainerStats(container.Id)">Stats</button>
                   <button mat-menu-item (click)="getContainerLogs(container.Id)">Logs</button>

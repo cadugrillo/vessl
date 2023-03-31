@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/docker/docker/api/types"
 	"github.com/docker/docker/api/types/filters"
 	"github.com/docker/docker/api/types/volume"
 	"github.com/docker/docker/client"
@@ -45,4 +46,21 @@ func RemoveVolume(Id string) string {
 	defer ctx.Done()
 	defer cli.Close()
 	return "Volume successfully removed"
+}
+
+func InspectVolume(Id string) (types.Volume, error) {
+
+	ctx := context.Background()
+	cli, err := client.NewClientWithOpts(client.FromEnv, client.WithAPIVersionNegotiation())
+	if err != nil {
+		return types.Volume{}, err
+	}
+	vi, err := cli.VolumeInspect(ctx, Id)
+	if err != nil {
+		return types.Volume{}, err
+	}
+	defer ctx.Done()
+	defer cli.Close()
+
+	return vi, nil
 }

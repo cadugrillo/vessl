@@ -11,7 +11,8 @@
             <mat-card-content>
             </mat-card-content>
             <mat-card-actions align="end">
-                <button mat-button (click)="removeImage(image.Id)" [disabled]="!roleExpert()">Remove Image</button>
+                <button mat-button (click)="inspectImage(image.Id)" [disabled]="!roleExpert()">Inspect</button>
+                <button mat-button (click)="removeImage(image.Id)" [disabled]="!roleExpert()">Remove</button>
             </mat-card-actions>
         </mat-card>
     </span>    
