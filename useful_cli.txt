@@ -6,7 +6,7 @@ curl localhost:3000/todo
 curl localhost:3000/todo -d '{"message": "finish writing the article"}'
 
 //////BUILD MULTI ARCH DOCKER IMAGES////////////
-docker buildx build --platform=linux/arm/v7,linux/arm64,linux/amd64 -t vessl/vessl:0.4 --push .
+docker buildx build --platform=linux/arm/v7,linux/arm64,linux/amd64 -t vessl/vessl:0.8 --push .
 
 ////////////////Profiling//////////////////////
 https://jvns.ca/blog/2017/09/24/profiling-go-with-pprof/
