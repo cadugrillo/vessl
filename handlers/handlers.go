@@ -3,7 +3,6 @@ package handlers
 import (
 	"encoding/json"
 	"io"
-	"io/ioutil"
 	"net/http"
 
 	apps_repository "vessl/modules/apps-repository"
@@ -17,7 +16,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-//////////////CONTAINERS HANDLERS////////////////////
+// ////////////CONTAINERS HANDLERS////////////////////
 func GetContainersHandler(c *gin.Context) {
 	networkName := c.Param("networkName")
 	c.JSON(http.StatusOK, containers.GetContainers(networkName))
@@ -207,7 +206,7 @@ func GetHostStatsHandler(c *gin.Context) {
 ///////////////CONVERSIONs OF HTTP BODY TO SPECIFIC STRUCTURES////////////////////////////
 
 func convertHTTPBodyAppTemplate(httpBody io.ReadCloser) (apps_repository.Template, int, error) {
-	body, err := ioutil.ReadAll(httpBody)
+	body, err := io.ReadAll(httpBody)
 	if err != nil {
 		return apps_repository.Template{}, http.StatusInternalServerError, err
 	}
@@ -221,7 +220,7 @@ func convertHTTPBodyAppTemplate(httpBody io.ReadCloser) (apps_repository.Templat
 }
 
 func convertHTTPBodyInterfaceSet(httpBody io.ReadCloser) (system.InterfaceSet, int, error) {
-	body, err := ioutil.ReadAll(httpBody)
+	body, err := io.ReadAll(httpBody)
 	if err != nil {
 		return system.InterfaceSet{}, http.StatusInternalServerError, err
 	}
@@ -235,7 +234,7 @@ func convertHTTPBodyInterfaceSet(httpBody io.ReadCloser) (system.InterfaceSet, i
 }
 
 func convertHTTPBodyUsers(httpBody io.ReadCloser) (users.Users, int, error) {
-	body, err := ioutil.ReadAll(httpBody)
+	body, err := io.ReadAll(httpBody)
 	if err != nil {
 		return users.Users{}, http.StatusInternalServerError, err
 	}
@@ -249,7 +248,7 @@ func convertHTTPBodyUsers(httpBody io.ReadCloser) (users.Users, int, error) {
 }
 
 func convertHTTPBodyUser(httpBody io.ReadCloser) (users.User, int, error) {
-	body, err := ioutil.ReadAll(httpBody)
+	body, err := io.ReadAll(httpBody)
 	if err != nil {
 		return users.User{}, http.StatusInternalServerError, err
 	}
