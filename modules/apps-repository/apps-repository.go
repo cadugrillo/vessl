@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
-	users "vessl/modules/users"
+	db "vessl/modules/database"
 )
 
 type Response struct {
@@ -37,7 +37,7 @@ func GetApps(UserId string) Response {
 
 	var responseObject Response
 
-	url := users.GetAppsRepositoryUrl(UserId)
+	url := db.GetAppsRepositoryUrl(UserId)
 
 	req, _ := http.NewRequest("GET", url, nil)
 

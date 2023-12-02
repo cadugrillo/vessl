@@ -24,7 +24,7 @@ export class AppRepositoryComponent implements OnInit {
   }
 
   getContainersRepo() {
-    this.VesslContainerService.getContainersRepo(this.VesslUsersService.CurrentUser.ID).subscribe((data) => {
+    this.VesslContainerService.getContainersRepo(this.VesslUsersService.CurrentUser.UUID).subscribe((data) => {
       this.containersRepo = (data as ContainersRepo);
       for (var i=0; i < this.containersRepo.templates.length; i++) {
         for (var j=0; j < this.containersRepo.templates[i].categories.length; j++) {

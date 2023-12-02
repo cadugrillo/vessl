@@ -44,7 +44,7 @@ func main() {
 	r.GET("/users/json", helpers.ValidateApiKey(), handlers.GetUsersHandler)
 	r.POST("/users/json", helpers.ValidateApiKey(), handlers.UpdateUserHandler)
 	r.GET("/users/add", helpers.ValidateApiKey(), handlers.AddUserHandler)
-	r.POST("/users/:Id", helpers.ValidateApiKey(), handlers.DeleteUserHandler)
+	r.POST("/users/delete", helpers.ValidateApiKey(), handlers.DeleteUserHandler)
 	r.GET("/containers/json/:networkName", helpers.ValidateApiKey(), handlers.GetContainersHandler)
 	r.GET("/containers/repository/:UserId", helpers.ValidateApiKey(), handlers.GetAppRepositoryHandler)
 	r.GET("/containers/info", helpers.ValidateApiKey(), handlers.GetDockerServerInfoHandler)
@@ -73,15 +73,15 @@ func main() {
 	r.POST("/system/restart", helpers.ValidateApiKey(), handlers.RestartHostHandler)
 	r.POST("/system/shutdown", helpers.ValidateApiKey(), handlers.ShutDownHostHandler)
 
-	err := r.RunTLS(":443", "./certs/vessl.crt", "./certs/vessl.key")
-	if err != nil {
-		panic(err)
-	}
-
-	// err := r.Run(":8080")
+	// err := r.RunTLS(":443", "./certs/vessl.crt", "./certs/vessl.key")
 	// if err != nil {
 	// 	panic(err)
 	// }
+
+	err := r.Run(":8080")
+	if err != nil {
+		panic(err)
+	}
 
 }
 
