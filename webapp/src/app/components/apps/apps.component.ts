@@ -29,6 +29,7 @@ export class AppsComponent implements OnInit {
   ngOnInit(): void {
     this.getNetworks();
     this.getContainers(this.networkName);
+    this.emptyTemplate.categories = [];
     this.emptyTemplate.ports = [];
     this.emptyTemplate.env = [];
     this.emptyTemplate.cmd = [];
