@@ -18,6 +18,7 @@ export class AppLauncherComponent implements OnInit, OnDestroy {
   newEnv!: string
   newCmd!: string
   newVolume!: string
+  newCategory!: string
   networks!: Network[]
 
   Sources: string[] = ['no', 'on-failure', 'always', 'unless-stopped'];
@@ -34,6 +35,7 @@ export class AppLauncherComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.appTemplate = new Template();
+    this.appTemplate.categories = [];
     this.appTemplate.ports = [];
     this.appTemplate.env = [];
     this.appTemplate.cmd = [];
@@ -52,6 +54,23 @@ export class AppLauncherComponent implements OnInit, OnDestroy {
     this.VesslContainerService.installContainer(this.appTemplate).subscribe((data) => {
       this.dialog.closeAll();
       this.dialog.open(MessagePopupComponent, {data: {title: "App Installation", text: data}});
+    });
+  }
+
+  saveTemplate() {
+    this.dialog.open(WaitPopupComponent, {});
+    this.appTemplate.type = 5
+    this.appTemplate.title = this.appTemplate.hostname
+    this.appTemplate.name = this.appTemplate.hostname
+    this.appTemplate.description = "User-defined Template created by current user"
+    if (!this.appTemplate.categories.includes("user-defined")) {
+      this.newCategory = "user-defined"
+    this.appTemplate.categories.push(this.newCategory)
+    }
+    this.appTemplate.logo = "assets/vesslLogo.png"
+    this.VesslContainerService.saveTemplate(this.appTemplate).subscribe((data) => {
+      this.dialog.closeAll();
+      this.dialog.open(MessagePopupComponent, {data: {title: "Template", text: data}});
     });
   }
 

@@ -116,6 +116,7 @@
         </div>
     </mat-card-content>
     <mat-card-actions align="end">
+        <button mat-button (click)="saveTemplate()" [disabled]="!roleVessl_User()">Save Template</button>
         <button mat-button (click)="installContainer()" [disabled]="!roleVessl_User()">Launch App</button>
     </mat-card-actions>
 </mat-card>
