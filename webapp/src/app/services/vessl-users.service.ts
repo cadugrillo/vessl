@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { CookieService } from 'ngx-cookie-service';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { Template } from './vessl-containers.service';
 
 @Injectable({
   providedIn: 'root'
@@ -123,6 +124,7 @@ export class User {
   AppsRepositoryUrl!: string
   ApiKey!: string
   Permission!: Permission
+  Template!: Template
 }
 
 class Permission {
