@@ -8,6 +8,7 @@ import (
 	apps_repository "vessl/modules/apps-repository"
 	"vessl/modules/containers"
 	db "vessl/modules/database"
+	"vessl/modules/helpers"
 	"vessl/modules/images"
 	"vessl/modules/networks"
 	"vessl/modules/system"
@@ -34,6 +35,29 @@ func InstallContainerHandler(c *gin.Context) {
 		return
 	}
 	c.JSON(http.StatusOK, containers.InstallContainer(AppTemplate))
+}
+
+func SaveTemplateHandler(c *gin.Context) {
+
+	User, _ := helpers.ParseUser(c)
+
+	AppTemplate, statusCode, err := convertHTTPBodyAppTemplate(c.Request.Body)
+	if err != nil {
+		c.JSON(statusCode, err)
+		return
+	}
+	c.JSON(http.StatusOK, containers.SaveTemplate(AppTemplate, User))
+}
+
+func DeleteTemplateHandler(c *gin.Context) {
+	User, _ := helpers.ParseUser(c)
+
+	AppTemplate, statusCode, err := convertHTTPBodyAppTemplate(c.Request.Body)
+	if err != nil {
+		c.JSON(statusCode, err)
+		return
+	}
+	c.JSON(http.StatusOK, containers.DeleteTemplate(AppTemplate, User))
 }
 
 func StartContainerHandler(c *gin.Context) {
@@ -209,16 +233,16 @@ func GetHostStatsHandler(c *gin.Context) {
 
 ///////////////CONVERSIONs OF HTTP BODY TO SPECIFIC STRUCTURES////////////////////////////
 
-func convertHTTPBodyAppTemplate(httpBody io.ReadCloser) (apps_repository.Template, int, error) {
+func convertHTTPBodyAppTemplate(httpBody io.ReadCloser) (db.Template, int, error) {
 	body, err := io.ReadAll(httpBody)
 	if err != nil {
-		return apps_repository.Template{}, http.StatusInternalServerError, err
+		return db.Template{}, http.StatusInternalServerError, err
 	}
 	defer httpBody.Close()
-	var AppTemplate apps_repository.Template
+	var AppTemplate db.Template
 	err = json.Unmarshal(body, &AppTemplate)
 	if err != nil {
-		return apps_repository.Template{}, http.StatusBadRequest, err
+		return db.Template{}, http.StatusBadRequest, err
 	}
 	return AppTemplate, http.StatusOK, nil
 }

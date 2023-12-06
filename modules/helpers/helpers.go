@@ -1,6 +1,7 @@
 package helpers
 
 import (
+	"errors"
 	"fmt"
 	"net/http"
 	"time"
@@ -21,6 +22,7 @@ func ValidateApiKey() gin.HandlerFunc {
 					c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"status": 401, "message": "Authentication token expired"})
 					return
 				}
+				c.Set("User", User)
 				return
 			}
 		}
@@ -29,4 +31,14 @@ func ValidateApiKey() gin.HandlerFunc {
 		c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"status": 401, "message": "Authentication failed"})
 		return
 	}
+}
+
+func ParseUser(c *gin.Context) (User db.User, err error) {
+
+	v, ok := c.Get("User")
+	if !ok {
+		return User, errors.New("Invalid User Id")
+	}
+	User = v.(db.User)
+	return
 }

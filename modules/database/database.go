@@ -8,9 +8,11 @@ import (
 	"time"
 
 	"github.com/google/uuid"
+	"github.com/lib/pq"
 	"github.com/rs/xid"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
+	"gorm.io/gorm/clause"
 )
 
 type Users struct {
@@ -32,6 +34,7 @@ type User struct {
 	ApiKey            string     `json:"ApiKey"`
 	ApiKeyTs          int64      `json:"ApiKeyTs"`
 	Permission        Permission `gorm:"embedded;embeddedPrefix:perm_" json:"Permission"`
+	Template          []Template `json:"Template"`
 }
 
 type Permission struct {
@@ -45,6 +48,28 @@ type Permission struct {
 	Users          bool `json:"Users"`
 	HostSettings   bool `json:"HostSettings"`
 	HostStats      bool `json:"HostStats"`
+}
+
+type Template struct {
+	ID             uint           `gorm:"primarykey" json:"ID,omitempty"`
+	Type           int            `json:"type"`
+	Title          string         `json:"title"`
+	Name           string         `json:"name"`
+	Hostname       string         `json:"hostname"`
+	Description    string         `json:"description"`
+	Info_url       string         `json:"info_url"`
+	Categories     pq.StringArray `gorm:"type:text[]" json:"categories"`
+	Platform       string         `json:"platform"`
+	Logo           string         `json:"logo"`
+	Image          string         `json:"image"`
+	Restart_policy string         `json:"restart_policy"`
+	Network        string         `json:"network"`
+	Run            pq.StringArray `gorm:"type:text[]" json:"run"`
+	Env            pq.StringArray `gorm:"type:text[]" json:"env"`
+	Cmd            pq.StringArray `gorm:"type:text[]" json:"cmd"`
+	Ports          pq.StringArray `gorm:"type:text[]" json:"ports"`
+	Volumes        pq.StringArray `gorm:"type:text[]" json:"volumes"`
+	UserID         uint           `json:"UserID,omitempty"`
 }
 
 var (
@@ -87,7 +112,7 @@ func initialiseDBconn() {
 		log.Println("SQLite connection with Vessl-database opened successfully")
 	}
 
-	err := db.AutoMigrate(&User{})
+	err := db.AutoMigrate(&User{}, &Template{})
 	if err != nil {
 		fmt.Println(err.Error(), "failed to open database")
 		panic(err.Error())
@@ -168,7 +193,7 @@ func GetUsers() (users Users) {
 // }
 
 func GetUsersValidation() (users Users) {
-	db.Find(&users.Users)
+	db.Preload("Template").Find(&users.Users)
 	// for _, User := range users.Users {
 	// 	User.ApiKeyTs = 0
 	// }
@@ -185,7 +210,7 @@ func DeleteUser(user User) string {
 	if user.UUID == "master" {
 		return "master user can't be deleted"
 	}
-	db.Delete(&user)
+	db.Select(clause.Associations).Delete(&user)
 	return "User successfully deleted"
 }
 
@@ -200,6 +225,23 @@ func UpdateUser(user User) string {
 	//user.Permission.Model.ID = PermissionID
 	db.Debug().Save(&user)
 	return "User successfully updated!"
+}
+
+func SaveTemplate(user User, appTemplate Template) string {
+	appTemplate.UserID = user.ID
+	db.Debug().Preload("Template").Save(&appTemplate)
+	//result := db.Debug().Preload("Template").Model(&appTemplate).Update("Ports", appTemplate.Ports)
+	// if result.RowsAffected == 0 {
+	// 	db.Debug().Preload("Template").Save(&user)
+	// }
+	//db.Preload("Template").Save(&User{ID: user.ID, Template: []Template{appTemplate}})
+	return "Template successfully saved!"
+}
+
+func DeleteTemplate(user User, appTemplate Template) string {
+	appTemplate.UserID = user.ID
+	db.Debug().Preload("Template").Delete(&appTemplate)
+	return "Template successfully deleted!"
 }
 
 func (s *User) Validate() User {
@@ -229,10 +271,10 @@ func (s *User) Validate() User {
 	return none
 }
 
-func GetAppsRepositoryUrl(Id string) string {
+func GetAppsTemplates(Id string) (string, []Template) {
 	user := User{}
-	db.Where(User{UUID: Id}).Find(&user)
-	return user.AppsRepositoryUrl
+	db.Preload("Template").Where(User{UUID: Id}).Find(&user)
+	return user.AppsRepositoryUrl, user.Template
 }
 
 func (s *User) UpdateApiKey() *User {

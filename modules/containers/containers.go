@@ -10,12 +10,13 @@ import (
 	"math"
 	"os"
 
-	apps_repository "vessl/modules/apps-repository"
+	db "vessl/modules/database"
 
 	"github.com/docker/docker/api/types"
 	"github.com/docker/docker/api/types/container"
 	"github.com/docker/docker/api/types/filters"
 	"github.com/docker/docker/api/types/network"
+	"github.com/docker/docker/api/types/strslice"
 	"github.com/docker/docker/client"
 	"github.com/docker/go-connections/nat"
 )
@@ -63,7 +64,7 @@ func GetContainers(networkName string) []types.Container {
 	return containers
 }
 
-func InstallContainer(AppTemplate apps_repository.Template) string {
+func InstallContainer(AppTemplate db.Template) string {
 	ctx := context.Background()
 	cli, err := client.NewClientWithOpts(client.FromEnv, client.WithAPIVersionNegotiation())
 	if err != nil {
@@ -108,7 +109,7 @@ func InstallContainer(AppTemplate apps_repository.Template) string {
 		Image:    AppTemplate.Image,
 		Hostname: AppTemplate.Hostname,
 		Env:      AppTemplate.Env,
-		Cmd:      AppTemplate.Cmd,
+		Cmd:      strslice.StrSlice(AppTemplate.Cmd),
 	}
 
 	resp, err := cli.ContainerCreate(ctx, ContainerConfig, HostConfig, NetworkConfig, nil, AppTemplate.Hostname)
@@ -384,4 +385,21 @@ func ParseRunField(RunField []string) RunRef {
 
 	}
 	return runref
+}
+
+func SaveTemplate(AppTemplate db.Template, User db.User) string {
+
+	//fmt.Println(User)
+
+	if AppTemplate.Image == "" || AppTemplate.Hostname == "" {
+		return "App Name and/or App Image can't be empty"
+	}
+
+	User.Template = append(User.Template, AppTemplate)
+
+	return db.SaveTemplate(User, AppTemplate)
+}
+
+func DeleteTemplate(AppTemplate db.Template, User db.User) string {
+	return db.DeleteTemplate(User, AppTemplate)
 }
