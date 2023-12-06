@@ -51,6 +51,8 @@ func main() {
 	r.GET("/containers/cstats", helpers.ValidateApiKey(), handlers.GetCompleteStatsHandler)
 	r.GET("/containers/:Id/logs", helpers.ValidateApiKey(), handlers.GetLogsHandler)
 	r.POST("/containers/install", helpers.ValidateApiKey(), handlers.InstallContainerHandler)
+	r.POST("/containers/save", helpers.ValidateApiKey(), handlers.SaveTemplateHandler)
+	r.POST("/containers/delete", helpers.ValidateApiKey(), handlers.DeleteTemplateHandler)
 	r.POST("/containers/:Id/start", helpers.ValidateApiKey(), handlers.StartContainerHandler)
 	r.POST("/containers/:Id/stop", helpers.ValidateApiKey(), handlers.StopContainerHandler)
 	r.POST("/containers/:Id/restart", helpers.ValidateApiKey(), handlers.RestartContainerHandler)
