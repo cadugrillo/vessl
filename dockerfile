@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 
 #BUILD GO BACKEND
-FROM golang:1.19-alpine AS go-builder
+FROM golang:1.20-alpine AS go-builder
 
 ARG TARGETOS
 ARG TARGETARCH
