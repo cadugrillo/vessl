@@ -25,7 +25,6 @@ func GetApps(UserId string) Response {
 
 	req, _ := http.NewRequest("GET", url, nil)
 
-	//res, err := http.DefaultClient.Do(req)
 	res, err := Client.Do(req)
 
 	if err != nil {

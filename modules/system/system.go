@@ -151,7 +151,7 @@ func getReadableSize(sizeInBytes uint64) (readableSize float64) {
 		size  = float64(sizeInBytes)
 		i     = 0
 	)
-	for ; i < len(units); i++ { //&& size >= 1000
+	for ; i < len(units); i++ {
 		size = size / 1024
 	}
 

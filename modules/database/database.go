@@ -98,7 +98,7 @@ func initialiseDBconn() {
 		db, err = gorm.Open(sqlite.Open("./database/vessl-database.db"), &gorm.Config{})
 		if err != nil {
 			fmt.Println(err.Error(), "failed to connect database")
-			panic(err.Error())
+			log.Fatal(err.Error())
 		}
 		log.Println("SQLite connection with Vessl-database opened successfully")
 
@@ -107,7 +107,7 @@ func initialiseDBconn() {
 		db, err = gorm.Open(sqlite.Open("./database/vessl-database.db"), &gorm.Config{})
 		if err != nil {
 			fmt.Println(err.Error(), "failed to open database")
-			panic(err.Error())
+			log.Fatal(err.Error())
 		}
 		log.Println("SQLite connection with Vessl-database opened successfully")
 	}
@@ -115,7 +115,7 @@ func initialiseDBconn() {
 	err := db.AutoMigrate(&User{}, &Template{})
 	if err != nil {
 		fmt.Println(err.Error(), "failed to open database")
-		panic(err.Error())
+		log.Fatal(err.Error())
 	}
 	fmt.Println("Vessl-database ORM Models created")
 
@@ -185,18 +185,8 @@ func GetUsers() (users Users) {
 	return
 }
 
-// func GetModelID(user User) (UserID uint, PermissionID uint) {
-// 	db.Find(&user)
-// 	UserID = user.Model.ID
-// 	PermissionID = 0 //user.Permission.Model.ID
-// 	return
-// }
-
 func GetUsersValidation() (users Users) {
 	db.Preload("Template").Find(&users.Users)
-	// for _, User := range users.Users {
-	// 	User.ApiKeyTs = 0
-	// }
 	return
 }
 
@@ -220,27 +210,19 @@ func DeleteUser(user User) string {
 // }
 
 func UpdateUser(user User) string {
-	//UserID, _ := GetModelID(user)
-	//user.Model.ID = UserID
-	//user.Permission.Model.ID = PermissionID
-	db.Debug().Save(&user)
+	db.Save(&user)
 	return "User successfully updated!"
 }
 
 func SaveTemplate(user User, appTemplate Template) string {
 	appTemplate.UserID = user.ID
-	db.Debug().Preload("Template").Save(&appTemplate)
-	//result := db.Debug().Preload("Template").Model(&appTemplate).Update("Ports", appTemplate.Ports)
-	// if result.RowsAffected == 0 {
-	// 	db.Debug().Preload("Template").Save(&user)
-	// }
-	//db.Preload("Template").Save(&User{ID: user.ID, Template: []Template{appTemplate}})
+	db.Preload("Template").Save(&appTemplate)
 	return "Template successfully saved!"
 }
 
 func DeleteTemplate(user User, appTemplate Template) string {
 	appTemplate.UserID = user.ID
-	db.Debug().Preload("Template").Delete(&appTemplate)
+	db.Preload("Template").Delete(&appTemplate)
 	return "Template successfully deleted!"
 }
 
