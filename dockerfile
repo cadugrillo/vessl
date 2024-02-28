@@ -22,9 +22,10 @@ FROM node:latest as node-builder
 WORKDIR /app
 COPY ./webapp/package.json ./
 COPY ./webapp/package-lock.json ./
+RUN npm config set fetch-retry-mintimeout 20000
+RUN npm config set fetch-retry-maxtimeout 120000
 RUN npm install --force
 COPY ./webapp .
-RUN npm config set fetch-retry-mintimeout 2000
 RUN npm install -g @angular/cli
 RUN ng build --output-path=/webapp/dist
 
