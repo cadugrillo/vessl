@@ -40,15 +40,15 @@ export class UsersComponent implements OnInit {
     });
   }
 
-  deleteUser(Id: string) {
-    this.VesslUsersService.deleteUser(Id).subscribe((data) => {
+  deleteUser(User: User) {
+    this.VesslUsersService.deleteUser(User).subscribe((data) => {
       this.dialog.open(MessagePopupComponent, {data: {title: "Delete User", text: data}});
       this.getUsers();
     });
   }
 
   getCurrentUserId() {
-    return this.VesslUsersService.CurrentUser.ID
+    return this.VesslUsersService.CurrentUser.UUID
   }
 
   roleUser() {

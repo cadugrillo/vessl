@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { CookieService } from 'ngx-cookie-service';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { Template } from './vessl-containers.service';
 
 @Injectable({
   providedIn: 'root'
@@ -30,8 +31,8 @@ export class VesslUsersService {
     return this.httpClient.get(environment.gateway + '/users/add', {headers:({"Authorization": this.getCurrentUserApiKey()})});
   }
 
-  deleteUser(Id: string) {
-    return this.httpClient.post(environment.gateway + '/users/'+ Id, "", {headers:({"Authorization": this.getCurrentUserApiKey()})});
+  deleteUser(User: User) {
+    return this.httpClient.post(environment.gateway + '/users/delete', User, {headers:({"Authorization": this.getCurrentUserApiKey()})});
   }
 
   validateUser(User: User) {
@@ -112,7 +113,8 @@ export class Users {
 }
 
 export class User {
-  ID!: string
+  ID!: number
+  UUID!: string
   Username!: string
   Password!: string
   Role!: string
@@ -121,11 +123,11 @@ export class User {
   Telephone!: string
   AppsRepositoryUrl!: string
   ApiKey!: string
-  Permissions!: Permission
+  Permission!: Permission
+  Template!: Template
 }
 
 class Permission {
-  
 	Apps!: boolean
 	AppsRepository!: boolean
   AppLauncher!: boolean

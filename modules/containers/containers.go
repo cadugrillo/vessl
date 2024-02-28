@@ -10,12 +10,13 @@ import (
 	"math"
 	"os"
 
-	apps_repository "vessl/modules/apps-repository"
+	db "vessl/modules/database"
 
 	"github.com/docker/docker/api/types"
 	"github.com/docker/docker/api/types/container"
 	"github.com/docker/docker/api/types/filters"
 	"github.com/docker/docker/api/types/network"
+	"github.com/docker/docker/api/types/strslice"
 	"github.com/docker/docker/client"
 	"github.com/docker/go-connections/nat"
 )
@@ -63,7 +64,7 @@ func GetContainers(networkName string) []types.Container {
 	return containers
 }
 
-func InstallContainer(AppTemplate apps_repository.Template) string {
+func InstallContainer(AppTemplate db.Template) string {
 	ctx := context.Background()
 	cli, err := client.NewClientWithOpts(client.FromEnv, client.WithAPIVersionNegotiation())
 	if err != nil {
@@ -108,7 +109,7 @@ func InstallContainer(AppTemplate apps_repository.Template) string {
 		Image:    AppTemplate.Image,
 		Hostname: AppTemplate.Hostname,
 		Env:      AppTemplate.Env,
-		Cmd:      AppTemplate.Cmd,
+		Cmd:      strslice.StrSlice(AppTemplate.Cmd),
 	}
 
 	resp, err := cli.ContainerCreate(ctx, ContainerConfig, HostConfig, NetworkConfig, nil, AppTemplate.Hostname)
@@ -356,7 +357,6 @@ func calculateStats(cstats types.Stats) ContainerStats {
 	system_cpu_delta := float64(cstats.CPUStats.SystemUsage - cstats.PreCPUStats.SystemUsage)
 	number_cpus := float64(cstats.CPUStats.OnlineCPUs)
 
-	//fmt.Println(cstats.MemoryStats.Usage, cstats.MemoryStats.Stats["cache"])
 	containerStats.CpuPct = math.Round(((cpu_delta/system_cpu_delta)*number_cpus*100)*100) / 100
 	containerStats.MemUsage = math.Round(byteToMegabyte(cstats.MemoryStats.Usage-cstats.MemoryStats.Stats["cache"])*100) / 100
 	containerStats.MemLimit = math.Round(byteToMegabyte(cstats.MemoryStats.Limit)*100) / 100
@@ -384,4 +384,19 @@ func ParseRunField(RunField []string) RunRef {
 
 	}
 	return runref
+}
+
+func SaveTemplate(AppTemplate db.Template, User db.User) string {
+
+	if AppTemplate.Image == "" || AppTemplate.Hostname == "" {
+		return "App Name and/or App Image can't be empty"
+	}
+
+	User.Template = append(User.Template, AppTemplate)
+
+	return db.SaveTemplate(User, AppTemplate)
+}
+
+func DeleteTemplate(AppTemplate db.Template, User db.User) string {
+	return db.DeleteTemplate(User, AppTemplate)
 }

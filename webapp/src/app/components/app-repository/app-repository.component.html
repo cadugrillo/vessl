@@ -30,7 +30,8 @@
             <button mat-button [matMenuTriggerFor]="menu">actions</button>
             <mat-menu #menu="matMenu">
                 <button mat-menu-item (click)="getInfo(template.info_url)">Info</button>
-                <button mat-menu-item (click)="installContainer(template)" *ngIf="roleVessl_User()">Install</button>
+                <button mat-menu-item (click)="deleteTemplate(template)" *ngIf="roleVessl_User() && template.type==5">Delete</button>
+                <button mat-menu-item (click)="installContainer(template)" *ngIf="roleVessl_User()">Open in App Launcher</button>
               </mat-menu>
           </mat-card-actions>
       </mat-card>

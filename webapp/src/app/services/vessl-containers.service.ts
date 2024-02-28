@@ -33,6 +33,14 @@ export class VesslContainersService {
     return this.httpClient.post(environment.gateway + '/containers/install', AppTemplate, this.httpOptions);
   }
 
+  saveTemplate(AppTemplate: Template) {
+    return this.httpClient.post(environment.gateway + '/containers/save', AppTemplate, this.httpOptions);
+  }
+
+  deleteTemplate(AppTemplate: Template) {
+    return this.httpClient.post(environment.gateway + '/containers/delete', AppTemplate, this.httpOptions);
+  }
+
   startContainer(Id: string) {
     return this.httpClient.post(environment.gateway + '/containers/'+ Id + '/start', '', this.httpOptions);
   }
@@ -111,7 +119,8 @@ export class ContainersRepo {
 }
 
 export class Template {
-  type!: string
+  ID!: number
+  type!: number
 	title!: string
 	name!: string
 	hostname!: string
@@ -128,6 +137,7 @@ export class Template {
   cmd!: string[]
 	ports!: string[]
 	volumes!: string[]
+  //UserID!: number
 }
 
 export class ContainerStats {

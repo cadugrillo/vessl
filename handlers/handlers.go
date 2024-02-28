@@ -3,21 +3,21 @@ package handlers
 import (
 	"encoding/json"
 	"io"
-	"io/ioutil"
 	"net/http"
 
 	apps_repository "vessl/modules/apps-repository"
 	"vessl/modules/containers"
+	db "vessl/modules/database"
+	"vessl/modules/helpers"
 	"vessl/modules/images"
 	"vessl/modules/networks"
 	"vessl/modules/system"
-	"vessl/modules/users"
 	"vessl/modules/volumes"
 
 	"github.com/gin-gonic/gin"
 )
 
-//////////////CONTAINERS HANDLERS////////////////////
+// ////////////CONTAINERS HANDLERS////////////////////
 func GetContainersHandler(c *gin.Context) {
 	networkName := c.Param("networkName")
 	c.JSON(http.StatusOK, containers.GetContainers(networkName))
@@ -35,6 +35,29 @@ func InstallContainerHandler(c *gin.Context) {
 		return
 	}
 	c.JSON(http.StatusOK, containers.InstallContainer(AppTemplate))
+}
+
+func SaveTemplateHandler(c *gin.Context) {
+
+	User, _ := helpers.ParseUser(c)
+
+	AppTemplate, statusCode, err := convertHTTPBodyAppTemplate(c.Request.Body)
+	if err != nil {
+		c.JSON(statusCode, err)
+		return
+	}
+	c.JSON(http.StatusOK, containers.SaveTemplate(AppTemplate, User))
+}
+
+func DeleteTemplateHandler(c *gin.Context) {
+	User, _ := helpers.ParseUser(c)
+
+	AppTemplate, statusCode, err := convertHTTPBodyAppTemplate(c.Request.Body)
+	if err != nil {
+		c.JSON(statusCode, err)
+		return
+	}
+	c.JSON(http.StatusOK, containers.DeleteTemplate(AppTemplate, User))
 }
 
 func StartContainerHandler(c *gin.Context) {
@@ -148,7 +171,7 @@ func InspectNetworkHandler(c *gin.Context) {
 
 // ////////////USERS HANDLERS/////////////////////
 func GetUsersHandler(c *gin.Context) {
-	c.JSON(http.StatusOK, users.GetUsers())
+	c.JSON(http.StatusOK, db.GetUsers())
 }
 
 func UpdateUserHandler(c *gin.Context) {
@@ -157,16 +180,20 @@ func UpdateUserHandler(c *gin.Context) {
 		c.JSON(statusCode, err)
 		return
 	}
-	c.JSON(http.StatusOK, users.UpdateUser(User))
+	c.JSON(http.StatusOK, db.UpdateUser(User))
 }
 
 func AddUserHandler(c *gin.Context) {
-	c.JSON(http.StatusOK, users.AddUser())
+	c.JSON(http.StatusOK, db.AddUser())
 }
 
 func DeleteUserHandler(c *gin.Context) {
-	Id := c.Param("Id")
-	c.JSON(http.StatusOK, users.DeleteUser(Id))
+	User, statusCode, err := convertHTTPBodyUser(c.Request.Body)
+	if err != nil {
+		c.JSON(statusCode, err)
+		return
+	}
+	c.JSON(http.StatusOK, db.DeleteUser(User))
 }
 
 func ValidateUserHandler(c *gin.Context) {
@@ -175,7 +202,7 @@ func ValidateUserHandler(c *gin.Context) {
 		c.JSON(statusCode, err)
 		return
 	}
-	c.JSON(http.StatusOK, users.Validate(User))
+	c.JSON(http.StatusOK, User.Validate())
 }
 
 // ////////////SYSTEM HANDLERS////////////////////
@@ -206,22 +233,22 @@ func GetHostStatsHandler(c *gin.Context) {
 
 ///////////////CONVERSIONs OF HTTP BODY TO SPECIFIC STRUCTURES////////////////////////////
 
-func convertHTTPBodyAppTemplate(httpBody io.ReadCloser) (apps_repository.Template, int, error) {
-	body, err := ioutil.ReadAll(httpBody)
+func convertHTTPBodyAppTemplate(httpBody io.ReadCloser) (db.Template, int, error) {
+	body, err := io.ReadAll(httpBody)
 	if err != nil {
-		return apps_repository.Template{}, http.StatusInternalServerError, err
+		return db.Template{}, http.StatusInternalServerError, err
 	}
 	defer httpBody.Close()
-	var AppTemplate apps_repository.Template
+	var AppTemplate db.Template
 	err = json.Unmarshal(body, &AppTemplate)
 	if err != nil {
-		return apps_repository.Template{}, http.StatusBadRequest, err
+		return db.Template{}, http.StatusBadRequest, err
 	}
 	return AppTemplate, http.StatusOK, nil
 }
 
 func convertHTTPBodyInterfaceSet(httpBody io.ReadCloser) (system.InterfaceSet, int, error) {
-	body, err := ioutil.ReadAll(httpBody)
+	body, err := io.ReadAll(httpBody)
 	if err != nil {
 		return system.InterfaceSet{}, http.StatusInternalServerError, err
 	}
@@ -234,30 +261,30 @@ func convertHTTPBodyInterfaceSet(httpBody io.ReadCloser) (system.InterfaceSet, i
 	return InterfaceSet, http.StatusOK, nil
 }
 
-func convertHTTPBodyUsers(httpBody io.ReadCloser) (users.Users, int, error) {
-	body, err := ioutil.ReadAll(httpBody)
+func convertHTTPBodyUsers(httpBody io.ReadCloser) (db.Users, int, error) {
+	body, err := io.ReadAll(httpBody)
 	if err != nil {
-		return users.Users{}, http.StatusInternalServerError, err
+		return db.Users{}, http.StatusInternalServerError, err
 	}
 	defer httpBody.Close()
-	var Users users.Users
+	var Users db.Users
 	err = json.Unmarshal(body, &Users)
 	if err != nil {
-		return users.Users{}, http.StatusBadRequest, err
+		return db.Users{}, http.StatusBadRequest, err
 	}
 	return Users, http.StatusOK, nil
 }
 
-func convertHTTPBodyUser(httpBody io.ReadCloser) (users.User, int, error) {
-	body, err := ioutil.ReadAll(httpBody)
+func convertHTTPBodyUser(httpBody io.ReadCloser) (db.User, int, error) {
+	body, err := io.ReadAll(httpBody)
 	if err != nil {
-		return users.User{}, http.StatusInternalServerError, err
+		return db.User{}, http.StatusInternalServerError, err
 	}
 	defer httpBody.Close()
-	var User users.User
+	var User db.User
 	err = json.Unmarshal(body, &User)
 	if err != nil {
-		return users.User{}, http.StatusBadRequest, err
+		return db.User{}, http.StatusBadRequest, err
 	}
 	return User, http.StatusOK, nil
 }

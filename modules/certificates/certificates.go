@@ -95,7 +95,6 @@ func GenCerts() error {
 		return err
 	}
 
-	//certPEM := new(bytes.Buffer)
 	certPEM, err := os.Create("./certs/vessl.crt")
 	if err != nil {
 		return err
@@ -107,7 +106,6 @@ func GenCerts() error {
 		Bytes: certBytes,
 	})
 
-	//certPrivKeyPEM := new(bytes.Buffer)
 	certPrivKeyPEM, err := os.Create("./certs/vessl.key")
 	if err != nil {
 		return err

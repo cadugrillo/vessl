@@ -51,43 +51,43 @@ export class NavMenuComponent {
     }
 
     AppsMenuEnabled() {
-      return this.VesslUsersService.CurrentUser.Permissions.Apps
+      return this.VesslUsersService.CurrentUser.Permission.Apps
     }
   
     AppsRepMenuEnabled() {
-      return this.VesslUsersService.CurrentUser.Permissions.AppsRepository
+      return this.VesslUsersService.CurrentUser.Permission.AppsRepository
     }
   
     AppLaunchMenuEnabled() {
-      return this.VesslUsersService.CurrentUser.Permissions.AppLauncher
+      return this.VesslUsersService.CurrentUser.Permission.AppLauncher
     }
   
     ImagesMenuEnabled() {
-      return this.VesslUsersService.CurrentUser.Permissions.Images
+      return this.VesslUsersService.CurrentUser.Permission.Images
     }
   
     VolumesMenuEnabled() {
-      return this.VesslUsersService.CurrentUser.Permissions.Volumes
+      return this.VesslUsersService.CurrentUser.Permission.Volumes
     }
   
     NetworksMenuEnabled() {
-      return this.VesslUsersService.CurrentUser.Permissions.Networks
+      return this.VesslUsersService.CurrentUser.Permission.Networks
     }
   
     SystemMenuEnabled() {
-      return this.VesslUsersService.CurrentUser.Permissions.System
+      return this.VesslUsersService.CurrentUser.Permission.System
     }
   
     UsersMenuEnabled() {
-      return this.VesslUsersService.CurrentUser.Permissions.Users
+      return this.VesslUsersService.CurrentUser.Permission.Users
     }
   
     HostSettingMenuEnabled() {
-      return this.VesslUsersService.CurrentUser.Permissions.HostSettings
+      return this.VesslUsersService.CurrentUser.Permission.HostSettings
     }
   
     HostStatsMenuEnabled() {
-      return this.VesslUsersService.CurrentUser.Permissions.HostStats
+      return this.VesslUsersService.CurrentUser.Permission.HostStats
     }
   
     currentRouterUrl() {

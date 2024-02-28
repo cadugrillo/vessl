@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { VesslContainersService, ContainersRepo, Template } from '../../services/vessl-containers.service';
 import { VesslUsersService } from '../../services/vessl-users.service';
 import {MatDialog} from '@angular/material/dialog';
+import { MessagePopupComponent} from '../../popups/message-popup/message-popup.component';
+import { WaitPopupComponent } from '../wait-popup/wait-popup.component';
 @Component({
   selector: 'app-app-repository',
   templateUrl: './app-repository.component.html',
@@ -24,7 +26,7 @@ export class AppRepositoryComponent implements OnInit {
   }
 
   getContainersRepo() {
-    this.VesslContainerService.getContainersRepo(this.VesslUsersService.CurrentUser.ID).subscribe((data) => {
+    this.VesslContainerService.getContainersRepo(this.VesslUsersService.CurrentUser.UUID).subscribe((data) => {
       this.containersRepo = (data as ContainersRepo);
       for (var i=0; i < this.containersRepo.templates.length; i++) {
         for (var j=0; j < this.containersRepo.templates[i].categories.length; j++) {
@@ -39,6 +41,15 @@ export class AppRepositoryComponent implements OnInit {
   installContainer(AppTemplate: Template) {
     this.VesslContainerService.setTemplateToInstall(AppTemplate);
     this.router.navigate(['/App-Launcher']);
+  }
+
+  deleteTemplate(AppTemplate: Template) {
+    this.dialog.open(WaitPopupComponent, {});
+    this.VesslContainerService.deleteTemplate(AppTemplate).subscribe((data) => {
+      this.dialog.closeAll();
+      this.dialog.open(MessagePopupComponent, {data: {title: "Template", text: data}});
+      this.getContainersRepo();
+    });
   }
 
   getInfo(info_url: string) {
