@@ -24,6 +24,7 @@ COPY ./webapp/package.json ./
 COPY ./webapp/package-lock.json ./
 RUN npm install --force
 COPY ./webapp .
+RUN npm config set fetch-retry-mintimeout 2000
 RUN npm install -g @angular/cli
 RUN ng build --output-path=/webapp/dist
 
